@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 18:48:38 by passunca          #+#    #+#             */
-/*   Updated: 2024/02/17 21:36:08 by passunca         ###   ########.fr       */
+/*   Updated: 2024/02/17 21:38:54 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,16 @@ int	main(void)
 	
 	/*	Handle a signal with sigaction() */
 	struct sigaction sa;
+	int	i;
 	sa.sa_handler = ft_handler;
 	sa.sa_flags = 0;
 
+	i = 0;
 	sigaction(SIGINT, &sa, NULL);
 	while (1)
 	{
-		printf("Yo Whirl!\n");
+		++i;
+		printf("%d Yo Whirl!\n", i);
 		sleep(1);
 	}
 	return (0);
