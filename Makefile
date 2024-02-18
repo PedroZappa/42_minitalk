@@ -6,7 +6,7 @@
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/18 11:49:03 by passunca          #+#    #+#              #
-#    Updated: 2024/02/18 11:57:35 by passunca         ###   ########.fr        #
+#    Updated: 2024/02/18 12:22:53 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,11 @@ BUILD_PATH	= .build
 LIBFT_PATH	= $(INC_PATH)/libft
 LIBFT_ARC	= $(LIBFT_PATH)/libft.a
 
-SRC			= $(addprefix $(SRC_PATH)/, main.c)
+SRC_SERVER	= $(addprefix $(SRC_PATH)/, server.c)
+SRC_CLIENT	= $(addprefix $(SRC_PATH)/, client.c)
 
-OBJS		= $(SRC:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
+OBJS_SERVER	= $(SRC_SERVER:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
+OBJS_CLIENT	= $(SRC_CLIENT:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 DEPS		= $(OBJS:.o=.d)
 
 
@@ -65,8 +67,13 @@ $(BUILD_PATH)/%.o: $(SRC_PATH)/%.c
 $(BUILD_PATH):
 	$(MKDIR_P) $(BUILD_PATH)
 
-$(NAME): $(BUILD_PATH) $(LIBFT_ARC) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_ARC) -o $(NAME)
+$(NAME_SERVER): $(BUILD_PATH) $(LIBFT_ARC) $(OBJS_SERVER)
+	@echo "[$(YEL)Compiling Minitalk Server$(D)]"
+	$(CC) $(CFLAGS) $(OBJS_SERVER) $(LIBFT_ARC) -o $(NAME_SERVER)
+
+$(NAME_CLIENT): $(BUILD_PATH) $(LIBFT_ARC) $(OBJS_CLIENT)
+	@echo "[$(YEL)Compiling Minitalk Client$(D)]"
+	$(CC) $(CFLAGS) $(OBJS_CLIENT) $(LIBFT_ARC) -o $(NAME_CLIENT)
 
 $(LIBFT_ARC):
 	$(MAKE) $(LIBFT_PATH) extra

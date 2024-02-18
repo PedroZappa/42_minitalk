@@ -54,3 +54,5 @@ dkms.conf
 # Ignore libs
 inc
 .build
+server
+client
