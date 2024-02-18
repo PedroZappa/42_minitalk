@@ -6,7 +6,7 @@
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/18 11:49:03 by passunca          #+#    #+#              #
-#    Updated: 2024/02/18 11:55:07 by passunca         ###   ########.fr        #
+#    Updated: 2024/02/18 11:57:35 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,16 +21,15 @@ UNAME 		= $(shell uname)
 SRC_PATH	= src
 INC_PATH	= inc
 BUILD_PATH	= .build
+
 LIBFT_PATH	= $(INC_PATH)/libft
+LIBFT_ARC	= $(LIBFT_PATH)/libft.a
 
 SRC			= $(addprefix $(SRC_PATH)/, main.c)
 
 OBJS		= $(SRC:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 DEPS		= $(OBJS:.o=.d)
 
-LIBINC		= -I$(LIBFT_PATH)
-
-LIBFT_ARC	= $(LIBFT_PATH)/libft.a
 
 SHELL := zsh
 
@@ -57,7 +56,7 @@ MAKE		= make -C
 
 ##@ Minitalk Compilation Rules 🏗
 
-all: $(NAME)		## Compile Minitalk
+all: $(NAME_SERVER) $(NAME_CLIENT)	## Compile Minitalk
 
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.c
 	@echo -n "$(MAG)█$(D)"
