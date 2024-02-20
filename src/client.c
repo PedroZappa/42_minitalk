@@ -12,7 +12,22 @@
 
 #include "minitalk.h"
 
-int main(void)
+int		ft_isstrnum(char *str);
+
+int main(int argc, char **argv)
 {
+	if ((argc != 3) || !ft_isstrnum(argv[1]))
+		ft_perror_exit("$(RED)Usage: ./server [PID] [message]$(NC)\n");
 	return (0);
+}
+
+int	ft_isstrnum(char *str)
+{
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (0);
+		++str;
+	}
+	return (1);
 }

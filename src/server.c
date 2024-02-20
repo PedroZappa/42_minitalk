@@ -12,11 +12,12 @@
 
 #include "minitalk.h"
 
-void	ft_btoa(int sig);
+void	ft_btoc(int sig);
 
 /*	Prints the server PID;
  *	Handles SIGUSR1 and SIGUSR2 changing the default behaviour of their signal
  *	handlers to receive and message bit by bit and print it to stdout;
+ *		SIGUSR1: when received sends
  *		This is achieved by using the sigaction() function;
  *	*/
 int main(void)
@@ -25,19 +26,20 @@ int main(void)
 	pid_t	pid;
 
 	pid = getpid();
-	sa.sa_handler = ft_btoa;
+	sa.sa_handler = ft_btoc;
 	sa.sa_flags = 0;
 	ft_printf("Server PID: %s%d%s\n", YEL, pid, NC);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
-	{
-		sigaction(SIGUSR1, &sa, NULL);
-		sigaction(SIGUSR2, &sa, NULL);
-		sleep(1);
-	}
+		pause();
 	return (0);
 }
 
-void	ft_btoa(int sig)
+/*	Bits to character
+ *	Receives a character bit by bit and the prints it to stdout
+ *	*/
+void	ft_btoc(int sig)
 {
 	static int	bit = 0;
 	static int	n_bits = 0;

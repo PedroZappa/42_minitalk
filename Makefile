@@ -69,10 +69,12 @@ $(BUILD_PATH):
 
 $(NAME_SERVER): $(BUILD_PATH) $(LIBFT_ARC) $(OBJS_SERVER)
 	@echo "[$(YEL)Compiling Minitalk Server$(D)]"
+	@echo -n "$(GRN)█$(D)"
 	$(CC) $(CFLAGS) $(OBJS_SERVER) $(LIBFT_ARC) -o $(NAME_SERVER)
 
 $(NAME_CLIENT): $(BUILD_PATH) $(LIBFT_ARC) $(OBJS_CLIENT)
 	@echo "[$(YEL)Compiling Minitalk Client$(D)]"
+	@echo -n "$(GRN)█$(D)"
 	$(CC) $(CFLAGS) $(OBJS_CLIENT) $(LIBFT_ARC) -o $(NAME_CLIENT)
 
 $(LIBFT_ARC):
