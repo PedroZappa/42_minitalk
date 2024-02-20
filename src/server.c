@@ -20,15 +20,17 @@ void	ft_btoc(int sig);
  *		SIGUSR1: when received sends
  *		This is achieved by using the sigaction() function;
  *	*/
-int main(void)
+int	main(void)
 {
-	struct sigaction sa;
-	pid_t	pid;
+	struct sigaction	sa;
+	pid_t				pid;
 
 	pid = getpid();
 	sa.sa_handler = ft_btoc;
 	sa.sa_flags = 0;
+	ft_sep_color('0', '=', 20, GRN);
 	ft_printf("Server PID: %s%d%s\n", YEL, pid, NC);
+	ft_sep_color('0', '=', 20, GRN);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
