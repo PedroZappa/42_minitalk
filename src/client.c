@@ -34,6 +34,8 @@ static void	ft_str_to_bits(int pid, char *bits)
 	i = 0;
 	while (bits[i])
 	{
+		base = 128;
+		letter = bits[i];
 		while (base > 0)
 		{
 			if (letter >= base)
