@@ -14,7 +14,6 @@
 
 void	ft_btoa(int sig);
 
-
 /*	Prints the server PID 
  *	*/
 int main(void)
@@ -37,5 +36,16 @@ int main(void)
 
 void	ft_btoa(int sig)
 {
+	static int	bit = 0;
+	static int	n_bits = 0;
 
+	if (sig == SIGUSR1)
+		bit |= (1 << n_bits);
+	++n_bits;
+	if (n_bits == 8)
+	{
+		ft_printf("%c", bit);
+		n_bits = 0;
+		bit = 0;
+	}
 }
