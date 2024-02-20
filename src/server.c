@@ -14,7 +14,10 @@
 
 void	ft_btoa(int sig);
 
-/*	Prints the server PID 
+/*	Prints the server PID;
+ *	Handles SIGUSR1 and SIGUSR2 changing the default behaviour of their signal
+ *	handlers to receive and message bit by bit and print it to stdout;
+ *		This is achieved by using the sigaction() function;
  *	*/
 int main(void)
 {
