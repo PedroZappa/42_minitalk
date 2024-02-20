@@ -12,54 +12,40 @@
 
 #include "minitalk.h"
 
-int			ft_isstrnum(char *str);
-static char	*ft_atob(char *str, int i, int j);
-static void	ft_send_bits(int pid, char *bits);
+static void		ft_str_to_bits(int pid, char *bits);
 
 int	main(int argc, char **argv)
 {
 	int		pid;
-	char	*bits;
 
-	if ((argc != 3) || !ft_isstrnum(argv[1]))
+	if (argc != 3)
 		return (ft_printf("%sUsage: ./server [PID] [message]%s\n", RED, NC));
 	pid = ft_atoi(argv[1]);
-	bits = ft_atob(argv[2], 0, 0);
-	if (!bits)
-		ft_perror("Error\n");
-	ft_send_bits(pid, bits);
-	free(bits);
+	ft_str_to_bits(pid, argv[2]);
 	return (0);
 }
 
-int	ft_isstrnum(char *str)
+static void	ft_str_to_bits(int pid, char *bits)
 {
-	while (*str)
-	{
-		if (!ft_isdigit(*str))
-			return (0);
-		++str;
-	}
-	return (1);
-}
+	int		i;
+	int		base;
+	char	letter;
 
-static char	*ft_atob(char *str, int i, int j)
-{
-	(void)str;
-	(void)i;
-	(void)j;
-	return (NULL);
-}
-
-static void	ft_send_bits(int pid, char *bits)
-{
-	while (*bits)
+	i = 0;
+	while (bits[i])
 	{
-		if (*bits == '1')
-			kill(pid, SIGUSR1);
-		else
-			kill(pid, SIGUSR2);
-		++bits;
+		while (base > 0)
+		{
+			if (letter >= base)
+			{
+				kill(pid, SIGUSR1);
+				letter -= base;
+			}
+			else
+				kill(pid, SIGUSR2);
+			base /= 2;
+			usleep(100);
+		}
+		++i;
 	}
-	usleep(60);
 }
