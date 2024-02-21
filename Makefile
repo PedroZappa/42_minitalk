@@ -58,7 +58,7 @@ MAKE		= make -C
 
 ##@ Minitalk Compilation Rules 🏗
 
-all: $(NAME_SERVER) $(NAME_CLIENT)	## Compile Minitalk
+all: $(BUILD_PATH) $(NAME_SERVER) $(NAME_CLIENT)	## Compile Minitalk
 
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.c
 	@echo -n "$(MAG)█$(D)"
@@ -67,12 +67,12 @@ $(BUILD_PATH)/%.o: $(SRC_PATH)/%.c
 $(BUILD_PATH):
 	$(MKDIR_P) $(BUILD_PATH)
 
-$(NAME_SERVER): $(BUILD_PATH) $(LIBFT_ARC) $(OBJS_SERVER)
+$(NAME_SERVER): $(LIBFT_ARC) $(OBJS_SERVER)
 	@echo "[$(YEL)Compiling Minitalk Server$(D)]"
 	@echo -n "$(GRN)█$(D)"
 	$(CC) $(CFLAGS) $(OBJS_SERVER) $(LIBFT_ARC) -o $(NAME_SERVER)
 
-$(NAME_CLIENT): $(BUILD_PATH) $(LIBFT_ARC) $(OBJS_CLIENT)
+$(NAME_CLIENT): $(LIBFT_ARC) $(OBJS_CLIENT)
 	@echo "[$(YEL)Compiling Minitalk Client$(D)]"
 	@echo -n "$(GRN)█$(D)"
 	$(CC) $(CFLAGS) $(OBJS_CLIENT) $(LIBFT_ARC) -o $(NAME_CLIENT)
