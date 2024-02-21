@@ -59,7 +59,6 @@ The mandatory implementation must behave as follows:
 * The `server` acknowledges receiving a message by sending back a signal to the `client`.
 * Must support Unicode characters.
 
-</details>
 ___
 
 ## Implementation 📜
@@ -128,6 +127,7 @@ static void	ft_print_byte(int *byte)
 ```
 
 #### Mandatory Client Implementation
+
 
 ___
 ### Bonus Implementation
