@@ -117,7 +117,7 @@ clean: 				## Remove object files
 
 fclean: clean	## Remove archives & executables
 	@echo "[$(RED)Cleaning executable 󰃢$(D)]"
-	$(RM) $(NAME)
+	$(RM) $(NAME_SERVER) $(NAME_CLIENT)
 	$(MAKE) $(LIBFT_PATH) fclean
 	@echo "==> $(GRN)$(NAME) Successfully removed!$(D)\n"
 
