@@ -32,12 +32,10 @@ int	main(void)
 	ft_sep_color('0', '=', 20, GRN);
 	ft_printf("Server PID: %s%d%s\n", YEL, pid, NC);
 	ft_sep_color('0', '=', 20, GRN);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
-	{
-		sigaction(SIGUSR1, &sa, NULL);
-		sigaction(SIGUSR2, &sa, NULL);
 		pause();
-	}
 	return (0);
 }
 
@@ -58,8 +56,6 @@ static void	ft_btoc(int sig)
 		ft_print_byte(byte);
 		bit = 0;
 	}
-	// else
-	// 	ft_printf("%sReceived bit: %d%s\n", YEL, byte[bit-1], NC);
 }
 /* This function takes an array of 8 bits and converts it into a character.
  *	Iterates over the bits in reverse order (LSB first), 
