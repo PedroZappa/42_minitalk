@@ -31,8 +31,11 @@ void	ft_send_str(pid_t pid, char *to_send)
 	int		i;
 
 	i = 0;
-	while (to_send[i++])
+	while (to_send[i])
+	{
 		ft_str_to_bits(pid, (unsigned char)to_send[i]);
+		++i;
+	}
 }
 
 static void	ft_str_to_bits(int pid, char to_send)

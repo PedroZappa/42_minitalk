@@ -58,8 +58,14 @@ static void	ft_btoc(int sig)
 		ft_print_byte(byte);
 		bit = 0;
 	}
+	// else
+	// 	ft_printf("%sReceived bit: %d%s\n", YEL, byte[bit-1], NC);
 }
-
+/* This function takes an array of 8 bits and converts it into a character.
+ *	Iterates over the bits in reverse order (LSB first), 
+ *	Shifts the current value of to_print left by one bit, 
+ *	Adds to the current bit.
+ * */
 static void	ft_print_byte(int *byte)
 {
 	int				i;
