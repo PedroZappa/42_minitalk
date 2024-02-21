@@ -32,7 +32,7 @@ void	ft_send_str(pid_t pid, char *to_send)
 
 	i = -1;
 	while (to_send[++i])
-		ft_str_to_bits(pid, to_send[i]);
+		ft_str_to_bits(pid, (unsigned char)to_send[i]);
 }
 
 static void	ft_str_to_bits(int pid, int to_send)
