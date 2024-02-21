@@ -12,7 +12,8 @@
 
 #include "minitalk.h"
 
-void	ft_btoc(int sig);
+static void	ft_btoc(int sig);
+static void	ft_print_byte(int *byte);
 
 /*	Prints the server PID;
  *	Handles SIGUSR1 and SIGUSR2 changing the default behaviour of their signal
@@ -31,28 +32,42 @@ int	main(void)
 	ft_sep_color('0', '=', 20, GRN);
 	ft_printf("Server PID: %s%d%s\n", YEL, pid, NC);
 	ft_sep_color('0', '=', 20, GRN);
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
+	{
+		sigaction(SIGUSR1, &sa, NULL);
+		sigaction(SIGUSR2, &sa, NULL);
 		pause();
+	}
 	return (0);
 }
 
 /*	Bits to character
  *	Receives a character bit by bit and the prints it to stdout
  *	*/
-void	ft_btoc(int sig)
+static void	ft_btoc(int sig)
 {
-	static int	bit = 0;
-	static int	n_bits = 0;
+	static int	bit;
+	static int	byte[8];
 
 	if (sig == SIGUSR1)
-		bit |= (1 << n_bits);
-	++n_bits;
-	if (n_bits == 8)
+		byte[bit++] = 0;
+	else
+		byte[bit++] = 1;
+	if (bit == 8)
 	{
-		ft_printf("%c", bit);
-		n_bits = 0;
+		ft_print_byte(byte);
 		bit = 0;
 	}
+}
+
+static void	ft_print_byte(int *byte)
+{
+	int				i;
+	unsigned char	to_print;
+
+	i = 8;
+	to_print = 0;
+	while (i)
+		to_print = to_print * 2 + byte[i--];
+	ft_printf("%c", to_print);
 }
