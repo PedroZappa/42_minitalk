@@ -24,16 +24,21 @@ static void	ft_print_byte(int *byte);
 int	main(void)
 {
 	struct sigaction	sa;
+	sigset_t			block_mask;
 	pid_t				pid;
 
 	pid = getpid();
-	sa.sa_handler = ft_btoc;
+	sigemptyset(&block_mask);
+    sigaddset(&block_mask, SIGUSR1);
+    sigaddset(&block_mask, SIGUSR2);
+	sa.sa_handler = ft_btoc; 
+    sa.sa_mask = block_mask;
 	sa.sa_flags = 0;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	ft_sep_color('0', '=', 20, GRN);
 	ft_printf("Server PID: %s%d%s\n", YEL, pid, NC);
 	ft_sep_color('0', '=', 20, GRN);
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
 		pause();
 	return (0);
