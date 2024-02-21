@@ -65,9 +65,9 @@ static void	ft_print_byte(int *byte)
 	int				i;
 	unsigned char	to_print;
 
-	i = 8;
+	i = 7;
 	to_print = 0;
-	while (i)
+	while (i >= 0)
 		to_print = to_print * 2 + byte[i--];
 	ft_printf("%c", to_print);
 }

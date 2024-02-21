@@ -12,7 +12,8 @@
 
 #include "minitalk.h"
 
-static void		ft_str_to_bits(int pid, char *bits);
+static void		ft_send_str(pid_t pid, char *to_send);
+static void		ft_str_to_bits(int pid, char to_send);
 
 int	main(int argc, char **argv)
 {
@@ -21,33 +22,32 @@ int	main(int argc, char **argv)
 	if (argc != 3)
 		return (ft_printf("%sUsage: ./server [PID] [message]%s\n", RED, NC));
 	pid = ft_atoi(argv[1]);
-	ft_str_to_bits(pid, argv[2]);
+	ft_send_str(pid, argv[2]);
 	return (0);
 }
 
-static void	ft_str_to_bits(int pid, char *bits)
+void	ft_send_str(pid_t pid, char *to_send)
 {
 	int		i;
-	int		base;
-	char	letter;
 
 	i = 0;
-	while (bits[i])
+	while (to_send[i++])
+		ft_str_to_bits(pid, (unsigned char)to_send[i]);
+}
+
+static void	ft_str_to_bits(int pid, char to_send)
+{
+	int		bits;
+
+	bits = 0;
+	while (bits < 8)
 	{
-		base = 128;
-		letter = bits[i];
-		while (base > 0)
-		{
-			if (letter >= base)
-			{
-				kill(pid, SIGUSR1);
-				letter -= base;
-			}
-			else
-				kill(pid, SIGUSR2);
-			base /= 2;
-			usleep(100);
-		}
-		++i;
+		if ((to_send % 2) == 0)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		to_send /= 2;
+		++bits;
+		usleep(100);
 	}
 }
