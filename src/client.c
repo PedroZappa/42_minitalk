@@ -48,6 +48,6 @@ static void	ft_str_to_bits(int pid, int to_send)
 			kill(pid, SIGUSR2);
 		to_send /= 2;
 		++bits;
-		usleep(100);
+		usleep(150);
 	}
 }
