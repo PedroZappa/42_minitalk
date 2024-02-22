@@ -24,16 +24,16 @@ static void	ft_print_byte(int *byte);
 int	main(void)
 {
 	struct sigaction	sa;
-	sigset_t			block_mask;
+	// sigset_t			block_mask;
 	pid_t				pid;
 
 	pid = getpid();
-	sigemptyset(&block_mask);
-    sigaddset(&block_mask, SIGUSR1);
-    sigaddset(&block_mask, SIGUSR2);
-	// sa.sa_handler = ft_btoc; 
+	sigemptyset(&sa.sa_mask);
+	// sigemptyset(&block_mask);
+ //    sigaddset(&block_mask, SIGUSR1);
+ //    sigaddset(&block_mask, SIGUSR2);
 	sa.sa_sigaction = ft_btoc;
-    sa.sa_mask = block_mask;
+    // sa.sa_mask = block_mask;
 	sa.sa_flags = SA_SIGINFO | SA_RESTART;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
