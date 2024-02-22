@@ -25,7 +25,6 @@ ___
   * [Mandatory Features](#mandatory-features)
   * [Bonus Features](#bonus-features)
 * [Implementation 📜](#implementation-)
-  * [Mandatory Implementation](#mandatory-implementation)
   * [Server Implementation](#server-implementation)
     * [`ft_server_sighandler()`](#ft_server_sighandler)
   * [Mandatory Client Implementation](#mandatory-client-implementation)
@@ -63,8 +62,6 @@ ___
 
 ## Implementation 📜
 
-### Mandatory Implementation
-
 For the mandatory implementation, `server` and `client` are implemented in `server.c` and `client.c` files inside the `src` folder.
 
 ### Server Implementation
@@ -98,7 +95,7 @@ ___
 
 Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called. All its local variables are static, therefore automatically initialized to 0;
 
-It waits for 100 microseconds before starting to operate. It first receives and integer representing the length of the message about to arrive, then the actual bits of the message follow. To assemble the received data the following bitwise operations are used:
+It waits for 100 microseconds before starting to operate. It first receives and integer representing the length of the message, then the actual bits of the message follow. To assemble the received data the following bitwise operations are used:
 ```c
 if ((sig == SIGUSR2) && !server.received)
 	server.data |= 1 << (((sizeof(int) * 8) - 1) - server.bits);
@@ -106,8 +103,7 @@ else if ((sig == SIGUSR2) && server.received)
 	server.data |= 1 << (((sizeof(char) * 8) - 1) - server.bits);
 ```
 
-The bitwise operations | (OR) and << (Left-Shift) are used together to set the received bits in the proper place in memory. 
-
+The bitwise operations | (OR) and << (Left-Shift) are used together to set the received bits in the proper place in memory. This operation only happens when a `SIGUSR2` is received. Any time a `SIGUSR1` is caught, the server acknowledges it and keeps listening for further signals.
 
 
 ___
