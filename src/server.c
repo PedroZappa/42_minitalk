@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 12:05:05 by passunca          #+#    #+#             */
-/*   Updated: 2024/02/22 22:03:35 by passunca         ###   ########.fr       */
+/*   Updated: 2024/02/22 22:45:51 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ static void	ft_print_msg(t_protocol *server, int *i, pid_t pid)
 
 static void	ft_print_pid(void)
 {
+	ft_sep_color('0', '=', 24, GRN);
+	ft_printf("      %s« minitalk »%s\n", MAG, NC);
 	ft_sep_color('0', '=', 24, GRN);
 	ft_printf("« Server PID : %s%d%s »\n", YEL, getpid(), NC);
 	ft_sep_color('0', '=', 24, GRN);
