@@ -12,7 +12,7 @@
 
 #include "minitalk.h"
 
-static void	ft_btoc(int sig);
+static void	ft_btoc(int sig, siginfo_t *info, void *context);
 static void	ft_print_byte(int *byte);
 
 /*	Prints the server PID;
@@ -31,7 +31,8 @@ int	main(void)
 	sigemptyset(&block_mask);
     sigaddset(&block_mask, SIGUSR1);
     sigaddset(&block_mask, SIGUSR2);
-	sa.sa_handler = ft_btoc; 
+	// sa.sa_handler = ft_btoc; 
+	sa.sa_sigaction = ft_btoc;
     sa.sa_mask = block_mask;
 	sa.sa_flags = SA_SIGINFO | SA_RESTART;
 	sigaction(SIGUSR1, &sa, NULL);
@@ -47,11 +48,13 @@ int	main(void)
 /*	Bits to character
  *	Receives a character bit by bit and the prints it to stdout
  *	*/
-static void	ft_btoc(int sig)
+static void	ft_btoc(int sig, siginfo_t *info, void *context)
 {
 	static int	bit;
 	static int	byte[8];
 
+	(void)info;
+	(void)context;
 	if (sig == SIGUSR1)
 		byte[bit++] = 0;
 	else
