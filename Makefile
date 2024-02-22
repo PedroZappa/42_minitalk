@@ -6,7 +6,7 @@
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/18 11:49:03 by passunca          #+#    #+#              #
-#    Updated: 2024/02/22 19:48:14 by passunca         ###   ########.fr        #
+#    Updated: 2024/02/22 19:51:32 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,7 @@ $(LIBFT_ARC):
 bonus:			## Compile Minitalk with bonus features
 	@echo "[$(YEL)Compiling Minitalk with bonus features$(D)]"
 	make all
+	@echo "[$(GRN)SUCCESS$(D) compiling $(MAG)minitalk with bonus!$(D) $(YEL)🖔$(D)]"
 
 deps:			## Download/Update libft
 	@if test ! -d "$(LIBFT_PATH)"; then make get_libft; \

@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 12:00:21 by passunca          #+#    #+#             */
-/*   Updated: 2024/02/22 15:45:14 by passunca         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:56:05 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@
 /*	Handles the minitalk client-server protocol data.
  *		bits		: number of bits received
  *		data		: character/number received
- *		received	: 1 when message len received,
- *		msg			: message received
+ *		received	: 1 when message received
+ *		msg			: contents of the message
  *	*/
 typedef struct s_protocol
 {
