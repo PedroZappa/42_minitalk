@@ -62,7 +62,7 @@ ___
 
 ## Implementation 📜
 
-I implemented both mandatory and bonus features together. The `server` and `client` are implemented in `server.c` and `client.c` files inside the `src` folder plus two additional files `ft_sigaction.c` and `ft_send.c` containing additional helper functionality.
+I implemented both mandatory and bonus features together. The `server` and `client` can be found in the `server.c` and `client.c` files inside the `src` folder plus two additional files `ft_sigaction.c` and `ft_send.c` containing additional helper functionality.
 
 ### Server Implementation
 
