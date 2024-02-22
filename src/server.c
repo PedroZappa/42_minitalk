@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 12:05:05 by passunca          #+#    #+#             */
-/*   Updated: 2024/02/22 21:05:42 by passunca         ###   ########.fr       */
+/*   Updated: 2024/02/22 21:47:11 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@ static void	ft_strlen_received(t_protocol *server);
 static void	ft_print_msg(t_protocol *server, int *i, pid_t pid);
 static void	ft_print_pid(void);
 
-/*	Prints the server PID;
- *	Handles SIGUSR1 and SIGUSR2 changing the default behaviour of their signal
- *	handlers to receive and message bit by bit and print it to stdout;
- *		SIGUSR1: when received sends
- *		This is achieved by using the sigaction() function;
- *	*/
 int	main(void)
 {
 	struct sigaction	sa;
@@ -37,8 +31,6 @@ int	main(void)
 	return (EXIT_SUCCESS);
 }
 
-/*	
- *	*/
 static void	ft_server_sighandler(int sig, siginfo_t *info, void *context)
 {
 	static t_protocol	server;
@@ -48,9 +40,9 @@ static void	ft_server_sighandler(int sig, siginfo_t *info, void *context)
 	(void)context;
 	if (!server.bits)
 		server.data = 0;
-	if ((sig == SIGUSR2) && (server.received == 0))
+	if ((sig == SIGUSR2) && !server.received)
 		server.data |= 1 << (((sizeof(int) * 8) - 1) - server.bits);
-	else if ((sig == SIGUSR2) && (server.received == 1))
+	else if ((sig == SIGUSR2) && server.received)
 		server.data |= 1 << (((sizeof(char) * 8) - 1) - server.bits);
 	++server.bits;
 	ft_strlen_received(&server);

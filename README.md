@@ -27,6 +27,7 @@ ___
 * [Implementation 📜](#implementation-)
   * [Mandatory Implementation](#mandatory-implementation)
   * [Server Implementation](#server-implementation)
+    * [`ft_server_sighandler()`](#ft_server_sighandler)
   * [Mandatory Client Implementation](#mandatory-client-implementation)
 * [Usage 🏁](#usage-)
 
@@ -74,9 +75,10 @@ The `server`'s **main()** function declares and initializes a `struct sigaction`
 
 > [!Note]
 >
-> `SA_SIGINFO` gives the user access to extended signal information;
+> `SA_SIGINFO` gives the user access to extended signal information; `sigaction()` switches from using `sa_handler` to `sa_sigaction`.
 >
 > `SA_RESTART` provides BSD compatible behaviour allowing certain system calls to be restartable across signals.
+
 ```c
 struct sigaction	sa;
 
@@ -91,44 +93,24 @@ Prints the `server`'s' `pid` to `stdout` and enters an infinite loop, listening 
 while (1)
 	pause();
 ```
+___
+#### `ft_server_sighandler()`
 
+Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called. All its local variables are static, therefore automatically initialized to 0;
 
-
-Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called. 
-
-If the signal is `SIGUSR1`, the function writes a 0, else if the signal is `SIGUSR2`, writes a 1 into an array `byte` for storing the bits of a byte representing a ASCII/Unicode character. The `byte` is a static variable so that the bits accumulate from one function call to another. Once 8 bits have been received, the `ft_btoc` function prints the `byte` to `stdout` and resets the `bit` counter to 0 to prepare for the next incoming sequence of bits.
+It waits for 100 microseconds before starting to operate. It first receives and integer representing the length of the message about to arrive, then the actual bits of the message follow. To assemble the received data the following bitwise operations are used:
 ```c
-static void	ft_btoc(int sig)
-{
-	static int	bit;
-	static int	byte[8];
-
-	if (sig == SIGUSR1)
-		byte[bit++] = 0;
-	else
-		byte[bit++] = 1;
-	if (bit == 8)
-	{
-		ft_print_byte(byte);
-		bit = 0;
-	}
-}
+if ((sig == SIGUSR2) && !server.received)
+	server.data |= 1 << (((sizeof(int) * 8) - 1) - server.bits);
+else if ((sig == SIGUSR2) && server.received)
+	server.data |= 1 << (((sizeof(char) * 8) - 1) - server.bits);
 ```
 
-The character value is printed by `ft_print_byte()`, called by `ft_btoc` once all the bits have been received. It receives a pointer to an array of ints. With the aid of an iterator and an accumulator we convert the bit representation to a decimal value, then print it to `stdout`.
-```c
-static void	ft_print_byte(int *byte)
-{
-	int				i;
-	unsigned char	to_print;
+The bitwise operations | (OR) and << (Left-Shift) are used together to set the received bits in the proper place in memory. 
 
-	i = 7;
-	to_print = 0;
-	while (i >= 0)
-		to_print = to_print * 2 + byte[i--];
-	ft_printf("%c", to_print);
-}
-```
+
+
+___
 
 ### Mandatory Client Implementation
 
