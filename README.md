@@ -72,7 +72,7 @@ The `server`'s **main()** function declares and initializes a `struct sigaction`
 
 > [!Note]
 >
-> `SA_SIGINFO` gives the user access to extended signal information; `sigaction()` switches from using `sa_handler` to `sa_sigaction`.
+> `SA_SIGINFO` gives the user access to extended signal information; `sigaction()` switches from using `sa.sa_handler` to `sa.sa_sigaction`.
 >
 > `SA_RESTART` provides BSD compatible behaviour allowing certain system calls to be restartable across signals.
 
