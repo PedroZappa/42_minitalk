@@ -12,8 +12,8 @@
 
 #include "minitalk.h"
 
-static void	ft_sighandler(int sig, siginfo_t *info, void *context);
-static void	ft_set_sigaction(struct sigaction *sa);
+static void	ft_server_sighandler(int sig, siginfo_t *info, void *context);
+void		ft_set_sigaction(struct sigaction *sa);
 static void	ft_strlen_received(t_protocol *server);
 static void	ft_msg_received(t_protocol *server, int *i, pid_t pid);
 static void	ft_send_bit(pid_t pid, char bit, char pause_flag);
@@ -37,7 +37,7 @@ int	main(void)
 	// sigemptyset(&block_mask);
  //    sigaddset(&block_mask, SIGUSR1);
  //    sigaddset(&block_mask, SIGUSR2);
-	sa.sa_sigaction = ft_sighandler;
+	sa.sa_sigaction = ft_server_sighandler;
     // sa.sa_mask = block_mask;
 	sa.sa_flags = SA_SIGINFO | SA_RESTART;
 	// sigaction(SIGUSR1, &sa, NULL);
@@ -62,7 +62,7 @@ void	ft_set_sigaction(struct sigaction *sa)
 /*	Bits to character
  *	Receives a character bit by bit and the prints it to stdout
  *	*/
-static void	ft_sighandler(int sig, siginfo_t *info, void *context)
+static void	ft_server_sighandler(int sig, siginfo_t *info, void *context)
 {
 	static t_protocol	server;
 	static int			i;

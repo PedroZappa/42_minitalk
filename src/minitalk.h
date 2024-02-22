@@ -48,4 +48,7 @@ typedef struct s_protocol
 //							Function Prototypes                                /
 //=============================================================================/
 
+/* server.c */
+void		ft_set_sigaction(struct sigaction *sa);
+
 #endif

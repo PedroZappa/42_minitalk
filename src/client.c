@@ -12,42 +12,39 @@
 
 #include "minitalk.h"
 
-static void		ft_send_str(pid_t pid, char *to_send);
-static void		ft_str_to_bits(int pid, int to_send);
+static void	ft_client_sighandler(int sig, siginfo_t *info, void *context);
+static void ft_send_msg(pid_t pid, char *msg);
 
 int	main(int argc, char **argv)
 {
-	int		pid;
+	struct sigaction	sa;
+	pid_t				pid;
 
-	if (argc != 3)
-		return (ft_printf("%sUsage: ./server [PID] [message]%s\n", RED, NC));
 	pid = ft_atoi(argv[1]);
-	ft_send_str(pid, argv[2]);
-	return (0);
+	if (argc != 3)
+		ft_perror_exit("Usage: ./client [PID] [message]\n");
+	else if (kill(pid, 0) < 0)
+		ft_perror_exit("PID does not exist\n");
+	sigemptyset(&sa.sa_mask);
+	sa.sa_sigaction = ft_client_sighandler;
+	sa.sa_flags = SA_RESTART;
+	ft_set_sigaction(&sa);
+	ft_sep_color('0', '=', 20, GRN);
+	ft_printf("%sClinet PID: %d%s\n", YEL, pid, NC);
+	ft_sep_color('0', '=', 20, GRN);
+	ft_send_msg(pid, argv[2]);
+	return (EXIT_SUCCESS);
 }
 
-void	ft_send_str(pid_t pid, char *to_send)
+static void	ft_client_sighandler(int sig, siginfo_t *info, void *context)
 {
-	int		i;
-
-	i = -1;
-	while (to_send[++i])
-		ft_str_to_bits(pid, (unsigned char)to_send[i]);
+	if (sig == SIGUSR1)
+		ft_printf("%sACK signal received!%s\n", YEL, NC);
+	else if (sig == SIGUSR2)
+		ft_perror_exit("EOF signal received!\n");
 }
 
-static void	ft_str_to_bits(int pid, int to_send)
+static void ft_send_msg(pid_t pid, char *msg)
 {
-	int		bits;
 
-	bits = 0;
-	while (bits < 8)
-	{
-		if ((to_send % 2) == 0)
-			kill(pid, SIGUSR1);
-		else
-			kill(pid, SIGUSR2);
-		to_send /= 2;
-		++bits;
-		usleep(100);
-	}
 }
