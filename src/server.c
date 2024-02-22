@@ -13,7 +13,7 @@
 #include "minitalk.h"
 
 static void	ft_btoc(int sig, siginfo_t *info, void *context);
-static void	ft_print_byte(int *byte);
+static void	ft_send_bit(pid_t pid, char bit, char pause_flag);
 
 /*	Prints the server PID;
  *	Handles SIGUSR1 and SIGUSR2 changing the default behaviour of their signal
@@ -29,6 +29,8 @@ int	main(void)
 
 	pid = getpid();
 	sigemptyset(&sa.sa_mask);
+    sigaddset(&sa.sa_mask, SIGUSR1);
+    sigaddset(&sa.sa_mask, SIGUSR2);
 	// sigemptyset(&block_mask);
  //    sigaddset(&block_mask, SIGUSR1);
  //    sigaddset(&block_mask, SIGUSR2);
@@ -53,31 +55,15 @@ static void	ft_btoc(int sig, siginfo_t *info, void *context)
 	static int	bit;
 	static int	byte[8];
 
-	(void)info;
 	(void)context;
 	if (sig == SIGUSR1)
 		byte[bit++] = 0;
 	else
 		byte[bit++] = 1;
-	if (bit == 8)
-	{
-		ft_print_byte(byte);
-		bit = 0;
-	}
-}
-/* This function takes an array of 8 bits and converts it into a character.
- *	Iterates over the bits in reverse order (LSB first), 
- *	Shifts the current value of to_print left by one bit, 
- *	Adds to the current bit.
- * */
-static void	ft_print_byte(int *byte)
-{
-	int				i;
-	unsigned char	to_print;
-
-	i = 7;
-	to_print = 0;
-	while (i >= 0)
-		to_print = to_print * 2 + byte[i--];
-	ft_printf("%c", to_print);
+	ft_send_bit(info->si_pid, 0, 0);
+	// if (bit == 8)
+	// {
+	// 	ft_print_byte(byte);
+	// 	bit = 0;
+	// }
 }

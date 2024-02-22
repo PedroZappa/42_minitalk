@@ -30,6 +30,20 @@
 //                               Structures                                    /
 //=============================================================================/
 
+/*	Handles the minitalk client-server protocol data.
+ *		bits	: number of bits received
+ *		c		: character received
+ *		flag	: 1 if message len received, otherwise 0
+ *		msg		: message received
+ *	*/
+typedef struct s_protocol
+{
+	int		bits;
+	int		c;
+	int		flag;
+	char	*msg;
+}				t_protocol;
+
 //=============================================================================/
 //							Function Prototypes                                /
 //=============================================================================/
