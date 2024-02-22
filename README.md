@@ -72,7 +72,8 @@ To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/sr
 
 The `server`'s **main()** function declares and initializes a `struct sigaction` variable called `sa`. `sa_handler` is set to the function `ft_server_sighandler()`, and `sa_flags` is set to the bits for `SA_SIGINFO` and `SA_RESTART` turned on.
 
-> ![Note]
+> [!Note]
+>
 > `SA_SIGINFO` gives the user access to extended signal information;
 > `SA_RESTART` provides BSD compatible behaviour allowing certain system calls to be restartable across signals.
 ```c
