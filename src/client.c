@@ -37,9 +37,12 @@ int	main(int argc, char **argv)
 static void	ft_client_sighandler(int sig)
 {
 	if (sig == SIGUSR1)
-		ft_printf("%sACK signal received from Server!%s\n", YEL, NC);
+		ft_printf("%s*%s", YEL, NC);
 	else if (sig == SIGUSR2)
-		ft_perror_exit("EOM signal received!\n");
+	{
+		ft_printf("\n%sSuccessfully sent!%s\n", GRN, NC);
+		exit(EXIT_SUCCESS);
+	}
 }
 
 static void ft_send_msg(pid_t pid, char *msg)
@@ -52,10 +55,12 @@ static void ft_send_msg(pid_t pid, char *msg)
 		msglen = ft_strlen(msg);
 		ft_printf("%sOutbound msg's length = %d%s\n", CYN, msglen, NC);
 		ft_send_int(pid, msglen);
-		ft_printf("%sSending Message%s\n", GRN, NC);
+		ft_printf("\n%sSending Message%s\n", GRN, NC);
 		while (msg[i] != '\0')
 			ft_send_char(pid, msg[i++]);
-		ft_printf("%sSending NULL Terminator\n", MAG, NC);
+		ft_sep_color('0', '=', 20, GRN);
+		ft_printf("\n%sSending NULL Terminator\n", MAG, NC);
+		ft_sep_color('0', '=', 20, GRN);
 		ft_send_char(pid, '\0');
 	}
 }
