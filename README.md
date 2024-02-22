@@ -68,8 +68,6 @@ For the mandatory implementation, `server` and `client` are implemented in `serv
 
 ### Server Implementation
 
-The server is a very simple program. It prints it's `pid` to `stdout` and waits for a `SIGUSR1` or `SIGUSR2` signal.
-
 To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/src/server.c)'s signal handling functionality I chose to use `sigaction()` over `signal()`. This is because `signal()` is deprecated due to its varying behaviour across UNIX versions, making it a non-portable option. Both functions listen for a user defined signal and change de default signal action associated to it. The main difference between them is that `sigaction()` employs a specialized struct to store more information, giving the user finer control over signals.
 
 The `server`'s **main()** function declares and initializes a `struct sigaction` variable called `sa`. `sa_handler` is set to the function `ft_server_sighandler()`, and `sa_flags` is set to the bits for `SA_SIGINFO` and `SA_RESTART` turned on.
@@ -80,8 +78,8 @@ The `server`'s **main()** function declares and initializes a `struct sigaction`
 ```c
 struct sigaction	sa;
 
-sa.sa_handler = ft_btoc;
-sa.sa_flags = 0;
+sa.sa_handler = ft_server_sighandler;
+sa.sa_flags = SA_SIGINFO | SA_RESTART;
 ```
 
 The function then it prints the `pid` of the `server` to `stdout` with colored output.
