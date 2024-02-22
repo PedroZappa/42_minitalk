@@ -68,7 +68,7 @@ I implemented both mandatory and bonus features together. The `server` and `clie
 
 To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/src/server.c)'s signal handling functionality I chose to use `sigaction()` over `signal()`. This is because `signal()` is deprecated due to its varying behaviour across UNIX versions, making it a non-portable option. Both functions listen for a user defined signal and change de default signal action associated to it. The main difference being that `sigaction()` employs a specialized struct to store information, giving the user finer control over signals.
 
-The `server`'s **main()** function declares and initializes a `struct sigaction` variable called `sa`. `sa_sigaction` is set to the function `ft_server_sighandler()`, and `sa_flags` is set to the bits for `SA_SIGINFO` and `SA_RESTART` turned on.
+The `server`'s **main()** function declares and initializes a `struct sigaction` variable called `sa`. `sa.sa_sigaction` is set to the function `ft_server_sighandler()`, and `sa.sa_flags` is set to the bits for `SA_SIGINFO` and `SA_RESTART` turned on.
 
 > [!Note]
 >
