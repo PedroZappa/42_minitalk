@@ -83,7 +83,7 @@ sa.sa_handler = ft_server_sighandler;
 sa.sa_flags = SA_SIGINFO | SA_RESTART;
 ```
 
-The `sa` struct is then passed into `t_set_sigaction()` to set event handling for `SIGUSR1` and `SIGUSR2` signals.
+The `sa` struct is then passed into `ft_set_sigaction()` to set event handling for `SIGUSR1` and `SIGUSR2` signals.
 
 Prints the `server`'s' `pid` to `stdout` and enters an infinite loop, listening for a signal to catch.
 ```c
