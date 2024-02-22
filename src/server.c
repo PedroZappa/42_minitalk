@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 12:05:05 by passunca          #+#    #+#             */
-/*   Updated: 2024/02/22 17:02:11 by passunca         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:22:51 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_server_sighandler(int sig, siginfo_t *info, void *context);
 static void	ft_strlen_received(t_protocol *server);
-static void	ft_msg_received(t_protocol *server, int *i, pid_t pid);
+static void	ft_print_msg(t_protocol *server, int *i, pid_t pid);
 
 /*	Prints the server PID;
  *	Handles SIGUSR1 and SIGUSR2 changing the default behaviour of their signal
@@ -53,13 +53,13 @@ static void	ft_server_sighandler(int sig, siginfo_t *info, void *context)
 	(void)context;
 	if (!server.bits)
 		server.data = 0;
-	if ((sig == SIGUSR2) && server.received == 0)
-		server.data |= (((sizeof(int) * 8) - 1) - server.bits);
-	else if ((sig == SIGUSR2) && server.received == 1)
-		server.data |= (((sizeof(char) * 8) - 1) - server.bits);
+	if ((sig == SIGUSR2) && (server.received == 0))
+		server.data |= 1 << (((sizeof(int) * 8) - 1) - server.bits);
+	else if ((sig == SIGUSR2) && (server.received == 1))
+		server.data |= 1 << (((sizeof(char) * 8) - 1) - server.bits);
 	++server.bits;
 	ft_strlen_received(&server);
-	ft_msg_received(&server, &i, info->si_pid);
+	ft_print_msg(&server, &i, info->si_pid);
 	ft_send_bit(info->si_pid, 0, 0);
 }
 
@@ -79,7 +79,7 @@ static void	ft_strlen_received(t_protocol *server)
 	}
 }
 
-static void	ft_msg_received(t_protocol *server, int *i, pid_t pid)
+static void	ft_print_msg(t_protocol *server, int *i, pid_t pid)
 {
 	if ((server->bits == 8) && server->received)
 	{

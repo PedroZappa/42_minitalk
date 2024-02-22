@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 12:04:30 by passunca          #+#    #+#             */
-/*   Updated: 2024/02/22 16:15:14 by passunca         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:09:25 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 	sa.sa_flags = SA_RESTART;
 	ft_set_sigaction(&sa);
 	ft_sep_color('0', '=', 20, GRN);
-	ft_printf("%sClient PID: %d%s\n", YEL, ft_atoi(argv[1]), NC);
+	ft_printf("%sSending to server PID: %d%s\n", YEL, ft_atoi(argv[1]), NC);
 	ft_sep_color('0', '=', 20, GRN);
 	ft_send_msg(ft_atoi(argv[1]), msg);
 	return (EXIT_SUCCESS);
@@ -41,7 +41,7 @@ static void	ft_client_sighandler(int sig)
 	if (sig == SIGUSR1)
 		ft_printf("%sACK signal received!%s\n", YEL, NC);
 	else if (sig == SIGUSR2)
-		ft_perror_exit("EOF signal received!\n");
+		ft_perror_exit("EOM signal received!\n");
 }
 
 static void ft_send_msg(pid_t pid, char *msg)
