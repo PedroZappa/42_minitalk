@@ -95,7 +95,9 @@ ___
 
 Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called. All its local variables are static, therefore automatically initialized to 0;
 
-It waits for 100 microseconds before starting to operate. It first receives and integer representing the length of the message, then the actual bits of the message. To assemble the received data the following bitwise operations are used:
+It waits for 100 microseconds before starting to operate. It first receives and integer representing the length of the message, then the actual bits of the message.
+
+To assemble the received data the following bitwise operations are used:
 ```c
 if ((sig == SIGUSR2) && !server.received)
 	server.data |= 1 << (((sizeof(int) * 8) - 1) - server.bits);
