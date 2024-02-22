@@ -32,8 +32,6 @@ ___
 
 <!-- mtoc-end -->
 
-<div align="left">
-
 ___
 
 ## About 📌
@@ -107,6 +105,9 @@ else if ((sig == SIGUSR2) && server.received)
 
 The bitwise operations `|` (OR) and `<<` (Left-Shift) are used together to set the received bits in the proper place in memory. This operation only happens when a `SIGUSR2` is received. Any time a `SIGUSR1` is caught, the server acknowledges it and keeps listening for further signals.
 
+>
+>
+>
 
 ___
 
