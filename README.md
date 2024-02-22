@@ -103,7 +103,7 @@ else if ((sig == SIGUSR2) && server.received)
 	server.data |= 1 << (((sizeof(char) * 8) - 1) - server.bits);
 ```
 
-The bitwise operations `|` (OR) and `<<` (Left-Shift) are used together to set the received bits in the proper place in memory. This operation only happens when a `SIGUSR2` is received. Any time a `SIGUSR1` is caught, the server acknowledges it and keeps listening for further signals.
+The bitwise operations `|` (OR) and `<<` (Left-Shift) are used together to set the received bits in the proper place in memory. This operation only happens when a `SIGUSR2` is received. Any time a `SIGUSR1` is caught, the server simply acknowledges by printing a `*` and keeps listening for further signals.
 
 > [!Note]
 >
