@@ -12,7 +12,10 @@
 
 #include "minitalk.h"
 
-static void	ft_btoc(int sig, siginfo_t *info, void *context);
+static void	ft_sighandler(int sig, siginfo_t *info, void *context);
+static void	ft_set_sigaction(struct sigaction *sa);
+static void	ft_strlen_received(t_protocol *server);
+static void	ft_msg_received(t_protocol *server, int *i, pid_t pid);
 static void	ft_send_bit(pid_t pid, char bit, char pause_flag);
 
 /*	Prints the server PID;
@@ -34,11 +37,12 @@ int	main(void)
 	// sigemptyset(&block_mask);
  //    sigaddset(&block_mask, SIGUSR1);
  //    sigaddset(&block_mask, SIGUSR2);
-	sa.sa_sigaction = ft_btoc;
+	sa.sa_sigaction = ft_sighandler;
     // sa.sa_mask = block_mask;
 	sa.sa_flags = SA_SIGINFO | SA_RESTART;
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
+	// sigaction(SIGUSR1, &sa, NULL);
+	// sigaction(SIGUSR2, &sa, NULL);
+	ft_set_sigaction(&sa);
 	ft_sep_color('0', '=', 20, GRN);
 	ft_printf("Server PID: %s%d%s\n", YEL, pid, NC);
 	ft_sep_color('0', '=', 20, GRN);
@@ -47,23 +51,41 @@ int	main(void)
 	return (EXIT_SUCCESS);
 }
 
+void	ft_set_sigaction(struct sigaction *sa)
+{
+	if (sigaction(SIGUSR1, sa, NULL) < 0)
+		ft_perror_exit("sigaction() failed to handle SIGUSR1");
+	if (sigaction(SIGUSR2, sa, NULL) < 0)
+		ft_perror_exit("sigaction() failed to handle SIGUSR2");
+}
+
 /*	Bits to character
  *	Receives a character bit by bit and the prints it to stdout
  *	*/
-static void	ft_btoc(int sig, siginfo_t *info, void *context)
+static void	ft_sighandler(int sig, siginfo_t *info, void *context)
 {
-	static int	bit;
-	static int	byte[8];
+	static t_protocol	server;
+	static int			i;
 
 	(void)context;
-	if (sig == SIGUSR1)
-		byte[bit++] = 0;
-	else
-		byte[bit++] = 1;
+	if (!server.bits)
+		server.data = 0;
+	if ((sig == SIGUSR1) && !server.received)
+		server.data |= (((sizeof(int) * 8) - 1) - server.bits);
+	else if ((sig == SIGUSR1) && server.received)
+		server.data |= (((sizeof(char) * 8) - 1) - server.bits);
+	++server.bits;
+	ft_strlen_received(&server);
+	ft_msg_received(&server, &i, info->si_pid);
 	ft_send_bit(info->si_pid, 0, 0);
-	// if (bit == 8)
-	// {
-	// 	ft_print_byte(byte);
-	// 	bit = 0;
-	// }
+}
+
+static void	ft_strlen_received(t_protocol *server)
+{
+	if ((server->bits == (sizeof(int) * 8)) && !server->received)
+	{
+		server->received = 1;
+		ft_printf("%sMessage of len %d received!%s\n", GRN, server->data, NC);
+		server->msg = ft_calloc((server->data + 1), sizeof(char));
+	}
 }
