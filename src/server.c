@@ -32,8 +32,8 @@ int	main(void)
 
 	pid = getpid();
 	sigemptyset(&sa.sa_mask);
-    sigaddset(&sa.sa_mask, SIGUSR1);
-    sigaddset(&sa.sa_mask, SIGUSR2);
+    // sigaddset(&sa.sa_mask, SIGUSR1);
+    // sigaddset(&sa.sa_mask, SIGUSR2);
 	// sigemptyset(&block_mask);
  //    sigaddset(&block_mask, SIGUSR1);
  //    sigaddset(&block_mask, SIGUSR2);
@@ -70,9 +70,9 @@ static void	ft_sighandler(int sig, siginfo_t *info, void *context)
 	(void)context;
 	if (!server.bits)
 		server.data = 0;
-	if ((sig == SIGUSR1) && !server.received)
+	if ((sig == SIGUSR2) && !server.received)
 		server.data |= (((sizeof(int) * 8) - 1) - server.bits);
-	else if ((sig == SIGUSR1) && server.received)
+	else if ((sig == SIGUSR2) && server.received)
 		server.data |= (((sizeof(char) * 8) - 1) - server.bits);
 	++server.bits;
 	ft_strlen_received(&server);
@@ -116,6 +116,7 @@ static void	ft_msg_received(t_protocol *server, int *i, pid_t pid)
 
 static void	ft_send_bit(pid_t pid, char bit, char pause_flag)
 {
+	(void)pause_flag;
 	if (!bit)
 	{
 		if (kill(pid, SIGUSR1) < 0)
@@ -124,6 +125,6 @@ static void	ft_send_bit(pid_t pid, char bit, char pause_flag)
 	else if (bit)
 		if (kill(pid, SIGUSR2) < 0)
 			ft_perror_exit("kill() failed sending SIGUSR2\n");
-	// if (pause_flag)
-	// 	pause();
+	if (pause_flag)
+		pause();
 }
