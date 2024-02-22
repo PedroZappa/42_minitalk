@@ -6,7 +6,7 @@
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/18 11:49:03 by passunca          #+#    #+#              #
-#    Updated: 2024/02/22 19:03:11 by passunca         ###   ########.fr        #
+#    Updated: 2024/02/22 19:48:14 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,6 +82,10 @@ $(NAME_CLIENT): $(LIBFT_ARC) $(OBJS_CLIENT)
 $(LIBFT_ARC):
 	$(MAKE) $(LIBFT_PATH) extra
 
+bonus:			## Compile Minitalk with bonus features
+	@echo "[$(YEL)Compiling Minitalk with bonus features$(D)]"
+	make all
+
 deps:			## Download/Update libft
 	@if test ! -d "$(LIBFT_PATH)"; then make get_libft; \
 		else echo "$(YEL)[libft]$(D) folder found"; fi
@@ -106,14 +110,14 @@ leak: all			## Check for leaks w/ valgrind
 	@valgrind -q --leak-check=full --show-leak-kinds=all \
 		--suppressions=readline_supression ./$(NAME)
 
-serve: all			## Run Server
+serve: all			## Run Server in new tmux pane
 	tmux split-window -h "./server"
 	sleep 1
 
-attach: all			## run Server & Clients in tmux
-	tmux split-window -v "./client $$653901 test1"
+attach: all			## Attach Clients to server in new tmux panes
+	tmux split-window -v "./client 671383 test1"
 	sleep 1
-	tmux split-window -v "./client $$653901 test2"
+	tmux split-window -v "./client 671383 test2"
 	sleep 1
 
 ##@ Clean-up Rules 󰃢
@@ -153,7 +157,7 @@ help: 			## Display this help page
 		/^##@/ { \
 			printf "\n=> %s\n", substr($$0, 5) } ' Makefile
 
-.PHONY: deps get_libft update_modules leak clean fclean \
+.PHONY: bonus deps get_libft update_modules leak serve attach clean fclean \
 	libclean re
 
 #==============================================================================#
