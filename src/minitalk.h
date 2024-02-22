@@ -50,5 +50,6 @@ typedef struct s_protocol
 
 /* server.c */
 void		ft_set_sigaction(struct sigaction *sa);
+void		ft_send_bit(pid_t pid, char bit, char pause_flag);
 
 #endif

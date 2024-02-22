@@ -14,6 +14,8 @@
 
 static void	ft_client_sighandler(int sig, siginfo_t *info, void *context);
 static void ft_send_msg(pid_t pid, char *msg);
+void		ft_send_int(pid_t pid, int num);
+void		ft_send_char(pid_t pid, char c);
 
 int	main(int argc, char **argv)
 {
@@ -46,5 +48,40 @@ static void	ft_client_sighandler(int sig, siginfo_t *info, void *context)
 
 static void ft_send_msg(pid_t pid, char *msg)
 {
+	int		i;
+	int		msglen;
 
+	i = 0;
+	msglen = ft_strlen(msg);
+	ft_printf("%sSending msg's length = %d%s\n", YEL, msglen, NC);
+	ft_send_int(pid, msglen);
+}
+
+
+void	ft_send_int(pid_t pid, int num)
+{
+	int		bitshift;
+	char	bit;
+
+	bitshift = ((sizeof(int) * 8) - 1);
+	while (bitshift >= 0)
+	{
+		bit = (num >> bitshift) & 1;
+		ft_send_bit(pid, bit, 1);
+		--bitshift;
+	}
+}
+
+void		ft_send_char(pid_t pid, char c)
+{
+	int		bitshift;
+	char	bit;
+
+	bitshift = ((sizeof(int) * 8) - 1);
+	while (bitshift >= 0)
+	{
+		bit = (c >> bitshift) & 1;
+		ft_send_bit(pid, bit, 1);
+		--bitshift;
+	}
 }
