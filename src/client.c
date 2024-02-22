@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 12:04:30 by passunca          #+#    #+#             */
-/*   Updated: 2024/02/22 15:39:39 by passunca         ###   ########.fr       */
+/*   Updated: 2024/02/22 16:15:14 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,21 @@ static void	ft_send_msg(pid_t pid, char *msg);
 int	main(int argc, char **argv)
 {
 	struct sigaction	sa;
-	pid_t				pid;
+	char				*msg;
 
-	pid = ft_atoi(argv[1]);
 	if (argc != 3)
 		ft_perror_exit("Usage: ./client [PID] [message]\n");
-	else if (kill(pid, 0) < 0)
+	else if (kill(ft_atoi(argv[1]), 0) < 0)
 		ft_perror_exit("PID does not exist\n");
+	msg = argv[2];
 	sigemptyset(&sa.sa_mask);
 	sa.sa_handler = ft_client_sighandler;
 	sa.sa_flags = SA_RESTART;
 	ft_set_sigaction(&sa);
 	ft_sep_color('0', '=', 20, GRN);
-	ft_printf("%sClient PID: %d%s\n", YEL, pid, NC);
+	ft_printf("%sClient PID: %d%s\n", YEL, ft_atoi(argv[1]), NC);
 	ft_sep_color('0', '=', 20, GRN);
-	ft_send_msg(pid, argv[2]);
+	ft_send_msg(ft_atoi(argv[1]), msg);
 	return (EXIT_SUCCESS);
 }
 

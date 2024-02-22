@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 13:14:55 by passunca          #+#    #+#             */
-/*   Updated: 2024/02/22 15:40:30 by passunca         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:49:13 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ void	ft_send_bit(pid_t pid, char bit, char pause_flag)
 	else if (bit)
 		if (kill(pid, SIGUSR2) < 0)
 			ft_perror_exit("kill() failed sending SIGUSR2\n");
-	if (pause_flag)
+	if (pause_flag != 0)
 		pause();
 }

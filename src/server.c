@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 12:05:05 by passunca          #+#    #+#             */
-/*   Updated: 2024/02/22 15:20:54 by passunca         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:02:11 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,14 @@ static void	ft_msg_received(t_protocol *server, int *i, pid_t pid);
 int	main(void)
 {
 	struct sigaction	sa;
-	// sigset_t			block_mask;
 	pid_t				pid;
 
 	pid = getpid();
 	sigemptyset(&sa.sa_mask);
-    // sigaddset(&sa.sa_mask, SIGUSR1);
-    // sigaddset(&sa.sa_mask, SIGUSR2);
-	// sigemptyset(&block_mask);
- //    sigaddset(&block_mask, SIGUSR1);
- //    sigaddset(&block_mask, SIGUSR2);
+    sigaddset(&sa.sa_mask, SIGUSR1);
+    sigaddset(&sa.sa_mask, SIGUSR2);
 	sa.sa_sigaction = ft_server_sighandler;
-    // sa.sa_mask = block_mask;
 	sa.sa_flags = SA_SIGINFO | SA_RESTART;
-	// sigaction(SIGUSR1, &sa, NULL);
-	// sigaction(SIGUSR2, &sa, NULL);
 	ft_set_sigaction(&sa);
 	ft_sep_color('0', '=', 20, GRN);
 	ft_printf("Server PID: %s%d%s\n", YEL, pid, NC);
@@ -56,6 +49,7 @@ static void	ft_server_sighandler(int sig, siginfo_t *info, void *context)
 	static t_protocol	server;
 	static int			i;
 
+	usleep(PAUSE);
 	(void)context;
 	if (!server.bits)
 		server.data = 0;
@@ -74,7 +68,9 @@ static void	ft_strlen_received(t_protocol *server)
 	if ((server->bits == (sizeof(int) * 8)) && !server->received)
 	{
 		server->received = 1;
-		ft_printf("%sMessage of len %d received!%s\n", GRN, server->data, NC);
+		ft_printf("%sMessage Length : %s", YEL, NC);
+		ft_putnbr(server->data);
+		ft_printf("\n");
 		server->msg = ft_calloc((server->data + 1), sizeof(char));
 		if (!server->msg)
 			ft_perror_exit("ft_calloc() failed\n");

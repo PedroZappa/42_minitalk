@@ -11,8 +11,6 @@ end
 
 define ft_client_sighandler
 	display sig
-	display info
-	display context
 end
 
 define ft_set_sigaction
@@ -42,11 +40,11 @@ end
 ### Start client DBG @ main
 # fs cmd
 # break main
-# run 1841034 "Z!"
+# run 2596347 "Z"
 # main
 
 ### Start client DBG @ ft_send_msg
 fs cmd
-break ft_send_msg
-run 2301623 "Z!"
+break ft_send_msg 57
+run 2850766 "Z"
 ft_send_msg
