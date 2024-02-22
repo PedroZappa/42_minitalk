@@ -87,5 +87,43 @@ static void	ft_strlen_received(t_protocol *server)
 		server->received = 1;
 		ft_printf("%sMessage of len %d received!%s\n", GRN, server->data, NC);
 		server->msg = ft_calloc((server->data + 1), sizeof(char));
+		if (!server->msg)
+			ft_perror_exit("ft_calloc() failed\n");
+		server->msg[server->data] = '\0';
+		server->bits = 0;
 	}
+}
+
+static void	ft_msg_received(t_protocol *server, int *i, pid_t pid)
+{
+	if ((server->bits == 8) && server->received)
+	{
+		server->msg[*i] = server->data;
+		++(*i);
+		if (server->data == '\0')
+		{
+			ft_printf("[%sMessage received!%s]\n", MAG, NC);
+			ft_printf("%s%s%s\n", GRN, server->msg, NC);
+			free(server->msg);
+			server->msg = NULL;
+			server->received = 0;
+			*i = 0;
+			ft_send_bit(pid, 1, 0);
+		}
+		server->bits = 0;
+	}
+}
+
+static void	ft_send_bit(pid_t pid, char bit, char pause_flag)
+{
+	if (!bit)
+	{
+		if (kill(pid, SIGUSR1) < 0)
+			ft_perror_exit("kill() failed sending SIGUSR1\n");
+	}
+	else if (bit)
+		if (kill(pid, SIGUSR2) < 0)
+			ft_perror_exit("kill() failed sending SIGUSR2\n");
+	// if (pause_flag)
+	// 	pause();
 }
