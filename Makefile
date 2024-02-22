@@ -6,7 +6,7 @@
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/18 11:49:03 by passunca          #+#    #+#              #
-#    Updated: 2024/02/18 12:22:53 by passunca         ###   ########.fr        #
+#    Updated: 2024/02/22 13:15:56 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,8 @@ BUILD_PATH	= .build
 LIBFT_PATH	= $(INC_PATH)/libft
 LIBFT_ARC	= $(LIBFT_PATH)/libft.a
 
-SRC_SERVER	= $(addprefix $(SRC_PATH)/, server.c)
-SRC_CLIENT	= $(addprefix $(SRC_PATH)/, client.c)
+SRC_SERVER	= $(addprefix $(SRC_PATH)/, server.c ft_convert.c ft_sigaction.c)
+SRC_CLIENT	= $(addprefix $(SRC_PATH)/, client.c ft_convert.c ft_sigaction.c)
 
 OBJS_SERVER	= $(SRC_SERVER:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 OBJS_CLIENT	= $(SRC_CLIENT:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)

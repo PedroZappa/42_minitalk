@@ -13,9 +13,9 @@
 #include "minitalk.h"
 
 static void	ft_client_sighandler(int sig, siginfo_t *info, void *context);
-static void ft_send_msg(pid_t pid, char *msg);
-void		ft_send_int(pid_t pid, int num);
-void		ft_send_char(pid_t pid, char c);
+static void	ft_send_msg(pid_t pid, char *msg);
+static void	ft_send_int(pid_t pid, int num);
+static void	ft_send_char(pid_t pid, char c);
 
 int	main(int argc, char **argv)
 {
@@ -40,6 +40,8 @@ int	main(int argc, char **argv)
 
 static void	ft_client_sighandler(int sig, siginfo_t *info, void *context)
 {
+	(void)info;
+	(void)context;
 	if (sig == SIGUSR1)
 		ft_printf("%sACK signal received!%s\n", YEL, NC);
 	else if (sig == SIGUSR2)
@@ -55,10 +57,15 @@ static void ft_send_msg(pid_t pid, char *msg)
 	msglen = ft_strlen(msg);
 	ft_printf("%sSending msg's length = %d%s\n", YEL, msglen, NC);
 	ft_send_int(pid, msglen);
+	ft_printf("%sSending msg%s\n", GRN, msglen, NC);
+	while (msg[i])
+		ft_send_char(pid, msg[i++]);
+	ft_printf("%sSending NULL Terminator\n", MAG, NC);
+	ft_send_char(pid, '\0');
 }
 
 
-void	ft_send_int(pid_t pid, int num)
+static void	ft_send_int(pid_t pid, int num)
 {
 	int		bitshift;
 	char	bit;
@@ -72,7 +79,7 @@ void	ft_send_int(pid_t pid, int num)
 	}
 }
 
-void		ft_send_char(pid_t pid, char c)
+static void		ft_send_char(pid_t pid, char c)
 {
 	int		bitshift;
 	char	bit;

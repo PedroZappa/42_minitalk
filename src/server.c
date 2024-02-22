@@ -6,17 +6,15 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 12:05:05 by passunca          #+#    #+#             */
-/*   Updated: 2024/02/18 12:05:10 by passunca         ###   ########.fr       */
+/*   Updated: 2024/02/22 13:16:28 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
 static void	ft_server_sighandler(int sig, siginfo_t *info, void *context);
-void		ft_set_sigaction(struct sigaction *sa);
 static void	ft_strlen_received(t_protocol *server);
 static void	ft_msg_received(t_protocol *server, int *i, pid_t pid);
-void		ft_send_bit(pid_t pid, char bit, char pause_flag);
 
 /*	Prints the server PID;
  *	Handles SIGUSR1 and SIGUSR2 changing the default behaviour of their signal
@@ -49,14 +47,6 @@ int	main(void)
 	while (1)
 		pause();
 	return (EXIT_SUCCESS);
-}
-
-void	ft_set_sigaction(struct sigaction *sa)
-{
-	if (sigaction(SIGUSR1, sa, NULL) < 0)
-		ft_perror_exit("sigaction() failed to handle SIGUSR1");
-	if (sigaction(SIGUSR2, sa, NULL) < 0)
-		ft_perror_exit("sigaction() failed to handle SIGUSR2");
 }
 
 /*	Bits to character
@@ -112,19 +102,4 @@ static void	ft_msg_received(t_protocol *server, int *i, pid_t pid)
 		}
 		server->bits = 0;
 	}
-}
-
-static void	ft_send_bit(pid_t pid, char bit, char pause_flag)
-{
-	(void)pause_flag;
-	if (!bit)
-	{
-		if (kill(pid, SIGUSR1) < 0)
-			ft_perror_exit("kill() failed sending SIGUSR1\n");
-	}
-	else if (bit)
-		if (kill(pid, SIGUSR2) < 0)
-			ft_perror_exit("kill() failed sending SIGUSR2\n");
-	if (pause_flag)
-		pause();
 }
