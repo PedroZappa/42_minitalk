@@ -6,7 +6,7 @@
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/18 11:49:03 by passunca          #+#    #+#              #
-#    Updated: 2024/02/22 15:37:01 by passunca         ###   ########.fr        #
+#    Updated: 2024/02/22 19:03:11 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,11 @@
 #                                NAMES & PATHS                                 #
 #==============================================================================#
 
-NAME_SERVER	= server
-NAME_CLIENT	= client
-UNAME 		= $(shell uname)
+NAME_SERVER		= server
+NAME_CLIENT		= client
+UNAME 			= $(shell uname)
+# Get current tmux esssion name
+TMUX_SESSION	= $(shell tmux display-message -p '#S')
 
 SRC_PATH	= src
 INC_PATH	= inc
@@ -33,7 +35,7 @@ OBJS_CLIENT	= $(SRC_CLIENT:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 DEPS		= $(OBJS:.o=.d)
 
 
-SHELL := zsh
+SHELL := bash
 
 #==============================================================================#
 #                            FLAGS & CMDS                                      #
@@ -103,6 +105,16 @@ update_modules:	## Update modules
 leak: all			## Check for leaks w/ valgrind
 	@valgrind -q --leak-check=full --show-leak-kinds=all \
 		--suppressions=readline_supression ./$(NAME)
+
+serve: all			## Run Server
+	tmux split-window -h "./server"
+	sleep 1
+
+attach: all			## run Server & Clients in tmux
+	tmux split-window -v "./client $$653901 test1"
+	sleep 1
+	tmux split-window -v "./client $$653901 test2"
+	sleep 1
 
 ##@ Clean-up Rules 󰃢
 
