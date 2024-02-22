@@ -6,14 +6,16 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 12:05:05 by passunca          #+#    #+#             */
-/*   Updated: 2024/02/18 12:05:10 by passunca         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:29:54 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static void	ft_btoc(int sig);
-static void	ft_print_byte(int *byte);
+static void	ft_server_sighandler(int sig, siginfo_t *info, void *context);
+static void	ft_strlen_received(t_protocol *server);
+static void	ft_print_msg(t_protocol *server, int *i, pid_t pid);
+static void	ft_print_pid(pid_t pid);
 
 /*	Prints the server PID;
  *	Handles SIGUSR1 and SIGUSR2 changing the default behaviour of their signal
@@ -24,57 +26,83 @@ static void	ft_print_byte(int *byte);
 int	main(void)
 {
 	struct sigaction	sa;
-	sigset_t			block_mask;
 	pid_t				pid;
 
 	pid = getpid();
-	sigemptyset(&block_mask);
-    sigaddset(&block_mask, SIGUSR1);
-    sigaddset(&block_mask, SIGUSR2);
-	sa.sa_handler = ft_btoc; 
-    sa.sa_mask = block_mask;
+	sigemptyset(&sa.sa_mask);
+    sigaddset(&sa.sa_mask, SIGUSR1);
+    sigaddset(&sa.sa_mask, SIGUSR2);
+	sa.sa_sigaction = ft_server_sighandler;
 	sa.sa_flags = SA_SIGINFO | SA_RESTART;
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
-	ft_sep_color('0', '=', 20, GRN);
-	ft_printf("Server PID: %s%d%s\n", YEL, pid, NC);
-	ft_sep_color('0', '=', 20, GRN);
+	ft_set_sigaction(&sa);
+	ft_print_pid(pid);
 	while (1)
 		pause();
 	return (EXIT_SUCCESS);
 }
 
-/*	Bits to character
- *	Receives a character bit by bit and the prints it to stdout
+/*	
  *	*/
-static void	ft_btoc(int sig)
+static void	ft_server_sighandler(int sig, siginfo_t *info, void *context)
 {
-	static int	bit;
-	static int	byte[8];
+	static t_protocol	server;
+	static int			i;
 
-	if (sig == SIGUSR1)
-		byte[bit++] = 0;
-	else
-		byte[bit++] = 1;
-	if (bit == 8)
+	usleep(PAUSE);
+	(void)context;
+	if (!server.bits)
+		server.data = 0;
+	if ((sig == SIGUSR2) && (server.received == 0))
+		server.data |= 1 << (((sizeof(int) * 8) - 1) - server.bits);
+	else if ((sig == SIGUSR2) && (server.received == 1))
+		server.data |= 1 << (((sizeof(char) * 8) - 1) - server.bits);
+	++server.bits;
+	ft_strlen_received(&server);
+	ft_print_msg(&server, &i, info->si_pid);
+	ft_send_bit(info->si_pid, 0, 0);
+}
+
+static void	ft_strlen_received(t_protocol *server)
+{
+	if ((server->bits == (sizeof(int) * 8)) && !server->received)
 	{
-		ft_print_byte(byte);
-		bit = 0;
+		server->received = 1;
+		ft_printf("%sMessage Length : %s", YEL, NC);
+		ft_putnbr(server->data);
+		ft_printf("\n");
+		server->msg = ft_calloc((server->data + 1), sizeof(char));
+		if (!server->msg)
+			ft_perror_exit("ft_calloc() failed\n");
+		server->msg[server->data] = '\0';
+		server->bits = 0;
 	}
 }
-/* This function takes an array of 8 bits and converts it into a character.
- *	Iterates over the bits in reverse order (LSB first), 
- *	Shifts the current value of to_print left by one bit, 
- *	Adds to the current bit.
- * */
-static void	ft_print_byte(int *byte)
-{
-	int				i;
-	unsigned char	to_print;
 
-	i = 7;
-	to_print = 0;
-	while (i >= 0)
-		to_print = to_print * 2 + byte[i--];
-	ft_printf("%c", to_print);
+static void	ft_print_msg(t_protocol *server, int *i, pid_t pid)
+{
+	if ((server->bits == 8) && server->received)
+	{
+		server->msg[*i] = server->data;
+		++(*i);
+		if (server->data == '\0')
+		{
+			ft_printf("[%sMessage received!%s]\n", MAG, NC);
+			ft_printf("MSG:\n%s%s%s\n", GRN, server->msg, NC);
+			ft_print_pid(pid);
+			free(server->msg);
+			server->msg = NULL;
+			server->received = 0;
+			*i = 0;
+			ft_send_bit(pid, 1, 0);
+		}
+		server->bits = 0;
+	}
+}
+
+static void	ft_print_pid(pid_t pid)
+{
+	ft_sep_color('0', '=', 24, GRN);
+	ft_printf("« Server PID : %s%d%s »\n", YEL, pid, NC);
+	ft_sep_color('0', '=', 24, GRN);
+	ft_printf("%sListening...%s\n", CYN, NC);
 }

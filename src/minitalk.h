@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 12:00:21 by passunca          #+#    #+#             */
-/*   Updated: 2024/02/18 12:03:15 by passunca         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:56:05 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 //=============================================================================/
 //								Variables                                      /
 //=============================================================================/
+
+# define PAUSE  100 // for usleep()
 
 //=============================================================================/
 //								Librariy Headers                               /
@@ -30,8 +32,30 @@
 //                               Structures                                    /
 //=============================================================================/
 
+/*	Handles the minitalk client-server protocol data.
+ *		bits		: number of bits received
+ *		data		: character/number received
+ *		received	: 1 when message received
+ *		msg			: contents of the message
+ *	*/
+typedef struct s_protocol
+{
+	int		bits;
+	int		data;
+	int		received;
+	char	*msg;
+}				t_protocol;
+
 //=============================================================================/
 //							Function Prototypes                                /
 //=============================================================================/
+
+/* ft_sigaction.c */
+void	ft_set_sigaction(struct sigaction *sa);
+
+/* ft_send.c */
+void	ft_send_bit(pid_t pid, char bit, char pause_flag);
+void	ft_send_int(pid_t pid, int num);
+void	ft_send_char(pid_t pid, char c);
 
 #endif

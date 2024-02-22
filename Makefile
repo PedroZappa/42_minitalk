@@ -6,7 +6,7 @@
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/18 11:49:03 by passunca          #+#    #+#              #
-#    Updated: 2024/02/18 12:22:53 by passunca         ###   ########.fr        #
+#    Updated: 2024/02/22 19:51:32 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,11 @@
 #                                NAMES & PATHS                                 #
 #==============================================================================#
 
-NAME_SERVER	= server
-NAME_CLIENT	= client
-UNAME 		= $(shell uname)
+NAME_SERVER		= server
+NAME_CLIENT		= client
+UNAME 			= $(shell uname)
+# Get current tmux esssion name
+TMUX_SESSION	= $(shell tmux display-message -p '#S')
 
 SRC_PATH	= src
 INC_PATH	= inc
@@ -25,15 +27,15 @@ BUILD_PATH	= .build
 LIBFT_PATH	= $(INC_PATH)/libft
 LIBFT_ARC	= $(LIBFT_PATH)/libft.a
 
-SRC_SERVER	= $(addprefix $(SRC_PATH)/, server.c)
-SRC_CLIENT	= $(addprefix $(SRC_PATH)/, client.c)
+SRC_SERVER	= $(addprefix $(SRC_PATH)/, server.c ft_send.c ft_sigaction.c)
+SRC_CLIENT	= $(addprefix $(SRC_PATH)/, client.c ft_send.c ft_sigaction.c)
 
 OBJS_SERVER	= $(SRC_SERVER:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 OBJS_CLIENT	= $(SRC_CLIENT:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 DEPS		= $(OBJS:.o=.d)
 
 
-SHELL := zsh
+SHELL := bash
 
 #==============================================================================#
 #                            FLAGS & CMDS                                      #
@@ -80,6 +82,11 @@ $(NAME_CLIENT): $(LIBFT_ARC) $(OBJS_CLIENT)
 $(LIBFT_ARC):
 	$(MAKE) $(LIBFT_PATH) extra
 
+bonus:			## Compile Minitalk with bonus features
+	@echo "[$(YEL)Compiling Minitalk with bonus features$(D)]"
+	make all
+	@echo "[$(GRN)SUCCESS$(D) compiling $(MAG)minitalk with bonus!$(D) $(YEL)🖔$(D)]"
+
 deps:			## Download/Update libft
 	@if test ! -d "$(LIBFT_PATH)"; then make get_libft; \
 		else echo "$(YEL)[libft]$(D) folder found"; fi
@@ -103,6 +110,16 @@ update_modules:	## Update modules
 leak: all			## Check for leaks w/ valgrind
 	@valgrind -q --leak-check=full --show-leak-kinds=all \
 		--suppressions=readline_supression ./$(NAME)
+
+serve: all			## Run Server in new tmux pane
+	tmux split-window -h "./server"
+	sleep 1
+
+attach: all			## Attach Clients to server in new tmux panes
+	tmux split-window -v "./client 671383 test1"
+	sleep 1
+	tmux split-window -v "./client 671383 test2"
+	sleep 1
 
 ##@ Clean-up Rules 󰃢
 
@@ -141,7 +158,7 @@ help: 			## Display this help page
 		/^##@/ { \
 			printf "\n=> %s\n", substr($$0, 5) } ' Makefile
 
-.PHONY: deps get_libft update_modules leak clean fclean \
+.PHONY: bonus deps get_libft update_modules leak serve attach clean fclean \
 	libclean re
 
 #==============================================================================#
