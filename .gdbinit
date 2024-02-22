@@ -45,6 +45,7 @@ end
 
 ### Start client DBG @ ft_send_msg
 fs cmd
-break ft_send_msg 57
-run 2850766 "Z"
+break ft_send_msg:57
+run 3769078 "Zedro ZZZ ZZZ"
 ft_send_msg
+rfr

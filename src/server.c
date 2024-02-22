@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 12:05:05 by passunca          #+#    #+#             */
-/*   Updated: 2024/02/22 17:22:51 by passunca         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:03:59 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	ft_server_sighandler(int sig, siginfo_t *info, void *context);
 static void	ft_strlen_received(t_protocol *server);
 static void	ft_print_msg(t_protocol *server, int *i, pid_t pid);
+static void	ft_print_pid(pid_t pid);
 
 /*	Prints the server PID;
  *	Handles SIGUSR1 and SIGUSR2 changing the default behaviour of their signal
@@ -34,9 +35,7 @@ int	main(void)
 	sa.sa_sigaction = ft_server_sighandler;
 	sa.sa_flags = SA_SIGINFO | SA_RESTART;
 	ft_set_sigaction(&sa);
-	ft_sep_color('0', '=', 20, GRN);
-	ft_printf("Server PID: %s%d%s\n", YEL, pid, NC);
-	ft_sep_color('0', '=', 20, GRN);
+	ft_print_pid(pid);
 	while (1)
 		pause();
 	return (EXIT_SUCCESS);
@@ -88,7 +87,8 @@ static void	ft_print_msg(t_protocol *server, int *i, pid_t pid)
 		if (server->data == '\0')
 		{
 			ft_printf("[%sMessage received!%s]\n", MAG, NC);
-			ft_printf("MSG: %s%s%s\n", GRN, server->msg, NC);
+			ft_printf("MSG:\n%s%s%s\n", GRN, server->msg, NC);
+			ft_print_pid(pid);
 			free(server->msg);
 			server->msg = NULL;
 			server->received = 0;
@@ -97,4 +97,12 @@ static void	ft_print_msg(t_protocol *server, int *i, pid_t pid)
 		}
 		server->bits = 0;
 	}
+}
+
+static void	ft_print_pid(pid_t pid)
+{
+	ft_sep_color('0', '=', 24, GRN);
+	ft_printf("« Server PID : %s%d%s »\n", YEL, pid, NC);
+	ft_sep_color('0', '=', 24, GRN);
+	ft_printf("%sListening...%s\n", CYN, NC);
 }
