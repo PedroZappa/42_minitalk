@@ -26,9 +26,8 @@ ___
   * [Bonus Features](#bonus-features)
 * [Implementation 📜](#implementation-)
   * [Mandatory Implementation](#mandatory-implementation)
-    * [Mandatory Server Implementation](#mandatory-server-implementation)
-    * [Mandatory Client Implementation](#mandatory-client-implementation)
-  * [Bonus Implementation](#bonus-implementation)
+  * [Server Implementation](#server-implementation)
+  * [Mandatory Client Implementation](#mandatory-client-implementation)
 * [Usage 🏁](#usage-)
 
 <!-- mtoc-end -->
@@ -51,13 +50,13 @@ The mandatory implementation must behave as follows:
 	* The `message` to be sent;
 * The `client` must send the `message` passed in as a parameter to the `server`.
 * Upon receiving the `message` the `server` must print it to `stdout` almost instantly.
-* The `server` must be able to receive `message`s from several different clients in a row without the need for a restart. (Note that Linux systems do NOT queue signals when a signal of the same type is already pending).
+* The `server` must be able to receive `message`s from several different clients **in a row** without the need for a restart. (Note that Linux systems do NOT queue signals when a signal of the same type is already pending).
 * `client`-`server` communication must be done using `SIGUSR1` and `SIGUSR2` signals only.
 
 ### Bonus Features
 
 * The `server` acknowledges receiving a message by sending back a signal to the `client`.
-* Must support Unicode characters.
+* Support Unicode characters.
 
 ___
 
@@ -67,11 +66,17 @@ ___
 
 For the mandatory implementation, `server` and `client` are implemented in `server.c` and `client.c` files inside the `src` folder.
 
-#### Mandatory Server Implementation
+### Server Implementation
 
-To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/src/server.c)'s signal handling functionality, I chose to use the function `sigaction()` over `signal()`. This is because the function `signal()` is deprecated due to its varying behaviour across UNIX versions, making it a non-portable option. Both functions listen for a user defined signal and change de default signal action associated to it. The main difference between these two functions is that `sigaction()` employs a specialized struct to store more information.
+The server is a very simple program. It prints it's `pid` to `stdout` and waits for a `SIGUSR1` or `SIGUSR2` signal.
 
-The `server`'s [main()] function declares and initializes a `struct sigaction` variable called `sa`. `sa_handler` is set to the function `ft_btoc()`, and `sa_flags` set to 0, passing no flags.
+To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/src/server.c)'s signal handling functionality I chose to use `sigaction()` over `signal()`. This is because `signal()` is deprecated due to its varying behaviour across UNIX versions, making it a non-portable option. Both functions listen for a user defined signal and change de default signal action associated to it. The main difference between them is that `sigaction()` employs a specialized struct to store more information, giving the user finer control over signals.
+
+The `server`'s **main()** function declares and initializes a `struct sigaction` variable called `sa`. `sa_handler` is set to the function `ft_server_sighandler()`, and `sa_flags` is set to the bits for `SA_SIGINFO` and `SA_RESTART` turned on.
+
+> [!Note]
+> `SA_SIGINFO` gives the user access to extended signal information;
+> `SA_RESTART` provides BSD compatible behaviour allowing certain system calls to be restartable across signals.
 ```c
 struct sigaction	sa;
 
@@ -126,15 +131,10 @@ static void	ft_print_byte(int *byte)
 }
 ```
 
-#### Mandatory Client Implementation
+### Mandatory Client Implementation
 
 
 ___
-### Bonus Implementation
-
-For the bonus implementation, `server` and `client` for the bonus are implemented in `server_bonus.c` and `client_bonus.c` files inside the `srcb` folder.
-
-	...
 
 ## Usage 🏁
 
