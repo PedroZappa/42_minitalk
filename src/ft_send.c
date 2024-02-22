@@ -1,16 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_convert.c                                       :+:      :+:    :+:   */
+/*   ft_send.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 13:14:55 by passunca          #+#    #+#             */
-/*   Updated: 2024/02/22 13:16:43 by passunca         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:40:30 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+void	ft_send_int(pid_t pid, int num)
+{
+	int		bitshift;
+	char	bit;
+
+	bitshift = ((sizeof(int) * 8) - 1);
+	while (bitshift >= 0)
+	{
+		bit = (num >> bitshift) & 1;
+		ft_send_bit(pid, bit, 1);
+		--bitshift;
+	}
+}
+
+void	ft_send_char(pid_t pid, char c)
+{
+	int		bitshift;
+	char	bit;
+
+	bitshift = ((sizeof(char) * 8) - 1);
+	while (bitshift >= 0)
+	{
+		bit = (c >> bitshift) & 1;
+		ft_send_bit(pid, bit, 1);
+		--bitshift;
+	}
+}
 
 void	ft_send_bit(pid_t pid, char bit, char pause_flag)
 {

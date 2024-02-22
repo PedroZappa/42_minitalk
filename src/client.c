@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 12:04:30 by passunca          #+#    #+#             */
-/*   Updated: 2024/02/22 15:26:27 by passunca         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:39:39 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static void	ft_client_sighandler(int sig);
 static void	ft_send_msg(pid_t pid, char *msg);
-static void	ft_send_int(pid_t pid, int num);
-static void	ft_send_char(pid_t pid, char c);
 
 int	main(int argc, char **argv)
 {
@@ -61,34 +59,5 @@ static void ft_send_msg(pid_t pid, char *msg)
 			ft_send_char(pid, msg[i++]);
 		ft_printf("%sSending NULL Terminator\n", MAG, NC);
 		ft_send_char(pid, '\0');
-	}
-}
-
-
-static void	ft_send_int(pid_t pid, int num)
-{
-	int		bitshift;
-	char	bit;
-
-	bitshift = ((sizeof(int) * 8) - 1);
-	while (bitshift >= 0)
-	{
-		bit = (num >> bitshift) & 1;
-		ft_send_bit(pid, bit, 1);
-		--bitshift;
-	}
-}
-
-static void		ft_send_char(pid_t pid, char c)
-{
-	int		bitshift;
-	char	bit;
-
-	bitshift = ((sizeof(char) * 8) - 1);
-	while (bitshift >= 0)
-	{
-		bit = (c >> bitshift) & 1;
-		ft_send_bit(pid, bit, 1);
-		--bitshift;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 12:00:21 by passunca          #+#    #+#             */
-/*   Updated: 2024/02/18 12:03:15 by passunca         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:40:16 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,12 @@ typedef struct s_protocol
 //							Function Prototypes                                /
 //=============================================================================/
 
-/* server.c */
-void		ft_set_sigaction(struct sigaction *sa);
-void		ft_send_bit(pid_t pid, char bit, char pause_flag);
+/* ft_sigaction.c */
+void	ft_set_sigaction(struct sigaction *sa);
+
+/* ft_send.c */
+void	ft_send_bit(pid_t pid, char bit, char pause_flag);
+void	ft_send_int(pid_t pid, int num);
+void	ft_send_char(pid_t pid, char c);
 
 #endif
