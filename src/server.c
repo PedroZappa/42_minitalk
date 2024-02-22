@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 12:05:05 by passunca          #+#    #+#             */
-/*   Updated: 2024/02/22 13:16:28 by passunca         ###   ########.fr       */
+/*   Updated: 2024/02/22 15:20:54 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ int	main(void)
 	return (EXIT_SUCCESS);
 }
 
-/*	Bits to character
- *	Receives a character bit by bit and the prints it to stdout
+/*	
  *	*/
 static void	ft_server_sighandler(int sig, siginfo_t *info, void *context)
 {
@@ -60,9 +59,9 @@ static void	ft_server_sighandler(int sig, siginfo_t *info, void *context)
 	(void)context;
 	if (!server.bits)
 		server.data = 0;
-	if ((sig == SIGUSR2) && !server.received)
+	if ((sig == SIGUSR2) && server.received == 0)
 		server.data |= (((sizeof(int) * 8) - 1) - server.bits);
-	else if ((sig == SIGUSR2) && server.received)
+	else if ((sig == SIGUSR2) && server.received == 1)
 		server.data |= (((sizeof(char) * 8) - 1) - server.bits);
 	++server.bits;
 	ft_strlen_received(&server);
@@ -93,7 +92,7 @@ static void	ft_msg_received(t_protocol *server, int *i, pid_t pid)
 		if (server->data == '\0')
 		{
 			ft_printf("[%sMessage received!%s]\n", MAG, NC);
-			ft_printf("%s%s%s\n", GRN, server->msg, NC);
+			ft_printf("MSG: %s%s%s\n", GRN, server->msg, NC);
 			free(server->msg);
 			server->msg = NULL;
 			server->received = 0;
