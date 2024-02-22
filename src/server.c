@@ -33,7 +33,7 @@ int	main(void)
     sigaddset(&block_mask, SIGUSR2);
 	sa.sa_handler = ft_btoc; 
     sa.sa_mask = block_mask;
-	sa.sa_flags = 0;
+	sa.sa_flags = SA_SIGINFO | SA_RESTART;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	ft_sep_color('0', '=', 20, GRN);
@@ -41,7 +41,7 @@ int	main(void)
 	ft_sep_color('0', '=', 20, GRN);
 	while (1)
 		pause();
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 /*	Bits to character
