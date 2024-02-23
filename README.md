@@ -168,7 +168,7 @@ if ((server->bits == (sizeof(int) * 8)) && !server->received) { ... }
 
 * This function first sets the `server.received` flag to 1, signifying that the header data has been received. 
 
-The `server` prints the length of the message to `stdout`, then takes this value plus 1 (to account for the NULL terminator) and allocates memory for a message with that many bytes:
+The `server` prints the length of the message to `stdout`, then takes this value plus 1 (to account for the NULL terminator) and allocates memory for a message with that many bytes with `ft_calloc()` to that the memory is all set to zero:
 ```c
 server->msg = ft_calloc((server->data + 1), sizeof(char));
 if (!server->msg)
