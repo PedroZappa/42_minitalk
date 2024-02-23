@@ -189,13 +189,26 @@ ft_printf("Message:\n%s%s%s\n", GRN, server->msg, NC);
 
 > [!Note]
 >
-> All escape codes are defined inside my [libft](https://github.com/PedroZappa/libft/blob/master/color_codes/ansi.h) implementation)
+> In case you are curious and want to learn more about ANSI escape codes
+check out
+[ansi.h](https://github.com/PedroZappa/libft/blob/master/color_codes/ansi.h)
+included in my [libft](https://github.com/PedroZappa/libft)
+implementation!
 
 And so the `server` receives each byte of the message until the whole message has been received. The server knows that the received message has reached its end when the current `server.data` value is the NULL terminator.
 ```c
 if (server->data == '\0') { ... }
 ```
 
+The server then prints the message to `stdout` followed by the `server`'s
+`pid`, and since we are done with the `server.msg`, we free the memory
+space allocated to store it. 
+
+```c
+ft_printf("Message:\n%s%s%s\n", GRN, server->msg, NC)
+ft_print_pid();
+free(server->msg);
+```
 
 
 ___
