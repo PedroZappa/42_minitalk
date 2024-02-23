@@ -173,6 +173,11 @@ server->msg[*i] = server->data;
 ++(*i);
 ```
 
+Notice that `server.bits` is reset to 0 after the `char` has been stored.
+```c
+server->bits = 0;
+```
+
 > [!Note]
 >
 > On Unicode ...
@@ -182,7 +187,7 @@ And so the `server` receives each byte of the message until the whole message ha
 if (server->data == '\0') { ... }
 ```
 
-The server then prints the message to `stdout` taking advantage of ANSI escape codes to color the ouptut. 
+The server then prints the message to `stdout` taking advantage of ANSI escape codes to color the ouptut.
 ```c
 ft_printf("Message:\n%s%s%s\n", GRN, server->msg, NC);
 ```
@@ -202,14 +207,19 @@ if (server->data == '\0') { ... }
 
 The server then prints the message to `stdout` followed by the `server`'s
 `pid`, and since we are done with the `server.msg`, we free the memory
-space allocated to store it. 
-
+space allocated to store it.
 ```c
 ft_printf("Message:\n%s%s%s\n", GRN, server->msg, NC)
 ft_print_pid();
 free(server->msg);
 ```
 
+Now all there is left to do is to prepare the server to receive the next
+message.
+```c
+server->msg = NULL;
+server->received = 0;
+```
 
 ___
 
