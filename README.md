@@ -376,11 +376,13 @@ ___
 void	ft_send_bit(pid_t pid, char bit, char pause_flag);
 ```
 
-* `ft_send_bit()` sends information to the `server` bit by bit.
+`ft_send_bit()` sends information to the `server` bit by bit.
 
 * It simply checks if the passed `bit` is 1 or 0 and sends the appropriate signal using `kill()`.
 
-> Calling `kill()` within an expression in an `if` statement is a handy way to handle possible errors with our signal calls. In this case if the call to `kill()` fails the program writes an error message to `stderr` and exits.
+> Calling `kill()` within an expression in an `if` statement is a handy way to handle possible errors with our signal calls.
+>
+> In this case, if the call to `kill()` fails, the program writes an error message to `stderr` and exits.
 ```c
 if (bit == 0)
 {
@@ -396,6 +398,8 @@ else if (bit == 1)
 
 If the `pause_flag` is set to 1, the `server` waits for the next data chunk to be sent.
 
+> [!NOTE]
+>
 > This function is called with `pause_flag = 1` when used in the context of `ft_send_char()` and `ft_send_int()`, so that for each bit sent the `client` waits for a confirmation signal from the `server` before it proceeds sending the data.
 ```c
 if (pause_flag != 0)
