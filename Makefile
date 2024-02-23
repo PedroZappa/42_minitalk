@@ -90,7 +90,7 @@ bonus:			## Compile Minitalk with bonus features
 	@echo "[$(GRN)SUCCESS$(D) compiling $(MAG)minitalk with bonus!$(D) $(YEL)🖔$(D)]"
 
 deps:			## Download/Update libft
-	@if test ! -d "$(LIBFT_PATH)"; then make get_libft; \
+	@if running test ! -d "$(LIBFT_PATH)"; then make get_libft; \
 		else echo "$(YEL)[libft]$(D) folder found"; fi
 	@make update_modules
 
@@ -117,30 +117,30 @@ serve: all			## Run Server in new tmux pane
 	tmux split-window -h "./server"
 	sleep 1
 
-test: all			## Attach Clients to server in new tmux panes
-	@echo "test [1/3]"
-	tmux split-window -v "./client 1788338 'test 1'"
+running test: all			## Attach Clients to server in new tmux panes
+	@echo "running test [1/3]"
+	tmux split-window -v "./client 1788338 'running test 1'"
 	sleep 1
-	@echo "test [2/3]"
-	tmux split-window -v "./client 1788338 'test 2'"
+	@echo "running test [2/3]"
+	tmux split-window -v "./client 1788338 'running test 2'"
 	sleep 1
-	@echo "test [3/3]"
-	tmux split-window -v "./client 1788338 'test 3'"
+	@echo "running test [3/3]"
+	tmux split-window -v "./client 1788338 'running test 3'"
 
-stress_test: all	## Attach Clients and stress test
-	@echo "test [1/5]"
+stress_test: all	## Attach Clients and stress running test
+	@echo "running test [1/5]"
 	tmux split-window -v "./client 1788338 '$(TXT_TEST)'" && \
 	sleep 7
-	@echo "test [2/5]"
+	@echo "running test [2/5]"
 	tmux split-window -v "./client 1788338 '$(EMOJI_TEST)'" && \
 	sleep 7
-	@echo "test [3/5]"
+	@echo "running test [3/5]"
 	tmux split-window -v "./client 1788338 '$(TXT_TEST)'" && \
 	sleep 7
-	@echo "test [4/5]"
+	@echo "running test [4/5]"
 	tmux split-window -v "./client 1788338 '$(EMOJI_TEST)'" && \
 	sleep 7
-	@echo "test [5/5]"
+	@echo "running test [5/5]"
 	tmux split-window -v "./client 1788338 '$(EMOJI_TEST)'"
 
 ##@ Clean-up Rules 󰃢
