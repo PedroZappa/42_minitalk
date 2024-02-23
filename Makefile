@@ -122,9 +122,6 @@ serve: all			## Run Server in new tmux pane
 	./scripts/minitalk-server-pid.sh >> server.pid
 	sleep 1
 
-get_pid: all				## Get Server PID
-	@echo $(SERVER_PID)
-
 test: all			## Attach Clients to server in new tmux panes
 	@echo "$(YEL)running test [1/3]$(D)"
 	tmux split-window -v "./client $$(cat server.pid) 'running test 1'"
