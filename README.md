@@ -30,8 +30,8 @@ ___
     * [`ft_strlen_received()`](#ft_strlen_received)
     * [`ft_print_msg()`](#ft_print_msg)
   * [Client Implementation](#client-implementation)
-* [Usage 🏁](#usage-)
-* [Testing 🧪](#testing-)
+    * [`ft_send_msg()`](#ft_send_msg)
+  * [`ft_send.c` Helper Functions](#ft_sendc-helper-functions)
 
 <!-- mtoc-end -->
 
@@ -71,6 +71,7 @@ To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/sr
 
 > Both functions listen for a user defined signal and change de default signal action associated to it, their main difference being that `sigaction()` employs a specialized struct to store extra information, giving the user finer control over signal actions.
 
+___
 The `server`'s **main()** function declares and initializes a `struct sigaction` variable called `sa`.
 * It uses `sigemptyset()` to initialize the signal set `sa.sa_mask` with all signals excluded from the set;
 * `sa.sa_sigaction` is set to the function `ft_server_sighandler()`;
@@ -248,8 +249,59 @@ else if (kill(ft_atoi(argv[1]), 0) < 0)
 	ft_perror_exit("PID does not exist\n");
 ```
 
-The `client`, like the `server`, uses `sigaction()` to handle incoming UNIX signals, but sets it up slghtly differently.
+The `client`, like the `server`, uses `sigaction()` to handle incoming UNIX signals, but sets it up slightly differently.
 
+The `client` declares `sa` and:
+* initializes `sa.sa_mask` with all signals excluded from the set using `sigemptyset()`;
+* `sa.sa_handler` is set to the function `ft_client_sighandler()`;
+* `sa.sa_flags` is set to `SA_RESTART`
+
+Then the `sa` struct is passed into `ft_set_sigaction()` to set event handling for `SIGUSR1` and `SIGUSR2`.
+```c
+struct sigaction	sa;
+
+sigemptyset(&sa.sa_mask);
+sa.sa_handler = ft_client_sighandler;
+sa.sa_flags = SA_RESTART;
+ft_set_sigaction(&sa);
+```
+
+> The `client` event handler simply prints a `*` if the received signal is `SIGUSR1` or if it is `SIGUSR2` announces that the message has been successfully sent and exits the program.
+
+The `client` then prints the `server`'s `pid` to `stdout` to which it is connects to and calls `ft_send_msg()`.
+```c
+ft_print_pid();
+...
+ft_send_msg(ft_atoi(argv[1]), argv[2]);
+```
+
+#### `ft_send_msg()`
+
+This function creates a local variable `i`, initialized to 0, to keep track of the current index in the message being sent. 
+
+But before it starts sending the actual message it must first send its length to the `server`. This is done bit by bit using the function `ft_send_int`.
+```c
+int	msglen;
+...
+msglen = ft_strlen(msg);
+ft_send_int(pid, msglen);
+```
+
+Then it loops through the message and sends each character to the server bit by bit.
+```c
+ft_printf("\n%sSending Message%s\n", GRN, NC);
+while (msg[i] != '\0')
+	ft_send_char(pid, msg[i++]);
+ft_printf("\n");
+```
+
+Then all there's left to do is to send a NULL terminator to the `server` and terminate the message:
+```c
+ft_send_char(pid, '\0');
+```
+
+### `ft_send.c` Helper Functions
+```c
 
 
 ___
