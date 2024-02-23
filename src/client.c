@@ -48,7 +48,7 @@ static void	ft_client_sighandler(int sig)
 	}
 }
 
-static void ft_send_msg(pid_t pid, char *msg)
+static void	ft_send_msg(pid_t pid, char *msg)
 {
 	int		i;
 	int		msglen;
