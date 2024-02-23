@@ -168,20 +168,19 @@ if ((server->bits == (sizeof(int) * 8)) && !server->received) { ... }
 
 * This function first sets the `server.received` flag to 1, signifying that the header data has been received. 
 
-The `server` prints the length of the message to `stdout`, then takes this value plus 1 (to account for the NULL terminator) and allocates memory for a message with that many bytes with `ft_calloc()` to that the memory is all set to zero:
+The `server` prints the length of the message to `stdout`, then takes this value plus 1 (to account for the NULL terminator) and allocates memory for a message with that many bytes with `ft_calloc()` so that the memory is all set to zero:
 ```c
 server->msg = ft_calloc((server->data + 1), sizeof(char));
 if (!server->msg)
 	ft_perror_exit("ft_calloc() failed\n");
 ```
 
-* It then continues receiving the message bit by bit until every `char` in the message has been transferred successfully.
-
 The memory space for the message is then NULL terminated, and the `server->bits` are reset to 0 to prepare the server to receive the bits of the message.
 ```c
 server->msg[server->data] = '\0';
 server->bits = 0;
 ```
+* It then continues receiving the message bit by bit until every `char` in the message has been transferred to the `server` successfully.
 
 ___
 #### `ft_print_msg()`
