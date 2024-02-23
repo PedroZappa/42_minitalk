@@ -28,6 +28,7 @@ ___
   * [Server Implementation](#server-implementation)
     * [`ft_server_sighandler()`](#ft_server_sighandler)
     * [`ft_strlen_received()`](#ft_strlen_received)
+    * [`ft_print_msg()`](#ft_print_msg)
   * [Mandatory Client Implementation](#mandatory-client-implementation)
 * [Usage 🏁](#usage-)
 
@@ -117,9 +118,9 @@ else if ((sig == SIGUSR2) && server.received)
 	server.data |= 1 << (((sizeof(char) * 8) - 1) - server.bits);
 ```
 
-The bitwise operators `|` (OR) and `<<` (Left-Shift) are used together to set the received bits in the proper place in memory. The conditional statements make sure that the first 32 bits of the message are saved in a space that fits an `int`, specifying the length of the incoming message. After this `int` is received it starts storing the following inbound bits into `char` sized chunks of memory.
+The bitwise operators `|` (OR) and `<<` (Left-Shift) are used together to set the received bits in the proper place in memory. The conditional statements make sure that the first 32 bits of the message are saved in a space that fits an `int`, specifying the length of the incoming message. After this `int` is received the `server` starts storing the following inbound bits into `char` sized chunks of memory.
 
-This operation only happens when a `SIGUSR2` is received. Any time a `SIGUSR1` is caught, the server simply acknowledges by printing a `*` and keeps listening for further signals.
+This operation only happens when a `SIGUSR2` is received. Any time a `SIGUSR1` is caught, the server simply acknowledges it by printing a `*` and keeps listening for further signals.
 
 > [!Note]
 >
@@ -135,9 +136,36 @@ if ((server->bits == (sizeof(int) * 8)) && !server->received) { ... }
 
 This function first sets the `server.received` flag to 1, signifying that the header data has been received. It then continues receiving the message bit by bit until every `char` in the message has been transferred successfully.
 
-The server then prints the length of the message to `stdout`. Then takes this value and allocates memory for a message with that many bytes and NULL terminates it.
+The server prints the length of the message to `stdout`, then takes this value plus 1 (to account for the NULL terminator) and allocates memory for a message with that many bytes.
+```c
+server->msg = ft_calloc((server->data + 1), sizeof(char));
+if (!server->msg)
+	ft_perror_exit("ft_calloc() failed\n");
+```
 
-The `erver->bits` are then reset to 0 to prepare the server to receive the bits of the message.
+The memory space for the message is then NULL terminated, and the `server->bits` are reset to 0 to prepare the server to receive the bits of the message.
+```c
+server->msg[server->data] = '\0';
+server->bits = 0;
+```
+
+___
+#### `ft_print_msg()`
+
+Once 8 bits have been received the first layer of logic is triggered. 
+```c
+if ((server->bits == 8) && server->received) { ... }
+```
+The received byte stored in `server.data` is copied to the `i`-th index of `server->msg`.
+```c
+server->msg[*i] = server->data;
+++(*i);
+```  
+
+
+and the `server->bits` are reset to 0 to prepare the server to receive the next byte.
+
+
 
 ___
 
