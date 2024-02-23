@@ -265,7 +265,7 @@ Before starting operations the [client](https://github.com/PedroZappa/42_minital
 
 * It first checks if `argc` is not equal to 3, if so the program will print an error to `stderr` and exit.
 
-* Then checks if the `pid` of the server (`argv[1]`) is valid by test-calling `kill()` (with a zero instead of a signal identifier), if so the program will also print an error to `stderr` and exit.
+* Then checks if the `pid` of the server (`argv[1]`) is valid by test-calling `kill()` (with a zero instead of a signal identifier), if is NOT valid the program will also print an error to `stderr` and exit.
 ```c
 if (argc != 3)
 	ft_perror_exit("Usage: ./client [PID] [message]\n");
