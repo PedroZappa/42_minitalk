@@ -357,7 +357,7 @@ bitshift = ((sizeof(char) * 8) - 1); // Prepare the server to receive 8 bits
 
 The `client` enters a loop running from `bitshift` to 0:
 
-* it breaks the `char`/`int` into its individual bits;
+* It breaks the `char`/`int` into its individual bits;
 
 * Each bit is passed as an argument to `ft_send_bit()` where it triggers the appropriate signal and is sent to the server;
 
@@ -373,7 +373,7 @@ while (bitshift >= 0)
 ___
 #### `ft_send_bit()`
 ```c
-void	ft_send_bit(pid_t pid, char bit, char pause_flag)
+void	ft_send_bit(pid_t pid, char bit, char pause_flag);
 ```
 
 `ft_send_bit()` sends information to the `server` bit by bit. It simply checks if the passed `bit` is 1 or 0 and sends the appropriate signal using `kill()`.
