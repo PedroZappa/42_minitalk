@@ -161,7 +161,7 @@ ___
 static void	ft_strlen_received(t_protocol *server);
 ```
 
-Once the `int` has been received the conditions for the triggering of the code block inside `ft_strlen_received()` are met:
+Once the `int` has been received the conditions for triggering the code block inside `ft_strlen_received()` are met:
 ```c
 if ((server->bits == (sizeof(int) * 8)) && !server->received) { ... }
 ```
