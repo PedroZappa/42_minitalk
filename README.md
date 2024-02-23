@@ -29,9 +29,7 @@ ___
     * [`ft_server_sighandler()`](#ft_server_sighandler)
     * [`ft_strlen_received()`](#ft_strlen_received)
     * [`ft_print_msg()`](#ft_print_msg)
-  * [Mandatory Client Implementation](#mandatory-client-implementation)
-* [Usage 🏁](#usage-)
-* [Testing 🧪](#testing-)
+  * [Client Implementation](#client-implementation)
 
 <!-- mtoc-end -->
 
@@ -229,9 +227,20 @@ ft_send_bit(pid, 1, 0);
 ```
 
 ___
-### Mandatory Client Implementation
+### Client Implementation
 
+The [client](https://github.com/PedroZappa/42_minitalk/blob/main/src/client.c) also uses `sigaction()` to handle incoming UNIX signals.
 
+Before starting operations the `client` must check if its input arguments are valid.
+
+It first checks if `argc` is not equal to 3, if so the program will print an error to `stderr` and exit. Then checks if `argv[1]`, the `pid` of the server is not a valid, if so the program will also print an error to `stderr` and exit.
+```c
+if (argc != 3)
+	ft_perror_exit("Usage: ./client [PID] [message]\n");
+else if (kill(ft_atoi(argv[1]), 0) < 0)
+	ft_perror_exit("PID does not exist\n");
+```
+```c
 
 ___
 
