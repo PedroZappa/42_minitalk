@@ -296,7 +296,7 @@ ft_set_sigaction(&sa);
 
 > The `client` event handler prints a `*` if the received signal is `SIGUSR1` or if it is `SIGUSR2` it announces that the message has been successfully sent and exits the program.
 
-The `client` then prints the `server`'s `pid` to `stdout` and calls `ft_send_msg()`.
+The `client` then prints the `server`'s `pid` to `stdout` and calls `ft_send_msg()`:
 ```c
 ft_print_pid();
 ...
@@ -308,9 +308,11 @@ ___
 static void ft_send_msg(pid_t pid, char *msg);
 ```
 
-This function creates a local variable `i`, initialized to 0, to keep track of the current index in the message being sent.
+* This function creates a local variable `i`, initialized to 0, to keep track of the current index in the message being sent.
 
-But before it starts sending the actual message it must first send its length to the `server`. This is done bit by bit using the function `ft_send_int`.
+* But before it starts sending the actual message it must first send its length to the `server`.
+
+* This is done bit by bit using the function `ft_send_int`.
 ```c
 int	msglen;
 ...
