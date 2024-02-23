@@ -37,7 +37,7 @@ ___
   * [`ft_sigaction.c` Helper Functions](#ft_sigactionc-helper-functions)
 * [Usage 🏁](#usage-)
 * [Testing 🧪](#testing-)
-  * [License](#license)
+* [License](#license)
 
 <!-- mtoc-end -->
 
@@ -471,7 +471,7 @@ make stress_test
 </div>
 ___
 
-### License
+## License
 
 This work is published under the terms of <a href="https://github.com/PedroZappa/42_minitalk/blob/main/LICENSE">42 Unlicense</a>.
 
