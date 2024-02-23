@@ -451,7 +451,7 @@ ___
 If you're like me and use `tmux` you can quickly test the project using the following make rules:
 
 * Spins up the `server` conveniently on a new `tmux` window-split:
-```bash
+```sh
 make serve
 ```
 * To automatically launch a few `client`s on new `tmux` window-splits:
@@ -460,11 +460,11 @@ make serve
 		* find the `Test, Debug & Leak Check Rules` section;
 		* Change the `pid` of all commands to the current `server`'s `pid`:
 	* Run the following command to launch a few test clients:
-```bash
+```sh
 make test
 ```
 * To run harder tests with long messages:
-```bash
+```sh
 make stress_test
 ```
 
