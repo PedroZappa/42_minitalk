@@ -35,7 +35,8 @@ OBJS_CLIENT	= $(SRC_CLIENT:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 DEPS		= $(OBJS:.o=.d)
 
 TXT_TEST	= $(shell cat ./tests/500_w.txt)
-EMOJI_TEST	= $(shell cat ./tests/emoji.txt)
+EMOJI_TEST1	= $(shell cat ./tests/1000_emoji.txt)
+EMOJI_TEST2	= $(shell cat ./tests/2000_emoji.txt)
 
 SHELL := bash
 
@@ -107,7 +108,7 @@ update_modules:	## Update modules
 	git submodule update --recursive --remote
 	@echo "[$(GRN)Submodules successfully updated$(D)]"
 
-##@ Test, Debug & Leak Check Rules 󰃢
+##@ Test, Debug & Leak Check Rules 
 
 leak: all			## Check for leaks w/ valgrind
 	@valgrind -q --leak-check=full --show-leak-kinds=all \
@@ -128,20 +129,14 @@ running test: all			## Attach Clients to server in new tmux panes
 	tmux split-window -v "./client 1788338 'running test 3'"
 
 stress_test: all	## Attach Clients and stress running test
-	@echo "running test [1/5]"
+	@echo "running test [1/3]"
 	tmux split-window -v "./client 1788338 '$(TXT_TEST)'" && \
 	sleep 7
-	@echo "running test [2/5]"
-	tmux split-window -v "./client 1788338 '$(EMOJI_TEST)'" && \
+	@echo "running test [2/3]"
+	tmux split-window -v "./client 1788338 '$(EMOJI_TEST1)'" && \
 	sleep 7
-	@echo "running test [3/5]"
-	tmux split-window -v "./client 1788338 '$(TXT_TEST)'" && \
-	sleep 7
-	@echo "running test [4/5]"
-	tmux split-window -v "./client 1788338 '$(EMOJI_TEST)'" && \
-	sleep 7
-	@echo "running test [5/5]"
-	tmux split-window -v "./client 1788338 '$(EMOJI_TEST)'"
+	@echo "running test [3/3]"
+	tmux split-window -v "./client 1788338 '$(EMOJI_TEST2)'"
 
 ##@ Clean-up Rules 󰃢
 
