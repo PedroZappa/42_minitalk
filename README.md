@@ -117,7 +117,7 @@ else if ((sig == SIGUSR2) && server.received)
 	server.data |= 1 << (((sizeof(char) * 8) - 1) - server.bits);
 ```
 
-The bitwise operators `|` (OR) and `<<` (Left-Shift) are used together to set the received bits in the proper place in memory. The conditional statements make sure that the first 32 bits of the message are saved in a space that fits an `int`. It specifies the length of the incoming message. After the `int` is received it starts storing the following inbound bits into `char` sized chunks of memory.
+The bitwise operators `|` (OR) and `<<` (Left-Shift) are used together to set the received bits in the proper place in memory. The conditional statements make sure that the first 32 bits of the message are saved in a space that fits an `int`, specifying the length of the incoming message. After this `int` is received it starts storing the following inbound bits into `char` sized chunks of memory.
 
 This operation only happens when a `SIGUSR2` is received. Any time a `SIGUSR1` is caught, the server simply acknowledges by printing a `*` and keeps listening for further signals.
 
