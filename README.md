@@ -65,7 +65,7 @@ For this project I chose to implement both mandatory and bonus features together
 
 ### Server Implementation
 
-To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/src/server.c)'s signal handling functionality I used `sigaction()` over `signal()`. This is because `signal()` is deprecated due to its varying behaviour across UNIX versions, making it a non-portable option. 
+To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/src/server.c)'s signal handling functionality I used `sigaction()` over `signal()`. This is because `signal()` is deprecated due to its varying behaviour across UNIX versions, making it a non-portable option.
 
 Both functions listen for a user defined signal and change de default signal action associated to it, their main difference being that `sigaction()` employs a specialized struct to store information, giving the user finer control over signal actions.
 
@@ -94,7 +94,9 @@ while (1)
 ___
 #### `ft_server_sighandler()`
 
-Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called. All its local variables are static, therefore automatically initialized to 0. For the sake of simplicity one of these variables is a custom data type `t_protocol` which holds all the data the server needs to have at hand to perform its operations.
+Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called. All its local variables are static, therefore automatically initialized to 0.
+
+For the sake of simplicity one of these variables is a custom data type `t_protocol` which holds all the data the server needs to perform its operations.
 ```c
 typedef struct s_protocol
 {
@@ -102,12 +104,12 @@ typedef struct s_protocol
 	int  data;     // Received data (One integer and a sequence of chars)
 	int  received; // Flag indicating if "header" data has been received
 	char *msg;     // Received message
-}		t_protocol;
+}	t_protocol;
 ```
 
-The server signal handler waits for 100 microseconds before it starts to receive data. It first receives an integer as "header information" about the data about to be transferred, in this case the length of the message being sent, then come the actual bits of the message.
+The server signal handler waits for 100 microseconds before it starts receiving data. It first receives an integer as "header information" specifying the length in bytes of the data about to be transferred, then come the actual bits of the message.
 
-To assemble the received data the following bitwise operations wrapped in conditionals are used:
+To store the data according to the data type being received the following bitwise operations and conditionals are employed:
 ```c
 if ((sig == SIGUSR2) && !server.received)
 	server.data |= 1 << (((sizeof(int) * 8) - 1) - server.bits);
@@ -115,13 +117,13 @@ else if ((sig == SIGUSR2) && server.received)
 	server.data |= 1 << (((sizeof(char) * 8) - 1) - server.bits);
 ```
 
-The bitwise operations `|` (OR) and `<<` (Left-Shift) are used together to set the received bits in the proper place in memory. This operation only happens when a `SIGUSR2` is received. Any time a `SIGUSR1` is caught, the server simply acknowledges by printing a `*` and keeps listening for further signals.
+The bitwise operators `|` (OR) and `<<` (Left-Shift) are used together to set the received bits in the proper place in memory. The conditional statements make sure that the first 32 bits of the message are saved in a space that fits an `int`. It specifies the length of the incoming message. After the `int` is received it starts storing the following inbound bits into `char` sized chunks of memory.
 
-The conditional statements make sure that the first 32 bits of the message are saved in a space that fits an `int`.
+This operation only happens when a `SIGUSR2` is received. Any time a `SIGUSR1` is caught, the server simply acknowledges by printing a `*` and keeps listening for further signals.
 
 > [!Note]
 >
-> `SIGUSR1` and `SIGUSR2` are therefore used to signify 0 and 1 respectively.
+> On the server side, `SIGUSR1` and `SIGUSR2` are therefore used to signify 0 and 1 respectively.
 
 ___
 #### `ft_strlen_received()`
