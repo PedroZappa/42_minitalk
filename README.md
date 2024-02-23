@@ -34,6 +34,7 @@ ___
   * [`ft_send.c` Helper Functions](#ft_sendc-helper-functions)
     * [`ft_send_char()` & `ft_send_int()`](#ft_send_char--ft_send_int)
     * [`ft_send_bit()`](#ft_send_bit)
+  * [`ft_sigaction.c` Helper Functions](#ft_sigactionc-helper-functions)
 * [Usage 🏁](#usage-)
 * [Testing 🧪](#testing-)
 
@@ -242,7 +243,6 @@ ft_send_bit(pid, 1, 0);
 ___
 ### Client Implementation
 
-
 Before starting operations the [client](https://github.com/PedroZappa/42_minitalk/blob/main/src/client.c) must check if its input arguments are valid.
 
 It first checks if `argc` is not equal to 3, if so the program will print an error to `stderr` and exit. Then checks if the `pid` of the server (`argv[1]`) is valid by test-calling `kill()` (with a zero instead of a signal identifier), if so the program will also print an error to `stderr` and exit.
@@ -278,8 +278,11 @@ ft_print_pid();
 ...
 ft_send_msg(ft_atoi(argv[1]), argv[2]);
 ```
-
+___
 #### `ft_send_msg()`
+```c
+static void ft_send_msg(pid_t pid, char *msg);
+```
 
 This function creates a local variable `i`, initialized to 0, to keep track of the current index in the message being sent. 
 
@@ -309,7 +312,12 @@ ___
 
 To send `char`s and `int`s to the `server` I implemented two helper functions: `ft_send_char()` and `ft_send_int()`. 
 
+___
 #### `ft_send_char()` & `ft_send_int()`
+```c
+void	ft_send_int(pid_t pid, int num);
+void	ft_send_char(pid_t pid, char c);
+```
 
 These two functions work in a similar way. They first initialize a `bitshift` integer variable with the size of the data type about to be sent:
 ```c
@@ -333,18 +341,50 @@ while (bitshift >= 0)
 	--bitshift;                  // Move to the next bit
 }
 ```
-
-
 ___
 #### `ft_send_bit()`
-
 ```c
+void	ft_send_bit(pid_t pid, char bit, char pause_flag)
 ```
 
+`ft_send_bit()` sends information to the `server` bit by bit. It simply checks if the passed `bit` is 1 or 0 and sends the appropriate signal using `kill()`.
 
-Both of these functions leverage `ft_send_bit()` to send information to the `server` bit by bit.
+> Calling `kill()` within an expression in an `if` statement is a handy way to handle possible errors with our signal calls. In this case if the call to `kill()` fails the program writes an error message to `stderr` and exits.
+```c
+if (bit == 0)
+{
+	if (kill(pid, SIGUSR1) < 0)
+		ft_perror_exit("kill() failed sending SIGUSR1\n");
+}
+else if (bit == 1)
+{
+	if (kill(pid, SIGUSR2) < 0)
+		ft_perror_exit("kill() failed sending SIGUSR2\n");
+}
+```
 
+If the `pause_flag` is set to 1, the `server` waits for the next data chunk to be sent.
 
+> This function is called with `pause_flag = 1` when used in the context of `ft_send_char()` and `ft_send_int()`, so that for each bit sent the `client` waits for a confirmation signal from the `server` before it proceeds sending the data.
+```c
+if (pause_flag != 0)
+	pause();
+```
+___
+### `ft_sigaction.c` Helper Functions
+
+This file contains the `sigaction` function that is used to set both the `server`'s event handler and the `client`'s event handlers for `SIGUSR1` and `SIGUSR2` signals:
+
+> Once again, error handling is done using control expressions inside `if` statements.
+```c
+void	ft_set_sigaction(struct sigaction *sa)
+{
+	if (sigaction(SIGUSR1, sa, NULL) < 0)
+		ft_perror_exit("sigaction() failed to handle SIGUSR1");
+	if (sigaction(SIGUSR2, sa, NULL) < 0)
+		ft_perror_exit("sigaction() failed to handle SIGUSR2");
+}
+```
 
 
 ___
