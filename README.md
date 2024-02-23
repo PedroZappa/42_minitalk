@@ -373,7 +373,7 @@ if (pause_flag != 0)
 ___
 ### `ft_sigaction.c` Helper Functions
 
-This file contains the `sigaction` function that is used to set both the `server`'s event handler and the `client`'s event handlers for `SIGUSR1` and `SIGUSR2` signals:
+This file contains only a wrapper for `sigaction` used to set both the `server`'s event handler and the `client`'s event handlers for `SIGUSR1` and `SIGUSR2` signals:
 
 > Once again, error handling is done using control expressions inside `if` statements.
 ```c
@@ -385,8 +385,6 @@ void	ft_set_sigaction(struct sigaction *sa)
 		ft_perror_exit("sigaction() failed to handle SIGUSR2");
 }
 ```
-
-
 ___
 
 ## Usage 🏁
