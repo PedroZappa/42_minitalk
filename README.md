@@ -127,7 +127,9 @@ typedef struct s_protocol
 }	t_protocol;
 ```
 
-The server signal handler waits for 100 microseconds before it starts receiving data. It first receives an integer as "header information" specifying the length in bytes of the data about to be transferred, then come the actual bits of the message.
+The server signal handler waits for 100 microseconds before it starts receiving data.
+
+It first receives an integer as "header information" specifying the length in bytes of the data about to be transferred, then come the actual bits of the message.
 
 To store the data according to the data type being received the following bitwise operations and conditionals are employed:
 ```c
