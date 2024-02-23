@@ -112,7 +112,7 @@ ___
 static void	ft_server_sighandler(int sig, siginfo_t *info, void *context);
 ```
 
-Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called.
+Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called and a acknowledgement signal is sent back to the `client`.
 
 All its local variables are static, therefore automatically initialized to 0.
 
@@ -131,7 +131,7 @@ The server signal handler waits for 100 microseconds before it starts receiving 
 
 It first receives an integer as "header information" specifying the length in bytes of the data about to be transferred, then come the actual bits of the message.
 
-To store the data according to the data type being received the following bitwise operations and conditionals are employed:
+To store the bits according to the data type being received the following bitwise operations and conditionals are employed:
 ```c
 if ((sig == SIGUSR2) && !server.received)
 	server.data |= 1 << (((sizeof(int) * 8) - 1) - server.bits);
@@ -139,13 +139,19 @@ else if ((sig == SIGUSR2) && server.received)
 	server.data |= 1 << (((sizeof(char) * 8) - 1) - server.bits);
 ```
 
-The bitwise operators `|` (OR) and `<<` (Left-Shift) are used together to set the received bits in the proper place in memory. The conditional statements make sure that the first 32 bits of the message are saved in a space that fits an `int`, specifying the length of the incoming message. After this `int` is received the `server` starts storing the following inbound bits into `char` sized chunks of memory.
+The bitwise operators `|` (OR) and `<<` (Left-Shift) are used together to set the received bits in their right place in memory.
 
-This operation only happens when a `SIGUSR2` is received. Any time a `SIGUSR1` is caught, the server simply acknowledges it by printing a `*` and keeps listening for further signals.
+The conditional statements make sure that the first 32 bits of the message are saved in a space that fits an `int` that specifies the length of the incoming message.
+
+After this `int` is received the `server` starts storing the following inbound bits into `char` sized chunks of memory.
 
 > [!Note]
 >
-> On the server side, `SIGUSR1` and `SIGUSR2` are therefore used to signify 0 and 1 respectively.
+> These bitwise operations only happen when a `SIGUSR2` is received. Any time a `SIGUSR1` is caught, the server acknowledges by sending back a `SIGUSR1` to the `client`.
+>
+> Because the memory is `server.data` is initially set to 0, to get the right binary representation of the incoming integer stored in `server.data` we only need to act when a 1 is received, that is `SIGUSR2` in our communication protocol  
+>
+> `SIGUSR1` and `SIGUSR2` are therefore used to signify 0 and 1 respectively.
 
 ___
 #### `ft_strlen_received()`
