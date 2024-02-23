@@ -320,7 +320,7 @@ msglen = ft_strlen(msg);
 ft_send_int(pid, msglen);
 ```
 
-Then it loops through the message and sends each character to the server bit by bit.
+Then it loops through the message and sends each character to the server bit by bit:
 ```c
 ft_printf("\n%sSending Message%s\n", GRN, NC);
 while (msg[i] != '\0')
@@ -338,7 +338,6 @@ ___
 
 To send `char`s and `int`s to the `server` I implemented two helper functions: `ft_send_char()` and `ft_send_int()`.
 
-___
 #### `ft_send_char()` & `ft_send_int()`
 ```c
 void	ft_send_int(pid_t pid, int num);
