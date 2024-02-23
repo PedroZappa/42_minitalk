@@ -275,6 +275,8 @@ else if (kill(ft_atoi(argv[1]), 0) < 0)
 
 The `client`, like the `server`, uses `sigaction()` to handle incoming UNIX signals, but sets it up slightly differently.
 
+___
+
 The `client` declares `sa` and:
 * initializes `sa.sa_mask` with all signals excluded from the set using `sigemptyset()`;
 * `sa.sa_handler` is set to the function `ft_client_sighandler()`;
