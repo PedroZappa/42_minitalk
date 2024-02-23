@@ -149,7 +149,7 @@ else if ((sig == SIGUSR2) && server.received)
 >
 > These bitwise operations only happen when a `SIGUSR2` is received. Any time a `SIGUSR1` is caught, the server simply acknowledges by sending back a `SIGUSR1` to the `client`.
 >
-> Because the memory is `server.data` is initially set to 0, to get the right binary representation of the incoming integer stored in `server.data` we only need to act when a 1 is received, that is `SIGUSR2` in our communication protocol  
+> Because the memory in `server.data` is initially set to 0, to get the right binary representation of the incoming integer stored in it we only need to act when a 1 is received, that is `SIGUSR2` in our communication protocol  
 >
 > `SIGUSR1` and `SIGUSR2` are therefore used to signify 0 and 1 respectively.
 
