@@ -338,6 +338,7 @@ ___
 
 To send `char`s and `int`s to the `server` I implemented two helper functions: `ft_send_char()` and `ft_send_int()`.
 
+___
 #### `ft_send_char()` & `ft_send_int()`
 ```c
 void	ft_send_int(pid_t pid, int num);
@@ -355,9 +356,12 @@ bitshift = ((sizeof(char) * 8) - 1); // Prepare the server to receive 8 bits
 > `bitshift` will be used to iterate through each bit of the data being sent from the most significant (`MSB`) to the least significant bit (`LSB`).
 
 The `client` enters a loop running from `bitshift` to 0:
+
 * it breaks the `char`/`int` into its individual bits;
+
 * Each bit is passed as an argument to `ft_send_bit()` where it triggers the appropriate signal and is sent to the server;
-* `bitshift` is decremented to move to the next bit;
+
+* `bitshift` is decremented to move to the next bit, from left to right;
 ```c
 while (bitshift >= 0)
 {
