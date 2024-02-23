@@ -48,6 +48,7 @@ static void	ft_server_sighandler(int sig, siginfo_t *info, void *context)
 	ft_strlen_received(&server);
 	ft_print_msg(&server, &i, info->si_pid);
 	ft_send_bit(info->si_pid, 0, 0);
+
 }
 
 static void	ft_strlen_received(t_protocol *server)
