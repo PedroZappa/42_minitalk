@@ -424,9 +424,9 @@ ___
 
 ## Usage 🏁
 
-To try and test my `minitalk` project: 
+To try and test `minitalk`: 
 
-* I first clone the repository:
+* First clone the repository:
 ```bash
 git clone git@github.com:PedroZappa/42_minitalk.git
 ```
@@ -435,15 +435,15 @@ git clone git@github.com:PedroZappa/42_minitalk.git
 cd 42_minitalk
 make deps && make
 ```
-* Get the server spinning:
+* Get the `server` spinning:
 ```bash
 ./server
 ```
-* Now, on a different terminal, run the client:
+* Now, on a different terminal, run the `client`:
 ```bash
-./client [PID] [message]
+./client [pid] [message]
 ```
-* The client will send the message to the server.
+* The `client` will send the `message` to the `server` with the passed `pid`.
 
 ___
 ## Testing 🧪
