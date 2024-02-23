@@ -161,7 +161,7 @@ ___
 static void	ft_print_msg(t_protocol *server, int *i, pid_t pid);
 ```
 
-Once 8 bits have been received and we already got the header information, the first layer of logic is triggered.
+Once 8 bits have been received and the header information has already been transferred, the first layer of logic is triggered.
 ```c
 if ((server->bits == 8) && server->received) { ... }
 ```
