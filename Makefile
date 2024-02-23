@@ -129,14 +129,14 @@ running test: all			## Attach Clients to server in new tmux panes
 	tmux split-window -v "./client 1788338 'running test 3'"
 
 stress_test: all	## Attach Clients and stress running test
-	@echo "running test [1/3]"
-	tmux split-window -v "./client 1788338 '$(TXT_TEST)'" && \
+	tmux split-window -v "./client 1788338 '$(TXT_TEST)'" ; \
+	echo "running test [1/3]" && \
 	sleep 7
-	@echo "running test [2/3]"
-	tmux split-window -v "./client 1788338 '$(EMOJI_TEST1)'" && \
-	sleep 7
-	@echo "running test [3/3]"
-	tmux split-window -v "./client 1788338 '$(EMOJI_TEST2)'"
+	tmux split-window -v "./client 1788338 '$(EMOJI_TEST1)'" ; \
+	echo "running test [2/3]" && \
+	sleep 10
+	tmux split-window -v "./client 1788338 '$(EMOJI_TEST2)'" ; \
+	echo "running test [3/3]"
 
 ##@ Clean-up Rules 󰃢
 
