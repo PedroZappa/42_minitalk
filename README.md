@@ -31,10 +31,10 @@ ___
     * [`ft_print_msg()`](#ft_print_msg)
   * [`client.c`](#clientc)
     * [`ft_send_msg()`](#ft_send_msg)
-  * [`ft_send.c` Helper Functions](#ft_sendc-helper-functions)
+  * [`ft_send.c`](#ft_sendc)
     * [`ft_send_char()` & `ft_send_int()`](#ft_send_char--ft_send_int)
     * [`ft_send_bit()`](#ft_send_bit)
-  * [`ft_sigaction.c` Helper Functions](#ft_sigactionc-helper-functions)
+  * [`ft_sigaction.c`](#ft_sigactionc)
 * [Usage 🏁](#usage-)
 * [Testing 🧪](#testing-)
 * [License](#license)
@@ -335,7 +335,7 @@ ft_send_char(pid, '\0');
 ```
 
 ___
-### `ft_send.c` Helper Functions
+### `ft_send.c`
 
 To send `char`s and `int`s to the `server` I implemented two helper functions: `ft_send_char()` and `ft_send_int()`.
 
@@ -407,7 +407,7 @@ if (pause_flag != 0)
 	pause();
 ```
 ___
-### `ft_sigaction.c` Helper Functions
+### `ft_sigaction.c`
 
 This file contains only a wrapper for `sigaction` used to set both the `server`'s event handler and the `client`'s event handlers for `SIGUSR1` and `SIGUSR2` signals:
 
