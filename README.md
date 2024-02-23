@@ -400,7 +400,7 @@ If the `pause_flag` is set to 1, the `server` waits for the next data chunk to b
 
 > [!NOTE]
 >
-> This function is called with `pause_flag = 1` when used in the context of `ft_send_char()` and `ft_send_int()`, so that for each bit sent the `client` waits for a confirmation signal from the `server` before it proceeds sending the data.
+> This function is called with `pause_flag = 1` when used in the context of `ft_send_char()` and `ft_send_int()`, so that for each bit sent the `client` waits for a confirmation signal from the `server` before proceeding to send the data.
 ```c
 if (pause_flag != 0)
 	pause();
