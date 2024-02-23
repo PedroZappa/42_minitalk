@@ -206,7 +206,7 @@ if (server->data == '\0') { ... }
 
 The server then prints the message to `stdout` followed by the `server`'s
 `pid`. Since we are done with the `server.msg`, we free the memory
-space allocated to store it. (so that our Lady Valgrind doesn't complain about memory leaks).
+space allocated to store it.
 ```c
 ft_printf("Message:\n%s%s%s\n", GRN, server->msg, NC)
 ft_print_pid();
@@ -218,6 +218,13 @@ message.
 ```c
 server->msg = NULL;
 server->received = 0;
+*i = 0;
+```
+
+Finally we send a bit back to the `client` to signify that the message
+has been received.
+```c
+ft_send_bit(pid, 1, 0);
 ```
 
 ___
