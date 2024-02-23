@@ -361,7 +361,7 @@ The `client` enters a loop running from `bitshift` to 0:
 
 * Each bit is passed as an argument to `ft_send_bit()` where it triggers the appropriate signal and is sent to the server;
 
-* `bitshift` is decremented to move to the next bit, from left to right;
+* `bitshift` is decremented to move to the next bit of the binary representation of the `char`/`int`, from left to right;
 ```c
 while (bitshift >= 0)
 {
