@@ -116,7 +116,7 @@ static void	ft_server_sighandler(int sig, siginfo_t *info, void *context);
 
 * All its local variables are static, therefore automatically initialized to 0.
 
-* For the sake of simplicity one of these variables is a custom data type `t_protocol` which holds all the data the server needs to perform its operations:
+For the sake of simplicity one of these variables is a custom data type `t_protocol` which holds all the data the server needs to perform its operations:
 ```c
 typedef struct s_protocol
 {
@@ -131,7 +131,7 @@ typedef struct s_protocol
 
 * It first receives an integer as "header information" specifying the length in bytes of the message about to be transferred, then come the actual bits of the message.
 
-* To store the bits according to the data type being received the following bitwise operations and conditionals are employed:
+To store the bits according to the data type being received the following bitwise operations and conditionals are employed:
 ```c
 if ((sig == SIGUSR2) && !server.received)
 	server.data |= 1 << (((sizeof(int) * 8) - 1) - server.bits);
