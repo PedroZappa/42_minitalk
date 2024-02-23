@@ -30,6 +30,8 @@ ___
     * [`ft_strlen_received()`](#ft_strlen_received)
     * [`ft_print_msg()`](#ft_print_msg)
   * [Client Implementation](#client-implementation)
+* [Usage 🏁](#usage-)
+* [Testing 🧪](#testing-)
 
 <!-- mtoc-end -->
 
@@ -240,7 +242,6 @@ if (argc != 3)
 else if (kill(ft_atoi(argv[1]), 0) < 0)
 	ft_perror_exit("PID does not exist\n");
 ```
-```c
 
 ___
 
