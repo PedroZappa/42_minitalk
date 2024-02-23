@@ -112,11 +112,11 @@ ___
 static void	ft_server_sighandler(int sig, siginfo_t *info, void *context);
 ```
 
-Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called and a acknowledgement signal is sent back to the `client`.
+* Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called and an acknowledgement signal is sent back to the `client`.
 
-All its local variables are static, therefore automatically initialized to 0.
+* All its local variables are static, therefore automatically initialized to 0.
 
-For the sake of simplicity one of these variables is a custom data type `t_protocol` which holds all the data the server needs to perform its operations.
+* For the sake of simplicity one of these variables is a custom data type `t_protocol` which holds all the data the server needs to perform its operations:
 ```c
 typedef struct s_protocol
 {
@@ -127,11 +127,11 @@ typedef struct s_protocol
 }	t_protocol;
 ```
 
-The server signal handler waits for 100 microseconds before it starts receiving data.
+* The server signal handler waits for 100 microseconds before it starts receiving data.
 
-It first receives an integer as "header information" specifying the length in bytes of the data about to be transferred, then come the actual bits of the message.
+* It first receives an integer as "header information" specifying the length in bytes of the message about to be transferred, then come the actual bits of the message.
 
-To store the bits according to the data type being received the following bitwise operations and conditionals are employed:
+* To store the bits according to the data type being received the following bitwise operations and conditionals are employed:
 ```c
 if ((sig == SIGUSR2) && !server.received)
 	server.data |= 1 << (((sizeof(int) * 8) - 1) - server.bits);
@@ -139,11 +139,11 @@ else if ((sig == SIGUSR2) && server.received)
 	server.data |= 1 << (((sizeof(char) * 8) - 1) - server.bits);
 ```
 
-The bitwise operators `|` (OR) and `<<` (Left-Shift) are used together to set the received bits in their right place in memory.
+* The bitwise operators `|` (OR) and `<<` (Left-Shift) are used together to set the received bits in their right place in memory.
 
-The conditional statements make sure that the first 32 bits of the message are saved in a space that fits an `int` that specifies the length of the incoming message.
+* The conditional statements make sure that the first 32 bits of the message are saved in a space that fits an `int` that specifies the length of the incoming message.
 
-After this `int` is received the `server` starts storing the following inbound bits into `char` sized chunks of memory.
+* After this `int` is received the `server` starts storing the following inbound bits into `char` sized chunks of memory.
 
 > [!Note]
 >
