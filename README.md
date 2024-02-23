@@ -233,8 +233,10 @@ And so the `server` receives each byte of the message. It knows the message has 
 if (server->data == '\0') { ... }
 ```
 
-The server then prints the message to `stdout` followed by the `server`'s
-`pid`. Since we are done with the `server.msg`, we free the memory
+* The server then prints the message to `stdout` followed by the `server`'s
+`pid`. 
+
+* Since we are done with the `server.msg`, we free the memory
 space allocated to store it.
 ```c
 ft_printf("Message:\n%s%s%s\n", GRN, server->msg, NC)
