@@ -199,14 +199,14 @@ check out
 [ansi.h](https://github.com/PedroZappa/libft/blob/master/color_codes/ansi.h)
 included in my [libft](https://github.com/PedroZappa/libft) repository!
 
-And so the `server` receives each byte of the message. The server knows that the received message has reached its end when the current `server.data` value is the NULL terminator.
+And so the `server` receives each byte of the message. It knows the message has reached its end when the current `server.data` value is the NULL terminator.
 ```c
 if (server->data == '\0') { ... }
 ```
 
 The server then prints the message to `stdout` followed by the `server`'s
-`pid`, and since we are done with the `server.msg`, we free the memory
-space allocated to store it.
+`pid`. Since we are done with the `server.msg`, we free the memory
+space allocated to store it. (so that our Lady Valgrind doesn't complain about memory leaks).
 ```c
 ft_printf("Message:\n%s%s%s\n", GRN, server->msg, NC)
 ft_print_pid();
