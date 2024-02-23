@@ -37,6 +37,7 @@ ___
   * [`ft_sigaction.c` Helper Functions](#ft_sigactionc-helper-functions)
 * [Usage 🏁](#usage-)
 * [Testing 🧪](#testing-)
+  * [License](#license)
 
 <!-- mtoc-end -->
 
@@ -463,9 +464,16 @@ make serve
 ```sh
 make test
 ```
-* To run harder tests with long messages:
+* To run harder tests with longer messages including Unicode characters:
 ```sh
 make stress_test
 ```
-
 </div>
+___
+
+### License
+
+This work is published under the terms of <a href="https://github.com/PedroZappa/42_minitalk/blob/main/LICENSE">42 Unlicense</a>.
+
+<p align="right">(<a href="#readme-top">get to top</a>)</p>
+
