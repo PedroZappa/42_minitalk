@@ -252,7 +252,7 @@ server->received = 0;
 *i = 0;
 ```
 
-Finally we send a bit back to the `client` to signify that the message
+Finally we send a bit back to the `client` to signal that the message
 has been received.
 ```c
 ft_send_bit(pid, 1, 0);
@@ -263,7 +263,9 @@ ___
 
 Before starting operations the [client](https://github.com/PedroZappa/42_minitalk/blob/main/src/client.c) must check if its input arguments are valid.
 
-It first checks if `argc` is not equal to 3, if so the program will print an error to `stderr` and exit. Then checks if the `pid` of the server (`argv[1]`) is valid by test-calling `kill()` (with a zero instead of a signal identifier), if so the program will also print an error to `stderr` and exit.
+* It first checks if `argc` is not equal to 3, if so the program will print an error to `stderr` and exit.
+
+* Then checks if the `pid` of the server (`argv[1]`) is valid by test-calling `kill()` (with a zero instead of a signal identifier), if so the program will also print an error to `stderr` and exit.
 ```c
 if (argc != 3)
 	ft_perror_exit("Usage: ./client [PID] [message]\n");
