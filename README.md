@@ -112,7 +112,9 @@ ___
 static void	ft_server_sighandler(int sig, siginfo_t *info, void *context);
 ```
 
-Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called. All its local variables are static, therefore automatically initialized to 0.
+Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called.
+
+All its local variables are static, therefore automatically initialized to 0.
 
 For the sake of simplicity one of these variables is a custom data type `t_protocol` which holds all the data the server needs to perform its operations.
 ```c
@@ -285,7 +287,7 @@ ___
 static void ft_send_msg(pid_t pid, char *msg);
 ```
 
-This function creates a local variable `i`, initialized to 0, to keep track of the current index in the message being sent. 
+This function creates a local variable `i`, initialized to 0, to keep track of the current index in the message being sent.
 
 But before it starts sending the actual message it must first send its length to the `server`. This is done bit by bit using the function `ft_send_int`.
 ```c
@@ -311,7 +313,7 @@ ft_send_char(pid, '\0');
 ___
 ### `ft_send.c` Helper Functions
 
-To send `char`s and `int`s to the `server` I implemented two helper functions: `ft_send_char()` and `ft_send_int()`. 
+To send `char`s and `int`s to the `server` I implemented two helper functions: `ft_send_char()` and `ft_send_int()`.
 
 ___
 #### `ft_send_char()` & `ft_send_int()`
@@ -330,8 +332,8 @@ bitshift = ((sizeof(char) * 8) - 1); // Prepare the server to receive 8 bits
 ```
 > `bitshift` will be used to iterate through each bit of the data being sent from the most significant (`MSB`) to the least significant bit (`LSB`).
 
-The `client` enters a loop running from `bitshift` to 0: 
-* it breaks the `char`/`int` into its individual bits; 
+The `client` enters a loop running from `bitshift` to 0:
+* it breaks the `char`/`int` into its individual bits;
 * Each bit is passed as an argument to `ft_send_bit()` where it triggers the appropriate signal and is sent to the server;
 * `bitshift` is decremented to move to the next bit;
 ```c
