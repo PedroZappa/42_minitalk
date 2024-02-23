@@ -161,13 +161,13 @@ ___
 static void	ft_print_msg(t_protocol *server, int *i, pid_t pid);
 ```
 
-Once 8 bits have been received and the header information has already been transferred, the first layer of logic is triggered.
+Once 8 bits have been received and the header information has already been transferred, the first layer of logic is triggered:
 ```c
 if ((server->bits == 8) && server->received) { ... }
 ```
 The received byte stored in `server.data` is copied to the `i`-th index of `server->msg`.
 
-Then `i` variable is incremented to point to the next byte in memory where the next `char` or `Unicode` segment is gonna be stored.
+Then `i` is incremented to point to the next byte in memory where the next `char` or `Unicode` segment is gonna be stored.
 ```c
 server->msg[*i] = server->data;
 ++(*i);
@@ -197,10 +197,9 @@ ft_printf("Message:\n%s%s%s\n", GRN, server->msg, NC);
 > In case you are curious and want to learn more about ANSI escape codes
 check out
 [ansi.h](https://github.com/PedroZappa/libft/blob/master/color_codes/ansi.h)
-included in my [libft](https://github.com/PedroZappa/libft)
-implementation!
+included in my [libft](https://github.com/PedroZappa/libft) repository!
 
-And so the `server` receives each byte of the message until the whole message has been received. The server knows that the received message has reached its end when the current `server.data` value is the NULL terminator.
+And so the `server` receives each byte of the message. The server knows that the received message has reached its end when the current `server.data` value is the NULL terminator.
 ```c
 if (server->data == '\0') { ... }
 ```
