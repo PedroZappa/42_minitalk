@@ -376,7 +376,9 @@ ___
 void	ft_send_bit(pid_t pid, char bit, char pause_flag);
 ```
 
-`ft_send_bit()` sends information to the `server` bit by bit. It simply checks if the passed `bit` is 1 or 0 and sends the appropriate signal using `kill()`.
+* `ft_send_bit()` sends information to the `server` bit by bit.
+
+* It simply checks if the passed `bit` is 1 or 0 and sends the appropriate signal using `kill()`.
 
 > Calling `kill()` within an expression in an `if` statement is a handy way to handle possible errors with our signal calls. In this case if the call to `kill()` fails the program writes an error message to `stderr` and exits.
 ```c
