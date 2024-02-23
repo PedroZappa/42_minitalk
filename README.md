@@ -424,9 +424,43 @@ ___
 
 ## Usage 🏁
 
+To try and test my `minitalk` project: 
+
+* I first clone the repository:
+```bash
+git clone git@github.com:PedroZappa/42_minitalk.git
+```
+* Then fetch the project's dependencies and compile the program:
+```bash
+cd 42_minitalk
+make deps && make
+```
+* Get the server spinning:
+```bash
+./server
+```
+* Now, on a different terminal, run the client:
+```bash
+./client [PID] [message]
+```
+* The client will send the message to the server.
 
 ___
 ## Testing 🧪
 
+If you use `tmux` you can quickly test the project using the following make rules:
+
+* Spin up the `server` on a new `tmux` window-split:
+```bash
+make serve
+```
+* To automatically launch a few `client`s on new `tmux` window-splits:
+```bash
+make test
+```
+* To run harder tests with long messages:
+```bash
+make stress_test
+```
 
 </div>
