@@ -59,17 +59,18 @@ The mandatory implementation must behave as follows:
 * The `server` must be able to receive `message`s from several different clients **in a row** without the need for a restart. (Note that Linux systems do NOT queue signals when a signal of the same type is already pending).
 * `client`-`server` communication must be done using `SIGUSR1` and `SIGUSR2` signals only.
 
+___
 ### Bonus Features
 
 * The `server` acknowledges receiving a message by sending back a signal to the `client`.
 * Support Unicode characters.
 
 ___
-
 ## Implementation 📜
 
 For this project I chose to implement both mandatory and bonus features together. The `server` and `client` can be found in the `server.c` and `client.c` files inside the `src` folder plus two additional files `ft_sigaction.c` and `ft_send.c` containing helper functions.
 
+___
 ### Server Implementation
 
 To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/src/server.c)'s signal handling functionality I used `sigaction()` over `signal()`. This is because `signal()` is deprecated due to its varying behaviour across UNIX versions, making it a non-portable option.
