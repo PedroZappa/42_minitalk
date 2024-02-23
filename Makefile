@@ -17,8 +17,6 @@
 NAME_SERVER		= server
 NAME_CLIENT		= client
 UNAME 			= $(shell uname)
-# Get current tmux esssion name
-TMUX_SESSION	= $(shell tmux display-message -p '#S')
 
 SRC_PATH	= src
 INC_PATH	= inc
@@ -34,9 +32,12 @@ OBJS_SERVER	= $(SRC_SERVER:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 OBJS_CLIENT	= $(SRC_CLIENT:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 DEPS		= $(OBJS:.o=.d)
 
-TXT_TEST	= $(shell cat ./tests/500_w.txt)
-EMOJI_TEST1	= $(shell cat ./tests/1000_emoji.txt)
-EMOJI_TEST2	= $(shell cat ./tests/2000_emoji.txt)
+TXT_TEST1	= $(shell cat ./tests/bit_3000.txt)
+TXT_TEST2	= $(shell cat ./tests/bit_7000.txt)
+TXT_TEST3	= $(shell cat ./tests/bit_9999.txt)
+EMOJI_TEST1	= $(shell cat ./tests/emoji_1000.txt)
+EMOJI_TEST2	= $(shell cat ./tests/emoji_2000.txt)
+EMOJI_TEST3	= $(shell cat ./tests/emoji_3000.txt)
 
 SHELL := bash
 
@@ -115,28 +116,43 @@ leak: all			## Check for leaks w/ valgrind
 		--suppressions=readline_supression ./$(NAME)
 
 serve: all			## Run Server in new tmux pane
+	# tmux split-window -h "./server" & echo $$! > server.pid
 	tmux split-window -h "./server"
+	sleep 0.5
+	./scripts/minitalk-server-pid.sh >> server.pid
 	sleep 1
 
-running test: all			## Attach Clients to server in new tmux panes
-	@echo "running test [1/3]"
-	tmux split-window -v "./client 1788338 'running test 1'"
+get_pid: all				## Get Server PID
+	@echo $(SERVER_PID)
+
+test: all			## Attach Clients to server in new tmux panes
+	@echo "$(YEL)running test [1/3]$(D)"
+	tmux split-window -v "./client $$(cat server.pid) 'running test 1'"
 	sleep 1
-	@echo "running test [2/3]"
-	tmux split-window -v "./client 1788338 'running test 2'"
+	@echo "$(YEL)running test [2/3]$(D)"
+	tmux split-window -v "./client $$(cat server.pid) 'running test 2'"
 	sleep 1
-	@echo "running test [3/3]"
-	tmux split-window -v "./client 1788338 'running test 3'"
+	@echo "$(YEL)running test [3/3]$(D)"
+	tmux split-window -v "./client $$(cat server.pid) 'running test 3'"
 
 stress_test: all	## Attach Clients and stress running test
-	tmux split-window -v "./client 1788338 '$(TXT_TEST)'" ; \
-	echo "running test [1/3]" && \
+	tmux split-window -v "./client $$(cat server.pid) '$(TXT_TEST1)'" ; \
+	echo "$(YEL)running text test [1/3]$(D)" && \
 	sleep 7
-	tmux split-window -v "./client 1788338 '$(EMOJI_TEST1)'" ; \
-	echo "running test [2/3]" && \
-	sleep 10
-	tmux split-window -v "./client 1788338 '$(EMOJI_TEST2)'" ; \
-	echo "running test [3/3]"
+	tmux split-window -v "./client $$(cat server.pid) '$(TXT_TEST2)'" ; \
+	echo "$(YEL)running text test [2/3]$(D)" && \
+	sleep 12
+	tmux split-window -v "./client $$(cat server.pid) '$(TXT_TEST3)'" ; \
+	echo "$(YEL)running text test [3/3]$(D)" && \
+	sleep 15
+	tmux split-window -v "./client $$(cat server.pid) '$(EMOJI_TEST1)'" ; \
+	echo "$(YEL)running 😎emoji😎 test [1/3]$(D)" && \
+	sleep 11
+	tmux split-window -v "./client $$(cat server.pid) '$(EMOJI_TEST2)'" ; \
+	echo "$(YEL)running 😎emoji😎 test [2/3]$(D)" && \
+	sleep 20
+	tmux split-window -v "./client $$(cat server.pid) '$(EMOJI_TEST3)'" ; \
+	echo "$(YEL)running 😎emoji😎 test [3/3]$(D)"
 
 ##@ Clean-up Rules 󰃢
 

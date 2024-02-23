@@ -56,3 +56,4 @@ inc
 .build
 server
 client
+server.pid
