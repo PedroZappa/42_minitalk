@@ -156,7 +156,7 @@ Once 8 bits have been received the first layer of logic is triggered.
 ```c
 if ((server->bits == 8) && server->received) { ... }
 ```
-The received byte stored in `server.data` is copied to the `i`-th index of `server->msg`.
+The received byte stored in `server.data` is copied to the `i`-th index of `server->msg`. The `i` variable is incremented to point to the next byte in memory where the next byte is gonna be stored.
 ```c
 server->msg[*i] = server->data;
 ++(*i);
