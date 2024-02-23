@@ -107,7 +107,7 @@ update_modules:	## Update modules
 	git submodule update --recursive --remote
 	@echo "[$(GRN)Submodules successfully updated$(D)]"
 
-##@ Debug & Leak Check Rules 󰃢
+##@ Test, Debug & Leak Check Rules 󰃢
 
 leak: all			## Check for leaks w/ valgrind
 	@valgrind -q --leak-check=full --show-leak-kinds=all \
@@ -124,7 +124,7 @@ test: all			## Attach Clients to server in new tmux panes
 	sleep 1
 	tmux split-window -v "./client 3266009 'test 3'"
 
-stress_test: all			## Attach Clients and stress test
+stress_test: all	## Attach Clients and stress test
 	tmux split-window -v "./client 3266009 'test 1'"
 	sleep 1
 	tmux split-window -v "./client 3266009 'test 2'"
