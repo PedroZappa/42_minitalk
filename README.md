@@ -94,6 +94,9 @@ while (1)
 ```
 ___
 #### `ft_server_sighandler()`
+```c
+static void	ft_server_sighandler(int sig, siginfo_t *info, void *context);
+```
 
 Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called. All its local variables are static, therefore automatically initialized to 0.
 
@@ -128,6 +131,9 @@ This operation only happens when a `SIGUSR2` is received. Any time a `SIGUSR1` i
 
 ___
 #### `ft_strlen_received()`
+```c
+static void	ft_strlen_received(t_protocol *server);
+```
 
 Once the `int` has been received the conditions for the triggering of the code block inside `ft_strlen_received()` are met:
 ```c
@@ -151,8 +157,11 @@ server->bits = 0;
 
 ___
 #### `ft_print_msg()`
+```c
+static void	ft_print_msg(t_protocol *server, int *i, pid_t pid);
+```
 
-Once 8 bits have been received the first layer of logic is triggered. 
+Once 8 bits have been received the first layer of logic is triggered.
 ```c
 if ((server->bits == 8) && server->received) { ... }
 ```
@@ -160,10 +169,12 @@ The received byte stored in `server.data` is copied to the `i`-th index of `serv
 ```c
 server->msg[*i] = server->data;
 ++(*i);
-```  
+```
 
-
-and the `server->bits` are reset to 0 to prepare the server to receive the next byte.
+And so the `server` receives each byte in the message until all the bits have been received. The server knows that the received message has reached its end when the current `server.data` value is the NULL terminator.
+```c
+if (server->data == '\0') { ... }
+```
 
 
 
