@@ -430,7 +430,7 @@ To try and test `minitalk`:
 ```bash
 git clone git@github.com:PedroZappa/42_minitalk.git
 ```
-* Then fetch the project's dependencies and compile the program:
+* Then fetch the project's dependencies and compile the executables:
 ```bash
 cd 42_minitalk
 make deps && make
@@ -443,14 +443,14 @@ make deps && make
 ```bash
 ./client [pid] [message]
 ```
-* The `client` will send the `message` to the `server` with the passed `pid`.
+* The `client` will send the passed `message` to the target `server`.
 
 ___
 ## Testing 🧪
 
-If you use `tmux` you can quickly test the project using the following make rules:
+If you're like me and use `tmux` you can quickly test the project using the following make rules:
 
-* Spin up the `server` on a new `tmux` window-split:
+* Spins up the `server` conveniently on a new `tmux` window-split:
 ```bash
 make serve
 ```
