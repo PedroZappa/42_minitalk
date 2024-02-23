@@ -180,7 +180,7 @@ The memory space for the message is then NULL terminated, and the `server->bits`
 server->msg[server->data] = '\0';
 server->bits = 0;
 ```
-* It then continues receiving the message bit by bit until every `char` in the message has been transferred to the `server` successfully.
+The function ends and the `server` continues receiving the message bit by bit until every `char` in the message has been transferred to the `server` successfully.
 
 ___
 #### `ft_print_msg()`
