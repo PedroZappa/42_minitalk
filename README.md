@@ -173,7 +173,7 @@ server->msg[*i] = server->data;
 ++(*i);
 ```
 
-Notice that `server.bits` is reset to 0 after the `char` has been stored.
+Notice that `server.bits` is reset to 0 after the `char` has been stored, in preparation to receive the next.
 ```c
 server->bits = 0;
 ```
