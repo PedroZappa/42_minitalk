@@ -27,9 +27,9 @@ int	main(int argc, char **argv)
 	sa.sa_handler = ft_client_sighandler;
 	sa.sa_flags = SA_RESTART;
 	ft_set_sigaction(&sa);
-	ft_sep_color('0', '=', 20, GRN);
+	ft_sep_color('0', '=', 28, GRN);
 	ft_printf("Sending to Server\n%sPID: %d%s\n", YEL, ft_atoi(argv[1]), NC);
-	ft_sep_color('0', '=', 20, GRN);
+	ft_sep_color('0', '=', 28, GRN);
 	ft_send_msg(ft_atoi(argv[1]), argv[2]);
 	return (EXIT_SUCCESS);
 }
@@ -40,7 +40,10 @@ static void	ft_client_sighandler(int sig)
 		ft_printf("%s*%s", YEL, NC);
 	else if (sig == SIGUSR2)
 	{
-		ft_printf("\n%sSuccessfully sent!%s\n", GRN, NC);
+		ft_printf("\n");
+		ft_sep_color('0', '=', 28, GRN);
+		ft_printf("Message successfully sent!\n");
+		ft_sep_color('0', '=', 28, GRN);
 		exit(EXIT_SUCCESS);
 	}
 }
@@ -58,9 +61,10 @@ static void ft_send_msg(pid_t pid, char *msg)
 		ft_printf("\n%sSending Message%s\n", GRN, NC);
 		while (msg[i] != '\0')
 			ft_send_char(pid, msg[i++]);
-		ft_sep_color('0', '=', 20, GRN);
-		ft_printf("\n%sSending NULL Terminator\n", MAG, NC);
-		ft_sep_color('0', '=', 20, GRN);
+		ft_printf("\n");
+		ft_sep_color('0', '=', 28, GRN);
+		ft_printf("%sSending NULL Terminator\n", MAG, NC);
+		ft_sep_color('0', '=', 28, GRN);
 		ft_send_char(pid, '\0');
 	}
 }
