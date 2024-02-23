@@ -284,7 +284,7 @@ The `client` declares `sa` and:
 
 * `sa.sa_flags` is set to `SA_RESTART`;
 
-* Then the `sa` struct is passed into `ft_set_sigaction()` to set event handling for `SIGUSR1` and `SIGUSR2`.
+* Then the `sa` struct is passed into `ft_set_sigaction()` to set event handling for `SIGUSR1` and `SIGUSR2`;
 ```c
 struct sigaction	sa;
 
@@ -294,9 +294,9 @@ sa.sa_flags = SA_RESTART;
 ft_set_sigaction(&sa);
 ```
 
-> The `client` event handler simply prints a `*` if the received signal is `SIGUSR1` or if it is `SIGUSR2` announces that the message has been successfully sent and exits the program.
+> The `client` event handler prints a `*` if the received signal is `SIGUSR1` or if it is `SIGUSR2` it announces that the message has been successfully sent and exits the program.
 
-The `client` then prints the `server`'s `pid` to `stdout` to which it is connects to and calls `ft_send_msg()`.
+The `client` then prints the `server`'s `pid` to `stdout` and calls `ft_send_msg()`.
 ```c
 ft_print_pid();
 ...
