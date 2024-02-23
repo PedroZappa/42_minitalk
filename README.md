@@ -32,6 +32,10 @@ ___
   * [Client Implementation](#client-implementation)
     * [`ft_send_msg()`](#ft_send_msg)
   * [`ft_send.c` Helper Functions](#ft_sendc-helper-functions)
+    * [`ft_send_char()` & `ft_send_int()`](#ft_send_char--ft_send_int)
+    * [`ft_send_bit()`](#ft_send_bit)
+* [Usage 🏁](#usage-)
+* [Testing 🧪](#testing-)
 
 <!-- mtoc-end -->
 
@@ -300,8 +304,47 @@ Then all there's left to do is to send a NULL terminator to the `server` and ter
 ft_send_char(pid, '\0');
 ```
 
+___
 ### `ft_send.c` Helper Functions
+
+To send `char`s and `int`s to the `server` I implemented two helper functions: `ft_send_char()` and `ft_send_int()`. 
+
+#### `ft_send_char()` & `ft_send_int()`
+
+These two functions work in a similar way. They first initialize a `bitshift` integer variable with the size of the data type about to be sent:
 ```c
+int		bitshift;
+
+bitshift = ((sizeof(int) * 8) - 1);  // Prepare the server to receive 32 bits
+...
+bitshift = ((sizeof(char) * 8) - 1); // Prepare the server to receive 8 bits
+```
+> `bitshift` will be used to iterate through each bit of the data being sent from the most significant (`MSB`) to the least significant bit (`LSB`).
+
+The `client` enters a loop running from `bitshift` to 0: 
+* it breaks the `char`/`int` into its individual bits; 
+* Each bit is passed as an argument to `ft_send_bit()` where it triggers the appropriate signal and is sent to the server;
+* `bitshift` is decremented to move to the next bit;
+```c
+while (bitshift >= 0)
+{
+	bit = (num >> bitshift) & 1; // Get the current bit
+	ft_send_bit(pid, bit, 1);    // Send the current bit
+	--bitshift;                  // Move to the next bit
+}
+```
+
+
+___
+#### `ft_send_bit()`
+
+```c
+```
+
+
+Both of these functions leverage `ft_send_bit()` to send information to the `server` bit by bit.
+
+
 
 
 ___

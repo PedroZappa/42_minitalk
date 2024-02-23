@@ -22,7 +22,7 @@ void	ft_send_int(pid_t pid, int num)
 	{
 		bit = (num >> bitshift) & 1;
 		ft_send_bit(pid, bit, 1);
-		bitshift--;
+		--bitshift;
 	}
 }
 
@@ -36,7 +36,7 @@ void	ft_send_char(pid_t pid, char c)
 	{
 		bit = (c >> bitshift) & 1;
 		ft_send_bit(pid, bit, 1);
-		bitshift--;
+		--bitshift;
 	}
 }
 
