@@ -25,11 +25,11 @@ ___
   * [Mandatory Features](#mandatory-features)
   * [Bonus Features](#bonus-features)
 * [Implementation 📜](#implementation-)
-  * [Server Implementation](#server-implementation)
+  * [`server.c`](#serverc)
     * [`ft_server_sighandler()`](#ft_server_sighandler)
     * [`ft_strlen_received()`](#ft_strlen_received)
     * [`ft_print_msg()`](#ft_print_msg)
-  * [Client Implementation](#client-implementation)
+  * [`client.c`](#clientc)
     * [`ft_send_msg()`](#ft_send_msg)
   * [`ft_send.c` Helper Functions](#ft_sendc-helper-functions)
     * [`ft_send_char()` & `ft_send_int()`](#ft_send_char--ft_send_int)
@@ -72,7 +72,7 @@ ___
 For this project I chose to implement both mandatory and bonus features together. The `server` and `client` can be found in the `server.c` and `client.c` files inside the `src` folder plus two additional files `ft_sigaction.c` and `ft_send.c` containing helper functions.
 
 ___
-### Server Implementation
+### `server.c`
 
 To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/src/server.c)'s signal handling functionality I used `sigaction()` over `signal()`. This is because `signal()` is deprecated due to its varying behaviour across UNIX versions, making it a non-portable option.
 
@@ -260,7 +260,7 @@ ft_send_bit(pid, 1, 0);
 ```
 
 ___
-### Client Implementation
+### `client.c`
 
 Before starting operations the [client](https://github.com/PedroZappa/42_minitalk/blob/main/src/client.c) must check if its input arguments are valid.
 
