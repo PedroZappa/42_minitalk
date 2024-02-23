@@ -69,27 +69,33 @@ For this project I chose to implement both mandatory and bonus features together
 
 To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/src/server.c)'s signal handling functionality I used `sigaction()` over `signal()`. This is because `signal()` is deprecated due to its varying behaviour across UNIX versions, making it a non-portable option.
 
-Both functions listen for a user defined signal and change de default signal action associated to it, their main difference being that `sigaction()` employs a specialized struct to store information, giving the user finer control over signal actions.
+> Both functions listen for a user defined signal and change de default signal action associated to it, their main difference being that `sigaction()` employs a specialized struct to store extra information, giving the user finer control over signal actions.
 
-The `server`'s **main()** function declares and initializes a `struct sigaction` variable called `sa`. `sa.sa_sigaction` is set to the function `ft_server_sighandler()`, and `sa.sa_flags` has the bits for `SA_SIGINFO` and `SA_RESTART` turned on.
+The `server`'s **main()** function declares and initializes a `struct sigaction` variable called `sa`.
+* It uses `sigemptyset()` to initialize the signal set `sa.sa_mask` with all signals excluded from the set;
+* `sa.sa_sigaction` is set to the function `ft_server_sighandler()`;
+* `sa.sa_flags` has the bits for `SA_SIGINFO` and `SA_RESTART` turned on;
 
-> [!Note]
->
-> `SA_SIGINFO` gives the user access to extended signal information; This flag makes `sigaction()` switch where it looks for the custom signal handler, changing it from the `sa.sa_handler` member to `sa.sa_sigaction`.
->
-> `SA_RESTART` provides BSD compatible behaviour allowing certain system calls to be restartable across signals.
-
+The `sa` struct is then passed into `ft_set_sigaction()` to set event handling for `SIGUSR1` and `SIGUSR2` signals.
 ```c
 struct sigaction	sa;
 
-sa.sa_handler = ft_server_sighandler;
+sigemptyset(&sa.sa_mask);
+sa.sa_sigaction = ft_server_sighandler;
 sa.sa_flags = SA_SIGINFO | SA_RESTART;
+ft_set_sigaction(&sa);
 ```
 
-The `sa` struct is then passed into `ft_set_sigaction()` to set event handling for `SIGUSR1` and `SIGUSR2` signals.
+> [!Note]
+>
+> * `SA_SIGINFO` : gives the user access to extended signal information; This flag makes `sigaction()` switch where it looks for the custom signal handler, changing it from the `sa.sa_handler` member to `sa.sa_sigaction`.
+>
+> * `SA_RESTART` : provides BSD compatible behaviour allowing certain system calls to be restartable across signals.
+
 
 Prints the `server`'s' `pid` to `stdout` and enters an infinite loop, listening for a signal to catch.
 ```c
+ft_print_pid();
 while (1)
 	pause();
 ```
@@ -231,17 +237,20 @@ ft_send_bit(pid, 1, 0);
 ___
 ### Client Implementation
 
-The [client](https://github.com/PedroZappa/42_minitalk/blob/main/src/client.c) also uses `sigaction()` to handle incoming UNIX signals.
 
-Before starting operations the `client` must check if its input arguments are valid.
+Before starting operations the [client](https://github.com/PedroZappa/42_minitalk/blob/main/src/client.c) must check if its input arguments are valid.
 
-It first checks if `argc` is not equal to 3, if so the program will print an error to `stderr` and exit. Then checks if `argv[1]`, the `pid` of the server is not a valid, if so the program will also print an error to `stderr` and exit.
+It first checks if `argc` is not equal to 3, if so the program will print an error to `stderr` and exit. Then checks if the `pid` of the server (`argv[1]`) is valid by test-calling `kill()` (with a zero instead of a signal identifier), if so the program will also print an error to `stderr` and exit.
 ```c
 if (argc != 3)
 	ft_perror_exit("Usage: ./client [PID] [message]\n");
 else if (kill(ft_atoi(argv[1]), 0) < 0)
 	ft_perror_exit("PID does not exist\n");
 ```
+
+The `client`, like the `server`, uses `sigaction()` to handle incoming UNIX signals, but sets it up slghtly differently.
+
+
 
 ___
 
