@@ -180,7 +180,7 @@ The memory space for the message is then NULL terminated, and the `server->bits`
 server->msg[server->data] = '\0';
 server->bits = 0;
 ```
-The function ends and the `server` continues receiving the message bit by bit until every `char` in the message has been transferred to the `server` successfully.
+The function ends and the `server` continues receiving the message bit by bit until every `char` in the message has been transferred successfully.
 
 ___
 #### `ft_print_msg()`
@@ -192,9 +192,9 @@ Once 8 bits have been received and the header information has already been trans
 ```c
 if ((server->bits == 8) && server->received) { ... }
 ```
-The received byte stored in `server.data` is copied to the `i`-th index of `server->msg`.
+* The received byte stored in `server.data` is copied to the `i`-th index of `server->msg`.
 
-Then `i` is incremented to point to the next byte in memory where the next `char` or `Unicode` segment is gonna be stored.
+Then `i` is incremented so that when indexed `server->msg[i]` points to the next byte in memory where the next `char` or `Unicode` segment is gonna be stored.
 ```c
 server->msg[*i] = server->data;
 ++(*i);
@@ -209,7 +209,9 @@ server->bits = 0;
 >
 > On Unicode ...
 
-And so the `server` receives each byte of the message until the whole message has been received. The server knows that the received message has reached its end when the current `server.data` value is the NULL terminator.
+And so the `server` receives each byte of the message until the whole message has been received. 
+
+The server knows that the message has reached its end when the value of `server.data` is the NULL terminator.
 ```c
 if (server->data == '\0') { ... }
 ```
