@@ -165,17 +165,27 @@ Once 8 bits have been received the first layer of logic is triggered.
 ```c
 if ((server->bits == 8) && server->received) { ... }
 ```
-The received byte stored in `server.data` is copied to the `i`-th index of `server->msg`. The `i` variable is incremented to point to the next byte in memory where the next byte is gonna be stored.
+The received byte stored in `server.data` is copied to the `i`-th index of `server->msg`.
+
+Then `i` variable is incremented to point to the next byte in memory where the next `char` or `Unicode` segment is gonna be stored.
 ```c
 server->msg[*i] = server->data;
 ++(*i);
 ```
 
-And so the `server` receives each byte in the message until all the bits have been received. The server knows that the received message has reached its end when the current `server.data` value is the NULL terminator.
+> [!Note]
+>
+> On Unicode ...
+
+And so the `server` receives each byte of the message until the whole message has been received. The server knows that the received message has reached its end when the current `server.data` value is the NULL terminator.
 ```c
 if (server->data == '\0') { ... }
 ```
 
+The server then prints the message to `stdout` taking advantage of ANSI escape codes to color the ouptut. (All escape codes are defined inside my [libft](https://github.com/PedroZappa/libft/blob/master/color_codes/ansi.h) implementation)
+```c
+ft_printf("Message:\n%s%s%s\n", GRN, server->msg, NC);
+```
 
 
 ___

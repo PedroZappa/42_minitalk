@@ -76,7 +76,7 @@ static void	ft_print_msg(t_protocol *server, int *i, pid_t pid)
 		if (server->data == '\0')
 		{
 			ft_printf("[%sMessage received!%s]\n", MAG, NC);
-			ft_printf("MSG:\n%s%s%s\n", GRN, server->msg, NC);
+			ft_printf("Message:\n%s%s%s\n", GRN, server->msg, NC);
 			ft_print_pid();
 			free(server->msg);
 			server->msg = NULL;
