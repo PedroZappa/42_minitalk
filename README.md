@@ -31,6 +31,7 @@ ___
     * [`ft_print_msg()`](#ft_print_msg)
   * [Mandatory Client Implementation](#mandatory-client-implementation)
 * [Usage 🏁](#usage-)
+* [Testing 🧪](#testing-)
 
 <!-- mtoc-end -->
 
@@ -228,12 +229,17 @@ ft_send_bit(pid, 1, 0);
 ```
 
 ___
-
 ### Mandatory Client Implementation
+
 
 
 ___
 
 ## Usage 🏁
+
+
+___
+## Testing 🧪
+
 
 </div>
