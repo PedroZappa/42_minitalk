@@ -166,9 +166,11 @@ Once the `int` has been received the conditions for the triggering of the code b
 if ((server->bits == (sizeof(int) * 8)) && !server->received) { ... }
 ```
 
-This function first sets the `server.received` flag to 1, signifying that the header data has been received. It then continues receiving the message bit by bit until every `char` in the message has been transferred successfully.
+* This function first sets the `server.received` flag to 1, signifying that the header data has been received. 
 
-The server prints the length of the message to `stdout`, then takes this value plus 1 (to account for the NULL terminator) and allocates memory for a message with that many bytes.
+* It then continues receiving the message bit by bit until every `char` in the message has been transferred successfully.
+
+The `server` prints the length of the message to `stdout`, then takes this value plus 1 (to account for the NULL terminator) and allocates memory for a message with that many bytes:
 ```c
 server->msg = ft_calloc((server->data + 1), sizeof(char));
 if (!server->msg)
