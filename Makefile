@@ -160,6 +160,8 @@ clean: 				## Remove object files
 	@echo "[$(RED)Removing $(BUILD_PATH) 󰃢$(D)]"
 	$(RM) $(BUILD_PATH)
 	@echo "==> $(GRN)Object files successfully removed!$(D)\n"
+	$(RM) server.pid
+	@echo "==> $(GRN)Server pid file successfully removed!$(D)\n"
 
 fclean: clean	## Remove archives & executables
 	@echo "[$(RED)Cleaning executable 󰃢$(D)]"
