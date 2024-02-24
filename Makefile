@@ -111,18 +111,15 @@ update_modules:	## Update modules
 
 ##@ Test, Debug & Leak Check Rules 
 
-leak: all			## Run Server w/ Valgrind
-	tmux split-window -h "valgrind -q --leak-check=full --show-leak-kinds=all ./server"
+valgrind: all			## Run Server w/ Valgrind
+	tmux split-window -h "valgrind --leak-check=full --show-leak-kinds=all ./server"
 	sleep 0.5
-	# GET VALGRIND PID!
-	./scripts/minitalk-server-pid.sh >> server.pid
+	./scripts/get-valgrind-pid.sh > server.pid
 
 serve: all			## Run Server in new tmux pane
-	# tmux split-window -h "./server" & echo $$! > server.pid
 	tmux split-window -h "./server"
 	sleep 0.5
-	./scripts/get-server-pid.sh >> server.pid
-	sleep 1
+	./scripts/get-server-pid.sh > server.pid
 
 test: all			## Attach Clients to server in new tmux panes
 	@echo "$(YEL)running test [1/3]$(D)"
