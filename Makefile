@@ -161,22 +161,22 @@ clean: 				## Remove object files
 	$(MAKE) $(LIBFT_PATH) clean
 	@echo "[$(RED)Removing $(BUILD_PATH) 󰃢$(D)]"
 	$(RM) $(BUILD_PATH)
-	@echo "==> $(GRN)Object files successfully removed!$(D)\n"
+	@echo "[$(GRN)Object files successfully removed!$(D)]\n"
 	$(RM) server.pid
-	@echo "==> $(GRN)Server pid file successfully removed!$(D)\n"
+	@echo "[$(GRN)Server pid file successfully removed!$(D)]\n"
 
 fclean: clean	## Remove archives & executables
 	@echo "[$(RED)Cleaning executable 󰃢$(D)]"
 	$(RM) $(NAME_SERVER) $(NAME_CLIENT)
 	$(MAKE) $(LIBFT_PATH) fclean
-	@echo "==> $(GRN)$(NAME) Successfully removed!$(D)\n"
+	@echo "[$(GRN)$(NAME) Successfully removed!$(D)i]\n"
 
 libclean: fclean	## Remove libft
 	@echo "[$(RED)Cleaning libft 󰃢$(D)]"
 	$(RM) $(LIBFT_PATH)
-	@echo "==> $(GRN)libft successfully removed!$(D)\n"
+	@echo "[$(GRN)libft successfully removed!$(D)]\n"
 	$(RM) $(INC_PATH)
-	@echo "==> $(GRN)inc folder successfully removed!$(D)\n"
+	@echo "[$(GRN)inc folder successfully removed!$(D)]\n"
 
 re: fclean all	## Purge and Recompile
 
