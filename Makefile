@@ -64,7 +64,7 @@ MAKE		= make -C
 
 ##@ Minitalk Compilation Rules 🏗
 
-all: $(BUILD_PATH) $(NAME_SERVER) $(NAME_CLIENT)	## Compile Minitalk
+all: $(BUILD_PATH) deps $(NAME_SERVER) $(NAME_CLIENT)	## Compile Minitalk
 
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.c
 	@echo -n "$(MAG)█$(D)"
@@ -77,11 +77,13 @@ $(NAME_SERVER): $(LIBFT_ARC) $(OBJS_SERVER)
 	@echo "[$(YEL)Compiling Minitalk Server$(D)]"
 	@echo -n "$(GRN)█$(D)"
 	$(CC) $(CFLAGS) $(OBJS_SERVER) $(LIBFT_ARC) -o $(NAME_SERVER)
+	@echo "[$(GRN)SUCCESS$(D) compiling $(MAG)server!$(D) $(YEL)🖔$(D)]"
 
 $(NAME_CLIENT): $(LIBFT_ARC) $(OBJS_CLIENT)
 	@echo "[$(YEL)Compiling Minitalk Client$(D)]"
 	@echo -n "$(GRN)█$(D)"
 	$(CC) $(CFLAGS) $(OBJS_CLIENT) $(LIBFT_ARC) -o $(NAME_CLIENT)
+	@echo "[$(GRN)SUCCESS$(D) compiling $(MAG)client!$(D) $(YEL)🖔$(D)]"
 
 $(LIBFT_ARC):
 	$(MAKE) $(LIBFT_PATH) extra
@@ -91,10 +93,10 @@ bonus:			## Compile Minitalk with bonus features
 	make all
 	@echo "[$(GRN)SUCCESS$(D) compiling $(MAG)minitalk with bonus!$(D) $(YEL)🖔$(D)]"
 
-deps:			## Download/Update libft
-	@if running test ! -d "$(LIBFT_PATH)"; then make get_libft; \
+deps: 			## Download/Update libft
+	@if test ! -d "$(LIBFT_PATH)"; then make get_libft; \
 		else echo "$(YEL)[libft]$(D) folder found"; fi
-	@make update_modules
+		@echo " $(RED)$(D) [$(GRN)Nothing to be done!$(D)]"
 
 -include $(DEPS)
 
