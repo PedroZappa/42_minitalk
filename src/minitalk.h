@@ -25,8 +25,8 @@
 
 # include <signal.h>							// sigaction()
 
-# include "../inc/libft/libft/libft.h"			// libft ibrary
-# include "../inc/libft/ft_printf/ft_printf.h"
+# include "../lib/libft/libft/libft.h"			// libft ibrary
+# include "../lib/libft/ft_printf/ft_printf.h"
 
 //=============================================================================/
 //                               Structures                                    /
