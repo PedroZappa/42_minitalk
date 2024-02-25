@@ -97,13 +97,13 @@ $(NAME_SERVER): $(LIBFT_ARC) $(OBJS_SERVER)
 	@echo "[$(YEL)Compiling minitalk Server$(D)]"
 	@echo -n "$(GRN)█$(D)"
 	$(CC) $(CFLAGS) $(OBJS_SERVER) $(LIBFT_ARC) -o $(NAME_SERVER)
-	@echo "[$(GRN)SUCCESS$(D) compiling $(MAG)server!$(D) $(YEL)🖔$(D)]"
+	@echo "[$(_SUCCESS) compiling $(MAG)server!$(D) $(YEL)🖔$(D)]"
 
 $(NAME_CLIENT): $(LIBFT_ARC) $(OBJS_CLIENT)
 	@echo "[$(YEL)Compiling minitalk Client$(D)]"
 	@echo -n "$(GRN)█$(D)"
 	$(CC) $(CFLAGS) $(OBJS_CLIENT) $(LIBFT_ARC) -o $(NAME_CLIENT)
-	@echo "[$(GRN)SUCCESS$(D) compiling $(MAG)client!$(D) $(YEL)🖔$(D)]"
+	@echo "[$(_SUCCESS) compiling $(MAG)client!$(D) $(YEL)🖔$(D)]"
 
 $(LIBFT_ARC):
 	$(MAKE) $(LIBFT_PATH) extra
@@ -111,7 +111,7 @@ $(LIBFT_ARC):
 bonus:			## Compile minitalk with bonus features
 	@echo "[$(YEL)Compiling minitalk with bonus features$(D)]"
 	make all
-	@echo "[$(GRN)SUCCESS$(D) compiling $(MAG)minitalk with bonus!$(D) $(YEL)🖔$(D)]"
+	@echo "[$(_SUCCESS) compiling $(MAG)minitalk with bonus!$(D) $(YEL)🖔$(D)]"
 
 deps: 			## Download/Update libft
 	@if test ! -d "$(LIBFT_PATH)"; then make get_libft; \
