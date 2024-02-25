@@ -11,19 +11,34 @@
 # **************************************************************************** #
 
 #==============================================================================#
-#                                NAMES & PATHS                                 #
+#                                  MAKE CONFIG                                 #
 #==============================================================================#
 
+SHELL := bash
+
+#==============================================================================#
+#                                     NAMES                                    #
+#==============================================================================#
+
+USER			= passunca
 NAME_SERVER		= server
 NAME_CLIENT		= client
 UNAME 			= $(shell uname)
 
+### Message Vars
+_SUCCESS 		= [$(GRN)SUCCESS$(D)]
+_INFO 			= [$(BLU)INFO$(D)]
+_NORM 			= [$(YEL)Norminette$(D)]
+_NORM_SUCCESS 	= $(GRN)=== OK:$(D)
+_NORM_INFO 		= $(BLU)File no:$(D)
+
+#==============================================================================#
+#                                    PATHS                                     #
+#==============================================================================#
+
 SRC_PATH	= src
 INC_PATH	= inc
 BUILD_PATH	= .build
-
-LIBFT_PATH	= $(INC_PATH)/libft
-LIBFT_ARC	= $(LIBFT_PATH)/libft.a
 
 SRC_SERVER	= $(addprefix $(SRC_PATH)/, server.c ft_send.c ft_sigaction.c)
 SRC_CLIENT	= $(addprefix $(SRC_PATH)/, client.c ft_send.c ft_sigaction.c)
@@ -32,6 +47,9 @@ OBJS_SERVER	= $(SRC_SERVER:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 OBJS_CLIENT	= $(SRC_CLIENT:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 DEPS		= $(OBJS:.o=.d)
 
+LIBFT_PATH	= $(INC_PATH)/libft
+LIBFT_ARC	= $(LIBFT_PATH)/libft.a
+
 TXT_TEST1	= $(shell cat ./tests/bit_3000.txt)
 TXT_TEST2	= $(shell cat ./tests/bit_7000.txt)
 TXT_TEST3	= $(shell cat ./tests/bit_9999.txt)
@@ -39,10 +57,8 @@ EMOJI_TEST1	= $(shell cat ./tests/emoji_1000.txt)
 EMOJI_TEST2	= $(shell cat ./tests/emoji_2000.txt)
 EMOJI_TEST3	= $(shell cat ./tests/emoji_3000.txt)
 
-SHELL := bash
-
 #==============================================================================#
-#                            FLAGS & CMDS                                      #
+#                              COMPILER & FLAGS                                #
 #==============================================================================#
 
 CC		= cc
@@ -51,6 +67,10 @@ CFLAGS		= -Wall -Werror -Wextra
 CFLAGS		+= -g
 
 INC			= -I
+
+#==============================================================================#
+#                                COMMANDS                                      #
+#==============================================================================#
 
 AR			= ar rcs
 RM			= rm -rf
@@ -62,9 +82,9 @@ MAKE		= make -C
 #                                  RULES                                       #
 #==============================================================================#
 
-##@ Minitalk Compilation Rules 🏗
+##@ minitalk Compilation Rules 🏗
 
-all: $(BUILD_PATH) deps $(NAME_SERVER) $(NAME_CLIENT)	## Compile Minitalk
+all: $(BUILD_PATH) deps $(NAME_SERVER) $(NAME_CLIENT)	## Compile minitalk
 
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.c
 	@echo -n "$(MAG)█$(D)"
@@ -74,13 +94,13 @@ $(BUILD_PATH):
 	$(MKDIR_P) $(BUILD_PATH)
 
 $(NAME_SERVER): $(LIBFT_ARC) $(OBJS_SERVER)
-	@echo "[$(YEL)Compiling Minitalk Server$(D)]"
+	@echo "[$(YEL)Compiling minitalk Server$(D)]"
 	@echo -n "$(GRN)█$(D)"
 	$(CC) $(CFLAGS) $(OBJS_SERVER) $(LIBFT_ARC) -o $(NAME_SERVER)
 	@echo "[$(GRN)SUCCESS$(D) compiling $(MAG)server!$(D) $(YEL)🖔$(D)]"
 
 $(NAME_CLIENT): $(LIBFT_ARC) $(OBJS_CLIENT)
-	@echo "[$(YEL)Compiling Minitalk Client$(D)]"
+	@echo "[$(YEL)Compiling minitalk Client$(D)]"
 	@echo -n "$(GRN)█$(D)"
 	$(CC) $(CFLAGS) $(OBJS_CLIENT) $(LIBFT_ARC) -o $(NAME_CLIENT)
 	@echo "[$(GRN)SUCCESS$(D) compiling $(MAG)client!$(D) $(YEL)🖔$(D)]"
@@ -88,15 +108,15 @@ $(NAME_CLIENT): $(LIBFT_ARC) $(OBJS_CLIENT)
 $(LIBFT_ARC):
 	$(MAKE) $(LIBFT_PATH) extra
 
-bonus:			## Compile Minitalk with bonus features
-	@echo "[$(YEL)Compiling Minitalk with bonus features$(D)]"
+bonus:			## Compile minitalk with bonus features
+	@echo "[$(YEL)Compiling minitalk with bonus features$(D)]"
 	make all
 	@echo "[$(GRN)SUCCESS$(D) compiling $(MAG)minitalk with bonus!$(D) $(YEL)🖔$(D)]"
 
 deps: 			## Download/Update libft
 	@if test ! -d "$(LIBFT_PATH)"; then make get_libft; \
 		else echo "$(YEL)[libft]$(D) folder found"; fi
-		@echo " $(RED)$(D) [$(GRN)Nothing to be done!$(D)]"
+	@echo " $(RED)$(D) [$(GRN)Nothing to be done!$(D)]"
 
 -include $(DEPS)
 
@@ -117,6 +137,14 @@ valgrind: all			## Run Server w/ Valgrind
 	tmux split-window -h "valgrind --leak-check=full --show-leak-kinds=all ./server"
 	sleep 0.5
 	./scripts/get-valgrind-pid.sh > server.pid
+
+norm: 		## Run norminette test
+	@printf "${_NORM}\n"
+	@printf "${_NORM_INFO} "
+	@norminette $(SRC_PATH) | wc -l
+	@norminette $(SRC_PATH)
+	@printf "${_NORM_SUCCESS} "
+	@norminette $(SRC_PATH) | grep -wc "OK"
 
 serve: all			## Run Server in new tmux pane
 	tmux split-window -h "./server"
