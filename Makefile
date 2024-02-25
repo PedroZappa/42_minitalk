@@ -133,11 +133,6 @@ update_modules:	## Update modules
 
 ##@ Test, Debug & Leak Check Rules 
 
-valgrind: all			## Run Server w/ Valgrind
-	tmux split-window -h "valgrind --leak-check=full --show-leak-kinds=all ./server"
-	sleep 0.5
-	./scripts/get-valgrind-pid.sh > server.pid
-
 norm: 		## Run norminette test
 	@printf "${_NORM}\n"
 	@printf "${_NORM_INFO} "
@@ -145,6 +140,11 @@ norm: 		## Run norminette test
 	@norminette $(SRC_PATH)
 	@printf "${_NORM_SUCCESS} "
 	@norminette $(SRC_PATH) | grep -wc "OK"
+
+valgrind: all			## Run Server w/ Valgrind
+	tmux split-window -h "valgrind --leak-check=full --show-leak-kinds=all ./server"
+	sleep 0.5
+	./scripts/get-valgrind-pid.sh > server.pid
 
 serve: all			## Run Server in new tmux pane
 	tmux split-window -h "./server"
