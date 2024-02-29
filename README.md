@@ -434,7 +434,7 @@ git clone git@github.com:PedroZappa/42_minitalk.git
 * Then fetch the project's dependencies and compile the executables:
 ```bash
 cd 42_minitalk
-make deps && make
+make
 ```
 * Get the `server` spinning:
 ```bash
@@ -442,7 +442,7 @@ make deps && make
 ```
 * Now, on a different terminal, run the `client`:
 ```bash
-./client [pid] [message]
+./client [server-pid] [message]
 ```
 * The `client` will send the passed `message` to the target `server`.
 
