@@ -134,11 +134,19 @@ update_modules:	## Update modules
 ##@ Test, Debug & Leak Check Rules 
 
 norm: 		## Run norminette test
+	$(RM) norm.txt norm_ls.txt
 	@printf "${_NORM}\n"
-	@ls $(SRC_PATH) | wc -l > norm.txt
-	@printf "${_NORM_INFO} $$(cat norm.txt)\n"
+	@ls $(SRC_PATH) | wc -l > norm_ls.txt
+	@printf "${_NORM_INFO} $$(cat norm_ls.txt)\n"
 	@printf "${_NORM_SUCCESS} "
-	@norminette $(SRC_PATH) | grep -wc "OK"
+	@norminette $(SRC_PATH) | grep -wc "OK" > norm.txt
+	@printf "$$(cat norm.txt)\n"
+	@if [ $(shell cat norm_ls.txt) -ne $(shell cat norm.txt) ]; then \
+		printf "Not Equal\n"; \
+	else \
+		printf "Equal\n"; \
+		cat norm.txt | grep -wc "Error:"; \
+	fi
 
 york:
 	# @norminette $(SRC_PATH) | grep -wc "OK"
@@ -194,8 +202,8 @@ clean: 				## Remove object files
 	@echo "* $(YEL)Removing $(BUILD_PATH) folder & files$(D): $(_SUCCESS)"
 	$(RM) server.pid
 	@echo "* $(YEL)Removing Server pid file:$(D) $(_SUCCESS)"
-	$(RM) norm.txt
-	@echo "* $(YEL)Removing Norminette temp file:$(D) $(_SUCCESS)"
+	$(RM) norm.txt norm_ls.txt
+	@echo "* $(YEL)Removing Norminette temp files:$(D) $(_SUCCESS)"
 
 fclean: clean	## Remove archives & executables
 	$(RM) $(NAME_SERVER) $(NAME_CLIENT)
