@@ -115,21 +115,21 @@ bonus:			## Compile minitalk with bonus features
 
 deps: 			## Download/Update libft
 	@if test ! -d "$(LIBFT_PATH)"; then make get_libft; \
-		else echo "$(YEL)[libft]$(D) folder found"; fi
+		else echo "$(YEL)[libft]$(D) folder found 🖔"; fi
 	@echo " $(RED)$(D) [$(GRN)Nothing to be done!$(D)]"
 
 -include $(DEPS)
 
 get_libft:		## Get Libft module
-	@echo "[$(CYA)Getting Libft submodule$(D)]"
+	@echo "* $(CYA)Getting Libft submodule$(D)]"
 	git clone git@github.com:PedroZappa/libft.git $(LIBFT_PATH)
-	@echo "[$(GRN)Libft submodule successfully downloaded$(D)]"
+	@echo "* $(GRN)Libft submodule download$(D): $(_SUCCESS)"
 
 update_modules:	## Update modules
-	@echo "[$(CYA)Updating submodules$(D)]"
+	@echo "* $(CYA)Updating submodules$(D)]"
 	git submodule init
 	git submodule update --recursive --remote
-	@echo "[$(GRN)Submodules successfully updated$(D)]"
+	@echo "* $(GRN)Submodules update$(D): $(_SUCCESS)"
 
 ##@ Test, Debug & Leak Check Rules 
 
@@ -183,28 +183,23 @@ stress_test: all	## Attach Clients and stress running test
 ##@ Clean-up Rules 󰃢
 
 clean: 				## Remove object files
-	@echo "[$(RED)Cleaning $(NAME) objects 󰃢$(D)]"
-	$(RM) $(OBJS)
-	@echo "[$(RED)Cleaning Libft objects 󰃢$(D)]"
 	$(MAKE) $(LIBFT_PATH) clean
-	@echo "[$(RED)Removing $(BUILD_PATH) 󰃢$(D)]"
+	@echo "* $(YEL)Cleaning Libft objects 󰃢:$(D) $(_SUCCESS)"
+	@echo "* $(MAG)Removing minitalk$(D)"
 	$(RM) $(BUILD_PATH)
-	@echo "[$(GRN)Object files successfully removed!$(D)]\n"
+	@echo "* $(YEL)Removing $(BUILD_PATH) folder & files$(D): $(_SUCCESS)"
 	$(RM) server.pid
-	@echo "[$(GRN)Server pid file successfully removed!$(D)]\n"
+	@echo "* $(YEL)Removing Server pid file:$(D) $(_SUCCESS)"
 
 fclean: clean	## Remove archives & executables
-	@echo "[$(RED)Cleaning executable 󰃢$(D)]"
 	$(RM) $(NAME_SERVER) $(NAME_CLIENT)
+	@echo "* $(YEL)Cleaning executable$(D): $(_SUCCESS)"
 	$(MAKE) $(LIBFT_PATH) fclean
-	@echo "[$(GRN)$(NAME) Successfully removed!$(D)i]\n"
+	@echo "* $(YEL)Removing Libft archive$(D): $(_SUCCESS)"
 
 libclean: fclean	## Remove libft
-	@echo "[$(RED)Cleaning libft 󰃢$(D)]"
-	$(RM) $(LIBFT_PATH)
-	@echo "[$(GRN)libft successfully removed!$(D)]\n"
 	$(RM) $(LIBS_PATH)
-	@echo "[$(GRN)inc folder successfully removed!$(D)]\n"
+	@echo "* $(GRN)Removing libft folder & files!$(D) : $(_SUCCESS)"
 
 re: fclean all	## Purge and Recompile
 
