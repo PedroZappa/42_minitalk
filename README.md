@@ -45,7 +45,7 @@ ___
 
 ## About 📌
 
-The goal of this project is to develop a `client`-`server` communication program using UNIX signals only.
+The goal of this project is to develop a `client`-`server` communication program using **UNIX signals** only.
 
 ### Mandatory Features
 
@@ -60,7 +60,6 @@ The mandatory implementation must behave as follows:
 * The `server` must be able to receive `message`s from several different clients **in a row** without the need for a restart. (Note that Linux systems do NOT queue signals when a signal of the same type is already pending).
 * `client`-`server` communication must be done using `SIGUSR1` and `SIGUSR2` signals only.
 
-___
 ### Bonus Features
 
 * The `server` acknowledges receiving a message by sending back a signal to the `client`.
