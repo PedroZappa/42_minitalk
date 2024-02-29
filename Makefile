@@ -135,11 +135,15 @@ update_modules:	## Update modules
 
 norm: 		## Run norminette test
 	@printf "${_NORM}\n"
-	@printf "${_NORM_INFO} "
-	@norminette $(SRC_PATH) | wc -l
-	@norminette $(SRC_PATH)
+	@ls $(SRC_PATH) | wc -l > norm.txt
+	@printf "${_NORM_INFO} $$(cat norm.txt)\n"
 	@printf "${_NORM_SUCCESS} "
 	@norminette $(SRC_PATH) | grep -wc "OK"
+
+york:
+	# @norminette $(SRC_PATH) | grep -wc "OK"
+	# if [ $(shell cat norm.txt) -eq 0 ]; then printf "${_NORM_FAIL}"; fi
+	# @norminette $(SRC_PATH) | grep "Error:"
 
 valgrind: all			## Run Server w/ Valgrind
 	tmux split-window -h "valgrind --leak-check=full --show-leak-kinds=all ./server"
@@ -190,6 +194,8 @@ clean: 				## Remove object files
 	@echo "* $(YEL)Removing $(BUILD_PATH) folder & files$(D): $(_SUCCESS)"
 	$(RM) server.pid
 	@echo "* $(YEL)Removing Server pid file:$(D) $(_SUCCESS)"
+	$(RM) norm.txt
+	@echo "* $(YEL)Removing Norminette temp file:$(D) $(_SUCCESS)"
 
 fclean: clean	## Remove archives & executables
 	$(RM) $(NAME_SERVER) $(NAME_CLIENT)
