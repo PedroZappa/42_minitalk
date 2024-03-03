@@ -4,7 +4,7 @@
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
+#e                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/18 11:49:03 by passunca          #+#    #+#              #
 #    Updated: 2024/02/22 19:51:25 by passunca         ###   ########.fr        #
 #                                                                              #
@@ -28,9 +28,10 @@ UNAME 			= $(shell uname)
 ### Message Vars
 _SUCCESS 		= [$(GRN)SUCCESS$(D)]
 _INFO 			= [$(BLU)INFO$(D)]
-_NORM 			= [$(YEL)Norminette$(D)]
+_NORM 			= [$(MAG)Norminette$(D)]
 _NORM_SUCCESS 	= $(GRN)=== OK:$(D)
 _NORM_INFO 		= $(BLU)File no:$(D)
+_NORM_ERR 		= $(RED)=== KO:$(D)
 
 #==============================================================================#
 #                                    PATHS                                     #
@@ -134,24 +135,21 @@ update_modules:	## Update modules
 ##@ Test, Debug & Leak Check Rules 
 
 norm: 		## Run norminette test
-	$(RM) norm.txt norm_ls.txt
 	@printf "${_NORM}\n"
 	@ls $(SRC_PATH) | wc -l > norm_ls.txt
-	@printf "${_NORM_INFO} $$(cat norm_ls.txt)\n"
-	@printf "${_NORM_SUCCESS} "
+	@printf "$(_NORM_INFO) $$(cat norm_ls.txt)\n"
+	@printf "$(_NORM_SUCCESS) "
 	@norminette $(SRC_PATH) | grep -wc "OK" > norm.txt
 	@printf "$$(cat norm.txt)\n"
 	@if [ $(shell cat norm_ls.txt) -ne $(shell cat norm.txt) ]; then \
-		printf "Not Equal\n"; \
+		printf "$(_NORM_ERR) "; \
+		norminette $(SRC_PATH) | grep -v "OK"> norm_err.txt; \
+		cat norm_err.txt | grep -wc "Error:" > norm_errn.txt; \
+		printf "$$(cat norm_errn.txt)\n"; \
+		printf "$$(cat norm_err.txt)\n"; \
 	else \
-		printf "Equal\n"; \
-		cat norm.txt | grep -wc "Error:"; \
+		printf "Everything is OK\n"; \
 	fi
-
-york:
-	# @norminette $(SRC_PATH) | grep -wc "OK"
-	# if [ $(shell cat norm.txt) -eq 0 ]; then printf "${_NORM_FAIL}"; fi
-	# @norminette $(SRC_PATH) | grep "Error:"
 
 valgrind: all			## Run Server w/ Valgrind
 	tmux split-window -h "valgrind --leak-check=full --show-leak-kinds=all ./server"
@@ -202,7 +200,7 @@ clean: 				## Remove object files
 	@echo "* $(YEL)Removing $(BUILD_PATH) folder & files$(D): $(_SUCCESS)"
 	$(RM) server.pid
 	@echo "* $(YEL)Removing Server pid file:$(D) $(_SUCCESS)"
-	$(RM) norm.txt norm_ls.txt
+	$(RM) norm.txt norm_ls.txt norm_err.txt norm_errn.txt
 	@echo "* $(YEL)Removing Norminette temp files:$(D) $(_SUCCESS)"
 
 fclean: clean	## Remove archives & executables
@@ -229,7 +227,7 @@ help: 			## Display this help page
 			printf "\n=> %s\n", substr($$0, 5) } ' Makefile
 
 .PHONY: bonus deps get_libft update_modules leak serve test stress_test clean \
-	fclean libclean re
+	norm valgrind fclean libclean re
 
 #==============================================================================#
 #                                  UTILS                                       #

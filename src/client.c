@@ -68,4 +68,3 @@ static void	ft_send_msg(pid_t pid, char *msg)
 		ft_send_char(pid, '\0');
 	}
 }
-

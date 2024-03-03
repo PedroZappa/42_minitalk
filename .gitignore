@@ -60,3 +60,5 @@ server.pid
 lib
 norm.txt
 norm_ls.txt
+norm_err.txt
+norm_errn.txt
