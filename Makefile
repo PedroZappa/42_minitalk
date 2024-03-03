@@ -141,7 +141,7 @@ norm: 		## Run norminette test
 	@printf "$(_NORM_SUCCESS) "
 	@norminette $(SRC_PATH) | grep -wc "OK" > norm.txt
 	@printf "$$(cat norm.txt)\n"
-	@if [ $(shell cat norm_ls.txt) -ne $(shell cat norm.txt) ]; then \
+	@if ! diff -q norm_ls.txt norm.txt > /dev/null; then \
 		printf "$(_NORM_ERR) "; \
 		norminette $(SRC_PATH) | grep -v "OK"> norm_err.txt; \
 		cat norm_err.txt | grep -wc "Error:" > norm_errn.txt; \
