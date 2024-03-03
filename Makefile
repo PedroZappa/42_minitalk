@@ -148,7 +148,7 @@ norm: 		## Run norminette test
 		printf "$$(cat norm_errn.txt)\n"; \
 		printf "$$(cat norm_err.txt)\n"; \
 	else \
-		printf "Everything is OK\n"; \
+	printf "[$(YEL)Everything is OK$(D)]\n"; \
 	fi
 
 valgrind: all			## Run Server w/ Valgrind
