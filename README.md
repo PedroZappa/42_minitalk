@@ -521,11 +521,6 @@ If you're like me and use `tmux` you can quickly test the project using the foll
 make serve
 ```
 * To automatically launch a few `client`s on new `tmux` window-splits:
-	* Get the server `pid`;
-	* Open the [Makefile](https://github.com/PedroZappa/42_minitalk/blob/main/Makefile) for this project;
-		* find the `Test, Debug & Leak Check Rules` section;
-		* Change the `pid` of all commands to the current `server`'s `pid`:
-	* Run the following command to launch a few test clients:
 ```sh
 make test
 ```
