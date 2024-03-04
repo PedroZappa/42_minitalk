@@ -27,6 +27,7 @@ ___
 * [Implementation 📜](#implementation-)
   * [`server.c`](#serverc)
     * [`ft_server_sighandler()`](#ft_server_sighandler)
+      * [`t_protocol`](#t_protocol)
     * [`ft_strlen_received()`](#ft_strlen_received)
     * [`ft_print_msg()`](#ft_print_msg)
   * [`client.c`](#clientc)
@@ -79,7 +80,7 @@ ___
 
 To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/src/server.c)'s signal handling functionality I used `sigaction()` over `signal()`. This is because `signal()` is deprecated due to its varying behaviour across UNIX versions, making it a non-portable option.
 
-> Both functions listen for a user defined signal and change de default signal action associated to it, their main difference being that `sigaction()` employs a specialized struct to store extra information, giving the user finer control over signal actions.
+> Both functions listen for a user defined signal and change the default signal action associated to it, their main difference being that `sigaction()` employs a specialized struct to store extra information, giving the user finer control over signal actions.
 
 ___
 The `server`'s **main()** function declares and initializes a `struct sigaction` variable called `sa`.
@@ -119,6 +120,9 @@ static void	ft_server_sighandler(int sig, siginfo_t *info, void *context);
 * Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called and an acknowledgement signal is sent back to the `client`.
 
 * All its local variables are static, therefore automatically initialized to 0.
+
+___
+##### `t_protocol`
 
 For the sake of simplicity one of these variables is a custom data type `t_protocol` which holds all the data the server needs to perform its operations:
 ```c
