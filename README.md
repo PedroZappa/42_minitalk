@@ -426,7 +426,7 @@ The `client` enters a loop running from `bitshift` to 0:
 
 * It breaks the `char`/`int` into its individual bits;
 
-* Each bit is passed as an argument to `ft_send_bit()` where it triggers the appropriate signal and is sent to the server;
+* Each bit is passed as an argument to `ft_send_bit()` where it triggers the appropriate signal and is sent to the `server`;
 
 * `bitshift` is decremented to move to the next bit of the binary representation of the `char`/`int`, from left to right;
 ```c
@@ -443,7 +443,7 @@ ___
 void	ft_send_bit(pid_t pid, char bit, char pause_flag);
 ```
 
-`ft_send_bit()` sends information to the `server` bit by bit.
+`ft_send_bit()` sends information to the `server` bit-by-bit.
 
 * It simply checks if the passed `bit` is 1 or 0 and sends the appropriate signal using `kill()`.
 
