@@ -378,7 +378,7 @@ ft_printf("%sOutbound msg's length = %d%s\n", CYN, msglen, NC);
 ft_send_int(pid, msglen);
 ```
 
-Then it loops through the message and sends each character to the `server` bit by bit:
+Then it loops through the message and sends each character to the `server` bit-by-bit:
 ```c
 ft_printf("\n%sSending Message%s\n", GRN, NC);
 while (msg[i] != '\0')
