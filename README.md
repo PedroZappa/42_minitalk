@@ -27,7 +27,7 @@ ___
 * [Implementation 📜](#implementation-)
   * [`t_protocol`](#t_protocol)
   * [`server.c`](#serverc)
-    * [Initializing `sigaction`](#initializing-sigaction)
+  * [Initializing `sigaction`](#initializing-sigaction)
     * [`ft_server_sighandler()`](#ft_server_sighandler)
     * [`ft_strlen_received()`](#ft_strlen_received)
     * [`ft_print_msg()`](#ft_print_msg)
@@ -101,7 +101,7 @@ To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/sr
 > Both functions listen for a **user defined signals** and change their default **signal actions**. The main difference between these functions  is that `sigaction()` employs a specialized struct to store extra information, giving the user finer control over what they can do when handling a signal.
 
 ___
-#### Initializing `sigaction`
+### Initializing `sigaction`
 
 The `server`'s **main()** function declares and initializes a `struct sigaction` variable called `sa`.
 * `sa.sa_mask` specifies a mask of signals that should be ignored;
