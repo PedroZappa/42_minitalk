@@ -274,25 +274,24 @@ And so the `server` receives each byte of the message.
 ___
 #### Printing the Message
 
-It knows the message has reached its end when the current `server.data` value is the NULL terminator.
+The server knows all the data in the message has been received end when the current `server.data` value is the NULL terminator.
 ```c
 if (server->data == '\0') { ... }
 ```
 
 * The server then prints the message to `stdout` followed by the `server`'s
 `pid`. 
-
-* Since we are done with the `server.msg`, we free the memory
-space allocated to store it.
 ```c
 ft_printf("Message:\n%s%s%s\n", GRN, server->msg, NC)
 ft_print_pid();
 free(server->msg);
 ```
 
-Now all there is left to do is to prepare the server to receive the next
-message.
+* Since we are done with the `server.msg`, we free the memory space allocated to store it.
+
+> Now all there is left to do some cleaning up to prepare the server to receive the next message.
 ```c
+free(server->msg);
 server->msg = NULL;
 server->received = 0;
 *i = 0;
