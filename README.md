@@ -362,7 +362,8 @@ ___
 static void ft_send_msg(pid_t pid, char *msg);
 ```
 
-* To keep track of the current index of the message being sent, a local variable `i` is created and initialized to 0.
+* To keep track of the current index of the message being sent, a local integer variable `i` is created and initialized to 0.\
+* `msglen` is declared to store the length of the message.
 ```c
 int i;
 int msglen;
