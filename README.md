@@ -362,7 +362,7 @@ ___
 static void ft_send_msg(pid_t pid, char *msg);
 ```
 
-* To keep track of the current index of the message being sent, a local variable `i`, initialized to 0, 
+* To keep track of the current index of the message being sent, a local variable `i` is created and initialized to 0, 
 
 * Before the `client` starts sending the message we must first take the `message`'s length and send it to the `server` ahead of the message itself.
 ```c
