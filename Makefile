@@ -93,6 +93,7 @@ $(BUILD_PATH)/%.o: $(SRC_PATH)/%.c
 
 $(BUILD_PATH):
 	$(MKDIR_P) $(BUILD_PATH)
+	@echo "* $(YEL)Creating $(BUILD_PATH) folder:$(D) $(_SUCCESS)"
 
 $(NAME_SERVER): $(LIBFT_ARC) $(OBJS_SERVER)
 	@echo "[$(YEL)Compiling minitalk Server$(D)]"
