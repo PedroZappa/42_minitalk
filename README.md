@@ -584,8 +584,6 @@ Some characters can be expressed as a combination of multiple **code points** kn
 > [!Important]
 > `U+200D` is a **zero-width joiner**.
 
-</div>
-
 ___
 ## License
 
