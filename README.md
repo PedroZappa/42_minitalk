@@ -204,9 +204,9 @@ server->msg[*i] = server->data;
 >
 > On **Unicode**
 >
-> Is a type of character encoding, like other encodings it functions as a lookup table for characters.
+> Is a type of character encoding, like other encodings it functions as a **lookup table for characters**.
 >
-> The most important difference between `Unicode` and `ASCII` is that `Unicode` allows character encodings to be up to 32-bits wide, allowing for over 4 billion unique values, way too much space than we'll ever need to include all character sets in existence.
+> The most important difference between `Unicode` and `ASCII` is that `Unicode` allows character encodings to be up to 32-bits wide, allowing for over 4 billion unique values, way too much space than we'll ever need to include every character set in existence.
 >
 > `Unicode` takes a smart approach when it comes to character encoding. If a character can be represented by just 1 byte that's all the space that will be used. This memory efficient technique is known as **variable length encoding**.
 > * For example a common character like a `C` takes 8 bits in memory, while special, rarer characters like `💩` need up to 32 bytes to be stored in memory.
