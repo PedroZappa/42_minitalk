@@ -286,7 +286,7 @@ ft_printf("Message:\n%s%s%s\n", GRN, server->msg, NC)
 ft_print_pid();
 ```
 
-> Now the `server does some clean up to prepare to receive the next message.
+> Now the `server` performs some clean up to prepare to receive the next message.
 
 * Since we are done with the `server.msg`, we free the memory space allocated to store it.
 * We set the `server->msg` pointer to NULL.
