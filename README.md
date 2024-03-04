@@ -85,7 +85,7 @@ To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/sr
 ___
 The `server`'s **main()** function declares and initializes a `struct sigaction` variable called `sa`.
 * `sa.sa_mask` specifies a mask of signals that should be ignored;
-* It uses `sigemptyset()` to initialize a signal set `sa.sa_mask` with all signals excluded from the set;
+* We use `sigemptyset()` to initialize a signal set `sa.sa_mask` with all signals excluded from the set;
 * `sa.sa_sigaction` is set to the function `ft_server_sighandler()`;
 * `sa.sa_flags` flag set has the bits for `SA_SIGINFO` and `SA_RESTART` turned on;
 
@@ -106,7 +106,7 @@ ft_set_sigaction(&sa);
 > * `SA_RESTART` : provides BSD compatible behaviour allowing certain system calls to be restartable across signals.
 
 
-Prints the `server`'s' `pid` to `stdout` and enters an infinite loop, listening for a signal to catch.
+Then the `server` prints its `pid` to `stdout` and enters an infinite loop, listening for a signal to catch.
 ```c
 ft_print_pid();
 while (1)
