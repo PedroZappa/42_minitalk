@@ -49,7 +49,7 @@ ___
 
 ## About 📌
 
-The goal of this project is to develop a `client`-`server` communication program using **UNIX signals** only.
+> The goal of this project is to develop a `client`-`server` communication program using **UNIX signals** only.
 
 ### Mandatory Features
 
@@ -72,7 +72,7 @@ The mandatory implementation must behave as follows:
 ___
 ## Implementation 📜
 
-For this project I chose to implement both mandatory and bonus features together. The `server` and `client` can be found in the `server.c` and `client.c` files inside the `src` folder plus two additional files `ft_sigaction.c` and `ft_send.c` containing helper functions.
+> For this project I chose to implement both mandatory and bonus features together. The `server` and `client` can be found in the `server.c` and `client.c` files inside the `src` folder plus two additional files `ft_sigaction.c` and `ft_send.c` containing helper functions.
 
 ___
 ### `server.c`
@@ -475,7 +475,7 @@ ___
 
 ### `Unicode` Character Encoding
 
-`Unicode`, like other character encodings, functions as a **lookup table for characters**.
+`Unicode`, like other character encodings, functions as a **lookup table** mapping **code points** to characters.
 
 The most important difference between `Unicode` and `ASCII` is that `Unicode` allows character encodings to be up to 32-bits wide, allowing for over 4 billion unique values (way too much space than we'll ever need to include every character set in existence).
 
@@ -511,7 +511,7 @@ To access a given **code point** we use the following syntax:
 | 💩        | U+1F4A9    | 0001 1111 0100 1010 1001 |
 | 🌟        | U+1F31F    | 0001 1111 0011 0001 1111 |
 
-Some characters can be expressed as a combination of multiple **code points**.
+Some characters can be expressed as a combination of multiple **code points** known as `grapheme clusters`.
 
 </div>
 
