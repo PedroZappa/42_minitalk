@@ -92,9 +92,9 @@ typedef struct s_protocol
 ___
 ### `server.c`
 
-To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/src/server.c)'s signal handling functionality I used `sigaction()` over `signal()`.
+To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/src/server.c)'s signal handling functionality I chose to use `sigaction()` over `signal()`.
 
-> This is because `signal()` is deprecated due to its varying behaviour across UNIX versions, making it a non-portable option.
+> This is because `signal()` is deprecated due to its varying behaviour across UNIX versions, making it a **non-portable option**.
 
 > [!Important]
 > Both functions listen for a user defined signal and change the default signal action associated to it, their main difference being that `sigaction()` employs a specialized struct to store extra information, giving the user finer control over signal actions.
