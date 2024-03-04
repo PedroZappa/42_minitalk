@@ -131,7 +131,7 @@ ft_set_sigaction(&sa);
 
 > [!Note]
 >
-> See [`ft_sigaction`](#ft_sigactionc) for more details.
+> See [`ft_sigaction`](#ft_sigactionc) for more details on what `sigaction()` does.
 
 Then the `server` prints its `pid` to `stdout` and enters an infinite loop, listening for a signal to catch.
 ```c
@@ -145,7 +145,7 @@ ___
 static void	ft_server_sighandler(int sig, siginfo_t *info, void *context);
 ```
 
-* Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called and an acknowledgement signal is sent back to the `client`.
+> Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called and an acknowledgement signal is sent back to the `client`.
 
 * All its local variables are static, therefore automatically initialized to 0.
 
