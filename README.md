@@ -339,7 +339,7 @@ The `client` declares `sa` and:
 
 * `sa.sa_handler` is set to the function `ft_client_sighandler()`;
 
-* `sa.sa_flags` is set to `SA_RESTART`;
+* `sa.sa_flags` flag set has the bit for `SA_RESTART` turned on;
 
 * Then the `sa` struct is passed into `ft_set_sigaction()` to set event handling for `SIGUSR1` and `SIGUSR2`;
 
