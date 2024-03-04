@@ -170,7 +170,7 @@ ___
 
 The `server` first receives an integer as "header information" specifying the length in bytes of the message about to be transferred, then come the actual bits of the message.
 
-To store the bits according to the data type being received the following bitwise operations and conditionals are employed:
+> To store the bits according to the data type being received the following bitwise operations and conditionals are employed:
 ```c
 if ((sig == SIGUSR2) && !server.received)
 	server.data |= 1 << (((sizeof(int) * 8) - 1) - server.bits);
