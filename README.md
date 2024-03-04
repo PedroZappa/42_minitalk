@@ -194,7 +194,7 @@ if ((server->bits == 8) && server->received) { ... }
 ```
 * The received byte stored in `server.data` is copied to the `i`-th index of `server->msg`.
 
-Then `i` is incremented so that when indexed `server->msg[i]` points to the next byte in memory where the next `char` or `Unicode` segment is gonna be stored.
+Then `i` is incremented so that when indexed `server->msg[i]` points to the next byte in memory where the next `char` or `Unicode` segment (**code point**) is gonna be stored.
 ```c
 server->msg[*i] = server->data;
 ++(*i);
@@ -214,13 +214,26 @@ server->msg[*i] = server->data;
 >
 > Unicode characters can be referenced by their **code point**.
 >
-> * A code point is the (irreducible) (irreducible) **atomic unit** of information.
+> * A code point is the (irreducible) **atomic unit** of information.
 > * Text is a sequence of **code points**. 
 > * Each code point is a number which is given meaning by the Unicode standard.
 > * The current `Unicode` standard defines 1,114,112 code points,
 > * These **code points** are further divided into **17 planes or groundings**.
 > * Each **plane** is identified by a number from 0 to 16.
 > * The number of **code points** in each plane is 65,536 ($2^16$).
+>
+> To access a given code point we use the following syntax:
+>
+> * `U+(hexadecimal representation of a code point)`
+>
+> Hexadecimal values are used to represent the code points because they make it easier to reference large values.
+>
+> Character: 💩
+> Code point: U+1F4A9
+> Binary representation: 0001 1111 0100 1010 1001
+>
+> Some characters can be expressed as a combination of multiple code points.
+
 
 Notice that `server.bits` is reset to 0 after the `char` has been stored, in preparation to receive the next.
 ```c
