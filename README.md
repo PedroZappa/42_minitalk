@@ -274,7 +274,7 @@ And so the `server` receives each byte of the message.
 ___
 #### Printing the Message
 
-The server knows all the data in the message has been received end when the current `server.data` value is the NULL terminator.
+The server knows all the data in the message has been received when the current `server.data` value is the NULL terminator.
 ```c
 if (server->data == '\0') { ... }
 ```
