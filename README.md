@@ -343,7 +343,13 @@ The `client` declares `sa` and:
 
 * Then the `sa` struct is passed into `ft_set_sigaction()` to set event handling for `SIGUSR1` and `SIGUSR2`;
 
-> The `client` event handler prints a `*` if the received signal is `SIGUSR1` or if it is `SIGUSR2` it announces that the message has been successfully sent and exits the program.
+___
+
+> When the `client` event handler receives a signal, it checks if it is `SIGUSR1` or `SIGUSR2`:
+>
+> * If the incoming signal is `SIGUSR1` (Data reception acknowledgement), it prints a `*` to `stdout`.
+> Else if it receives `SIGUSR2` (Data Transmission Done), it prints a success message to `stdout` and exits.
+>
 
 The `client` then prints the `server`'s `pid` to `stdout` and calls `ft_send_msg()`:
 ```c
