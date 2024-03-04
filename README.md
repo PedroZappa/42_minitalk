@@ -32,6 +32,7 @@ ___
     * [Receiving Data](#receiving-data)
     * [`ft_strlen_received()`](#ft_strlen_received)
     * [`ft_print_msg()`](#ft_print_msg)
+    * [Printing the Message](#printing-the-message)
   * [`client.c`](#clientc)
     * [`ft_send_msg()`](#ft_send_msg)
   * [`ft_send.c`](#ft_sendc)
@@ -268,7 +269,12 @@ check out
 [ansi.h](https://github.com/PedroZappa/libft/blob/master/color_codes/ansi.h)
 included in my [libft](https://github.com/PedroZappa/libft) repository!
 
-And so the `server` receives each byte of the message. It knows the message has reached its end when the current `server.data` value is the NULL terminator.
+And so the `server` receives each byte of the message. 
+
+___
+#### Printing the Message
+
+It knows the message has reached its end when the current `server.data` value is the NULL terminator.
 ```c
 if (server->data == '\0') { ... }
 ```
