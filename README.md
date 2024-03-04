@@ -506,11 +506,9 @@ To access a given **code point** we use the following syntax:
 > [!Note]
 > Hexadecimal values are used to represent the **code points** because they make it easier to reference large values.
 
-> Character: 💩
->
-> Code point: U+1F4A9
->
-> Binary representation: 0001 1111 0100 1010 1001
+| Character | Code Point | Binary Representation |
+| --------- | ---------- | --------------------- |
+| 💩        | U+1F4A9    | 0001 1111 0100 1010 1001 |
 
 Some characters can be expressed as a combination of multiple code points.
 
