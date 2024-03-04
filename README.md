@@ -287,9 +287,11 @@ ft_print_pid();
 free(server->msg);
 ```
 
-* Since we are done with the `server.msg`, we free the memory space allocated to store it.
+> Now the `server does some clean up to prepare to receive the next message.
 
-> Now all there is left to do some cleaning up to prepare the server to receive the next message.
+* Since we are done with the `server.msg`, we free the memory space allocated to store it.
+* We set the `server->msg` pointer to NULL.
+* And set `i` and `server->received` flag to 0.
 ```c
 free(server->msg);
 server->msg = NULL;
