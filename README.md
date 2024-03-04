@@ -149,8 +149,8 @@ static void	ft_server_sighandler(int sig, siginfo_t *info, void *context);
 
 * All its local variables are static, therefore automatically initialized to 0.
 ```c
-static t_protocol	server;
-static int			i;
+static t_protocol   server;
+static int          i;
 
 usleep(PAUSE);
 (void)context;
