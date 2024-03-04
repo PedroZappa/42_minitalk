@@ -571,6 +571,17 @@ To access a given **code point** we use the following syntax:
 
 Some characters can be expressed as a combination of multiple **code points** known as `grapheme clusters`.
 
+
+U+1F9D1 🧑, U+200D, and U+1F33E 🌾
+
+U+1F9D1 U+200D U+1F33E
+
+U+1F9D1U+200DU+1F33E
+
+🧑U+200D🌾
+
+
+
 </div>
 
 ___
