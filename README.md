@@ -200,11 +200,6 @@ server->msg[*i] = server->data;
 ++(*i);
 ```
 
-Notice that `server.bits` is reset to 0 after the `char` has been stored, in preparation to receive the next.
-```c
-server->bits = 0;
-```
-
 > [!Note]
 >
 > On **Unicode**
@@ -222,6 +217,12 @@ server->bits = 0;
 > * A code point is the atomic unit (irreducible unit) of information.
 > * Text is a sequence of code points. 
 > * Each code point is a number which is given meaning by the Unicode standard.
+
+Notice that `server.bits` is reset to 0 after the `char` has been stored, in preparation to receive the next.
+```c
+server->bits = 0;
+```
+
 
 And so the `server` receives each byte of the message until the whole message has been received. 
 
