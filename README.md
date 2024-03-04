@@ -499,11 +499,12 @@ ___
 * Each **plane** is identified by a number from 0 to 16.
 * The number of **code points** in each plane is 65,536 ($2^{16}$).
 
-To access a given code point we use the following syntax:
+To access a given **code point** we use the following syntax:
 
 * `U+(hexadecimal representation of a code point)`
 
-Hexadecimal values are used to represent the code points because they make it easier to reference large values.
+> [!Note]
+> Hexadecimal values are used to represent the **code points** because they make it easier to reference large values.
 
 > Character: 💩
 > Code point: U+1F4A9
