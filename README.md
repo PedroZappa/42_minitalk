@@ -76,7 +76,7 @@ ___
 > For this project I chose to implement both mandatory and bonus features together. The `server` and `client` can be found in the `server.c` and `client.c` files inside the `src` folder plus two additional files `ft_sigaction.c` and `ft_send.c` containing helper functions.
 
 ___
-#### `t_protocol`
+### `t_protocol`
 
 For the sake of simplicity the program uses a **custom data type** `t_protocol` which holds all the data the server needs to perform its operations:
 ```c
