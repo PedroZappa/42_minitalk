@@ -364,15 +364,18 @@ static void ft_send_msg(pid_t pid, char *msg);
 
 To keep track of the current index of the message being sent, a local variable `i`, initialized to 0, 
 
-* But before it starts sending the actual message it must first send its length to the `server`.
-
-* This is done bit by bit using the function `ft_send_int`.
+* But before the `client` starts sending the message we must first take the `message`'s length and send it to the `server` ahead of the message itself.
 ```c
 int i;
 int msglen;
-...
+
+i = 0;
 msglen = ft_strlen(msg);
 ft_printf("%sOutbound msg's length = %d%s\n", CYN, msglen, NC);
+```
+
+* This is done bit by bit using the function `ft_send_int`.
+```c
 ft_send_int(pid, msglen);
 ```
 
