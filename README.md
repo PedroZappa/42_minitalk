@@ -447,9 +447,7 @@ void	ft_send_bit(pid_t pid, char bit, char pause_flag);
 
 * It simply checks if the passed `bit` is 1 or 0 and sends the appropriate signal using `kill()`.
 
-> Calling `kill()` within an `if` statement's expression is a handy way to handle possible errors.
->
-> In this case, if the call to `kill()` fails, the program writes an error message to `stderr` and exits.
+* If the call to `kill()` fails, the program writes an error message to `stderr` and exits.
 ```c
 if (bit == 0)
 {
