@@ -373,9 +373,7 @@ msglen = ft_strlen(msg);
 ft_printf("%sOutbound msg's length = %d%s\n", CYN, msglen, NC);
 ```
 
-*  and send it to the `server` ahead of the message itself.
-
-* This is done bit by bit using the function `ft_send_int`.
+* The message length is bit-by-bit using the function `ft_send_int`.
 ```c
 ft_send_int(pid, msglen);
 ```
