@@ -207,7 +207,21 @@ server->bits = 0;
 
 > [!Note]
 >
-> On Unicode ...
+> On **Unicode**
+>
+> Is a type of character encoding, like other encodings it functions as a lookup table for characters.
+>
+> The most important difference between `Unicode` and `ASCII` is that `Unicode` allows character encodings to be up to 32-bits wide, allowing for over 4 billion unique values, way too much space than we'll ever need to include all character sets in existence.
+>
+> Unicode takes a smart approach when it comes to character encoding. If a character can be represented by just 1 byte that's all the space that will be used. This technique is known as **variable length encoding** and is more efficient memory wise. 
+> * For example a common character like a `C` takes 8 bits in memory, while special rarer characters like `💩` need up to 32 bytes to be stored in memory.
+> * This means a document like the present post takes about four times less space when encoded in UTF-8 than it would if encoded in UTF-32, making the page take less space in memory and load substantially faster.
+>
+> Unicode characters can be referenced by their **code point**.
+>
+> * A code point is the atomic unit (irreducible unit) of information.
+> * Text is a sequence of code points. 
+> * Each code point is a number which is given meaning by the Unicode standard.
 
 And so the `server` receives each byte of the message until the whole message has been received. 
 
