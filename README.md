@@ -214,9 +214,13 @@ server->msg[*i] = server->data;
 >
 > Unicode characters can be referenced by their **code point**.
 >
-> * A code point is the atomic unit (irreducible unit) of information.
-> * Text is a sequence of code points. 
+> * A code point is the (irreducible) (irreducible) **atomic unit** of information.
+> * Text is a sequence of **code points**. 
 > * Each code point is a number which is given meaning by the Unicode standard.
+> * The current `Unicode` standard defines 1,114,112 code points,
+> * These **code points** are further divided into **17 planes or groundings**.
+> * Each **plane** is identified by a number from 0 to 16.
+> * The number of **code points** in each plane is 65,536 ($2^16$).
 
 Notice that `server.bits` is reset to 0 after the `char` has been stored, in preparation to receive the next.
 ```c
