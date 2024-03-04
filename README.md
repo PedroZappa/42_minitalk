@@ -84,11 +84,12 @@ To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/sr
 
 ___
 The `server`'s **main()** function declares and initializes a `struct sigaction` variable called `sa`.
-* It uses `sigemptyset()` to initialize the signal set `sa.sa_mask` with all signals excluded from the set;
+* `sa.sa_mask` specifies a mask of signals that should be ignored;
+* It uses `sigemptyset()` to initialize a signal set `sa.sa_mask` with all signals excluded from the set;
 * `sa.sa_sigaction` is set to the function `ft_server_sighandler()`;
-* `sa.sa_flags` has the bits for `SA_SIGINFO` and `SA_RESTART` turned on;
+* `sa.sa_flags` flag set has the bits for `SA_SIGINFO` and `SA_RESTART` turned on;
 
-The `sa` struct is then passed into `ft_set_sigaction()` to set event handling for `SIGUSR1` and `SIGUSR2` signals.
+The `sa` struct is then passed to `ft_set_sigaction()` to initialize event handling for `SIGUSR1` and `SIGUSR2` signals.
 ```c
 struct sigaction	sa;
 
