@@ -346,6 +346,7 @@ The `client` declares `sa` and:
 > When the `client` event handler receives a signal, it checks if it is `SIGUSR1` or `SIGUSR2`:
 >
 > * If the incoming signal is `SIGUSR1` (Data reception acknowledgement), it prints a `*` to `stdout`.
+>
 > Else if it receives `SIGUSR2` (Data Transmission Done), it prints a success message to `stdout` and exits.
 >
 
