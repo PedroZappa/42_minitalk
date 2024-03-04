@@ -29,6 +29,7 @@ ___
   * [`server.c`](#serverc)
     * [Initializing `sigaction`](#initializing-sigaction)
     * [`ft_server_sighandler()`](#ft_server_sighandler)
+    * [Receiving Data](#receiving-data)
     * [`ft_strlen_received()`](#ft_strlen_received)
     * [`ft_print_msg()`](#ft_print_msg)
   * [`client.c`](#clientc)
@@ -164,7 +165,10 @@ if (!server.bits)
 
 * If `server.bits` is 0, it means that the `server` has not received any data yet so the program sets `server.data` to 0 to prepare to receive the incoming data.
 
-* It first receives an integer as "header information" specifying the length in bytes of the message about to be transferred, then come the actual bits of the message.
+___
+#### Receiving Data
+
+The `server` first receives an integer as "header information" specifying the length in bytes of the message about to be transferred, then come the actual bits of the message.
 
 To store the bits according to the data type being received the following bitwise operations and conditionals are employed:
 ```c
