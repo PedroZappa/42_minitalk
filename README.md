@@ -397,7 +397,7 @@ ft_send_char(pid, '\0');
 ___
 ### `ft_send.c`
 
-To send `char`s and `int`s to the `server` I implemented two helper functions: `ft_send_char()` and `ft_send_int()`.
+To send `char`s and `int`s to the `server` two helper functions were implemented: `ft_send_char()` and `ft_send_int()`.
 
 ___
 #### `ft_send_char()` & `ft_send_int()`
