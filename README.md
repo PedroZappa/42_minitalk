@@ -26,8 +26,8 @@ ___
   * [Bonus Features](#bonus-features)
 * [Implementation 📜](#implementation-)
   * [`server.c`](#serverc)
+    * [`t_protocol`](#t_protocol)
     * [`ft_server_sighandler()`](#ft_server_sighandler)
-      * [`t_protocol`](#t_protocol)
     * [`ft_strlen_received()`](#ft_strlen_received)
     * [`ft_print_msg()`](#ft_print_msg)
   * [`client.c`](#clientc)
@@ -112,19 +112,9 @@ while (1)
 	pause();
 ```
 ___
-#### `ft_server_sighandler()`
-```c
-static void	ft_server_sighandler(int sig, siginfo_t *info, void *context);
-```
+#### `t_protocol`
 
-* Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called and an acknowledgement signal is sent back to the `client`.
-
-* All its local variables are static, therefore automatically initialized to 0.
-
-___
-##### `t_protocol`
-
-For the sake of simplicity one of these variables is a custom data type `t_protocol` which holds all the data the server needs to perform its operations:
+For the sake of simplicity the program uses a **custom data type** `t_protocol` which holds all the data the server needs to perform its operations:
 ```c
 typedef struct s_protocol
 {
@@ -135,7 +125,28 @@ typedef struct s_protocol
 }	t_protocol;
 ```
 
+___
+#### `ft_server_sighandler()`
+```c
+static void	ft_server_sighandler(int sig, siginfo_t *info, void *context);
+```
+
+* Any time either, a `SIGUSR1` or a `SIGUSR2` signal is received, the `ft_server_sighandler()` function is called and an acknowledgement signal is sent back to the `client`.
+
+* All its local variables are static, therefore automatically initialized to 0.
+
+```c
+usleep(PAUSE);
+(void)context;
+if (!server.bits)
+	server.data = 0;
+```
+
 * The server signal handler waits for 100 microseconds before it starts receiving data.
+
+* we type cast `context` to `void *` to avoid the warning message in the compiler since we don't need to use it in the handler.
+
+* If `server.bits` is 0, it means that the `server` has not received any data yet so the program sets `server.data` to 0 to prepare to receive the incoming data.
 
 * It first receives an integer as "header information" specifying the length in bytes of the message about to be transferred, then come the actual bits of the message.
 
