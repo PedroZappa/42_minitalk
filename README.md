@@ -347,8 +347,7 @@ The `client` declares `sa` and:
 >
 > * If the incoming signal is `SIGUSR1` (Data reception acknowledgement), it prints a `*` to `stdout`.
 >
-> Else if it receives `SIGUSR2` (Data Transmission Done), it prints a success message to `stdout` and exits.
->
+> * Else if it receives `SIGUSR2` (Data Transmission Done), it prints a success message to `stdout` and exits.
 
 The `client` then prints the `server`'s `pid` to `stdout` and calls `ft_send_msg()`:
 ```c
