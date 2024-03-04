@@ -212,9 +212,9 @@ server->msg[*i] = server->data;
 > * For example a common character like a `C` takes 8 bits in memory, while special, rarer characters like `💩` need up to 32 bytes to be stored in memory.
 > * This means a document like the present post takes about four times less space when encoded in UTF-8 than it would if encoded in UTF-32, making the page take less space in memory and load substantially faster.
 >
-> Unicode characters can be referenced by their **code point**.
+> `Unicode` characters can be referenced by their **code point**.
 >
-> * A code point is the (irreducible) **atomic unit** of information.
+> * A code point is the (irreducible) **atomic unit of information**.
 > * Text is a sequence of **code points**. 
 > * Each code point is a number which is given meaning by the Unicode standard.
 > * The current `Unicode` standard defines 1,114,112 code points,
