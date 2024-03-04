@@ -362,7 +362,7 @@ ___
 static void ft_send_msg(pid_t pid, char *msg);
 ```
 
-* This function creates a local variable `i`, initialized to 0, to keep track of the current index in the message being sent.
+To keep track of the current index of the message being sent, a local variable `i`, initialized to 0, 
 
 * But before it starts sending the actual message it must first send its length to the `server`.
 
@@ -372,6 +372,7 @@ int i;
 int msglen;
 ...
 msglen = ft_strlen(msg);
+ft_printf("%sOutbound msg's length = %d%s\n", CYN, msglen, NC);
 ft_send_int(pid, msglen);
 ```
 
@@ -381,6 +382,9 @@ ft_printf("\n%sSending Message%s\n", GRN, NC);
 while (msg[i] != '\0')
 	ft_send_char(pid, msg[i++]);
 ft_printf("\n");
+ft_sep_color('0', '=', 28, GRN);
+ft_printf("%sSending NULL Terminator\n", MAG, NC);
+ft_sep_color('0', '=', 28, GRN);
 ```
 
 Then all there's left to do is to send a NULL terminator to the `server` and terminate the message:
