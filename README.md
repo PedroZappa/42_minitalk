@@ -38,6 +38,7 @@ ___
     * [`ft_send_msg()`](#ft_send_msg)
   * [`ft_send.c`](#ft_sendc)
     * [`ft_send_char()` & `ft_send_int()`](#ft_send_char--ft_send_int)
+    * [Sending Data ](#sending-data-)
     * [`ft_send_bit()`](#ft_send_bit)
   * [`ft_sigaction.c`](#ft_sigactionc)
 * [Usage 🏁](#usage-)
@@ -417,6 +418,9 @@ bitshift = ((sizeof(char) * 8) - 1); // Prepare the server to receive 8 bits
 ```
 > [!Important]
 > `bitshift` will be used to iterate through each bit of the data being sent from the most significant (`MSB`) to the least significant bit (`LSB`).
+
+___
+#### Sending Data 
 
 The `client` enters a loop running from `bitshift` to 0:
 
