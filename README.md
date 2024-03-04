@@ -117,6 +117,7 @@ sa.sa_flags = SA_SIGINFO | SA_RESTART;
 * `sa.sa_sigaction` is set to the function `ft_server_sighandler()`;
 * `sa.sa_flags` flag set has the bits for `SA_SIGINFO` and `SA_RESTART` turned on;
 
+___
 The `sa` struct is then passed to `ft_set_sigaction()` to initialize event handling for `SIGUSR1` and `SIGUSR2` signals.
 ```c
 ft_set_sigaction(&sa);
