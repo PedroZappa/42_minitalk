@@ -178,7 +178,7 @@ else if ((sig == SIGUSR2) && server.received)
 	server.data |= 1 << (((sizeof(char) * 8) - 1) - server.bits);
 ```
 
-* The conditional statements make sure that the first 32 bits of incoming data are saved in a space that fits an `int`. This integer specifies the length of the incoming message.
+* The conditional statements make sure that the first 32 bits of incoming data are saved in a space that fits an `int`.
 
 * The bitwise operators `|` (OR) and `<<` (Left-Shift) are used together to set the received bits in their right place in memory.
 
