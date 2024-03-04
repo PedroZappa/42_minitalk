@@ -509,8 +509,9 @@ To access a given **code point** we use the following syntax:
 | Character | Code Point | Binary Representation |
 | --------- | ---------- | --------------------- |
 | 💩        | U+1F4A9    | 0001 1111 0100 1010 1001 |
+| 🌟        | U+1F31F    | 0001 1111 0011 0001 1111 |
 
-Some characters can be expressed as a combination of multiple code points.
+Some characters can be expressed as a combination of multiple **code points**.
 
 </div>
 
