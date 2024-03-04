@@ -389,7 +389,7 @@ ft_printf("%sSending NULL Terminator\n", MAG, NC);
 ft_sep_color('0', '=', 28, GRN);
 ```
 
-Then all there's left to do is to send a NULL terminator to the `server` and terminate the message:
+Then all there's left to do is to send a NULL terminator to the `server` and terminate the message appropriately:
 ```c
 ft_send_char(pid, '\0');
 ```
