@@ -324,7 +324,7 @@ else if (kill(ft_atoi(argv[1]), 0) < 0)
 ___
 #### Initializing the Client's `sigaction`
 
-The `client`, like the `server`, uses `sigaction()` to handle incoming UNIX signals, but sets it up slightly differently.
+The `client`, like the `server`, uses `sigaction()` to handle incoming UNIX signals:
 ```c
 struct sigaction	sa;
 
