@@ -284,7 +284,6 @@ if (server->data == '\0') { ... }
 ```c
 ft_printf("Message:\n%s%s%s\n", GRN, server->msg, NC)
 ft_print_pid();
-free(server->msg);
 ```
 
 > Now the `server does some clean up to prepare to receive the next message.
