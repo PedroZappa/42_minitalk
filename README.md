@@ -581,6 +581,9 @@ Some characters can be expressed as a combination of multiple **code points** kn
 | 🌾        | U+1F33E    |
 | 🧑‍🌾| U+1F9D1 U+200D U+1F33E |
 
+> [!Important]
+> `U+200D` is a **zero-width joiner**.
+
 </div>
 
 ___
