@@ -186,7 +186,9 @@ else if ((sig == SIGUSR2) && server.received)
 
 > [!Note]
 >
-> These bitwise operations only happen when a `SIGUSR2` is received. Any time a `SIGUSR1` is caught, the server simply acknowledges by sending back a `SIGUSR1` to the `client`.
+> These bitwise operations only happen when a `SIGUSR2` is received.
+>
+> Any time a `SIGUSR1` is caught, the server simply acknowledges by sending back a `SIGUSR1` to the `client`.
 >
 > Because the memory in `server.data` is initially set to 0, the `server` only needs to act when a 1 is received, and flip the appropriate bit in its right place in memory.
 
