@@ -341,9 +341,7 @@ The `client` declares `sa` and:
 
 * `sa.sa_flags` flag set has the bit for `SA_RESTART` turned on;
 
-* Then the `sa` struct is passed into `ft_set_sigaction()` to set event handling for `SIGUSR1` and `SIGUSR2`;
-
-___
+* The `sa` struct is then passed into `ft_set_sigaction()` to set event handling for `SIGUSR1` and `SIGUSR2`;
 
 > When the `client` event handler receives a signal, it checks if it is `SIGUSR1` or `SIGUSR2`:
 >
@@ -369,7 +367,8 @@ static void ft_send_msg(pid_t pid, char *msg);
 
 * This is done bit by bit using the function `ft_send_int`.
 ```c
-int	msglen;
+int i;
+int msglen;
 ...
 msglen = ft_strlen(msg);
 ft_send_int(pid, msglen);
