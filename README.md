@@ -334,8 +334,9 @@ sa.sa_flags = SA_RESTART;
 ft_set_sigaction(&sa);
 ```
 
-The `client` declares `sa` and:
-* initializes `sa.sa_mask` with all signals excluded from the set using `sigemptyset()`;
+A struct `sigaction` is declared as `sa` and:
+
+* Initializes its signal set `sa.sa_mask` with all signals excluded from the set using `sigemptyset()`;
 
 * `sa.sa_handler` is set to the function `ft_client_sighandler()`;
 
@@ -345,7 +346,7 @@ The `client` declares `sa` and:
 
 > When the `client` event handler receives a signal, it checks if it is `SIGUSR1` or `SIGUSR2`:
 >
-> * If the incoming signal is `SIGUSR1` (Data reception acknowledgement), it prints a `*` to `stdout`.
+> * If the incoming signal is `SIGUSR1` (Data Reception Acknowledgement), it prints a `*` to `stdout`.
 >
 > * Else if it receives `SIGUSR2` (Data Transmission Done), it prints a success message to `stdout` and exits.
 
