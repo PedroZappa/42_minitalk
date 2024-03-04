@@ -325,6 +325,14 @@ ___
 #### Initializing the Client's `sigaction`
 
 The `client`, like the `server`, uses `sigaction()` to handle incoming UNIX signals, but sets it up slightly differently.
+```c
+struct sigaction	sa;
+
+sigemptyset(&sa.sa_mask);
+sa.sa_handler = ft_client_sighandler;
+sa.sa_flags = SA_RESTART;
+ft_set_sigaction(&sa);
+```
 
 The `client` declares `sa` and:
 * initializes `sa.sa_mask` with all signals excluded from the set using `sigemptyset()`;
@@ -334,14 +342,6 @@ The `client` declares `sa` and:
 * `sa.sa_flags` is set to `SA_RESTART`;
 
 * Then the `sa` struct is passed into `ft_set_sigaction()` to set event handling for `SIGUSR1` and `SIGUSR2`;
-```c
-struct sigaction	sa;
-
-sigemptyset(&sa.sa_mask);
-sa.sa_handler = ft_client_sighandler;
-sa.sa_flags = SA_RESTART;
-ft_set_sigaction(&sa);
-```
 
 > The `client` event handler prints a `*` if the received signal is `SIGUSR1` or if it is `SIGUSR2` it announces that the message has been successfully sent and exits the program.
 
