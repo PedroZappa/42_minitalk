@@ -39,6 +39,8 @@ ___
 * [Testing 🧪](#testing-)
 * [Appendix 📖](#appendix-)
   * [`Unicode` Character Encoding](#unicode-character-encoding)
+    * [Variable Length Encoding](#variable-length-encoding)
+    * [Code Points](#code-points)
 * [License](#license)
 
 <!-- mtoc-end -->
@@ -473,23 +475,29 @@ ___
 
 ### `Unicode` Character Encoding
 
-`Unicode` a type of character encoding, like other encodings it functions as a **lookup table for characters**.
+`Unicode`, like other character encodings, functions as a **lookup table for characters**.
 
-The most important difference between `Unicode` and `ASCII` is that `Unicode` allows character encodings to be up to 32-bits wide, allowing for over 4 billion unique values, way too much space than we'll ever need to include every character set in existence.
+The most important difference between `Unicode` and `ASCII` is that `Unicode` allows character encodings to be up to 32-bits wide, allowing for over 4 billion unique values (way too much space than we'll ever need to include every character set in existence).
+
+___
+#### Variable Length Encoding
 
 `Unicode` takes a smart approach when it comes to character encoding. If a character can be represented by just 1 byte that's all the space that will be used. This memory efficient technique is known as **variable length encoding**.
 * For example a common character like a `C` takes 8 bits in memory, while special, rarer characters like `💩` need up to 32 bytes to be stored in memory.
-* This means a document like the present post takes about four times less space when encoded in UTF-8 than it would if encoded in UTF-32, making the page take less space in memory and load substantially faster.
+* This means a document like the present README takes about four times less space when encoded in UTF-8 than it would if encoded in UTF-32, making the page take less space in memory and load substantially faster.
+
+___
+#### Code Points
 
 `Unicode` characters can be referenced by their **code point**.
 
-* A code point is the (irreducible) **atomic unit of information**.
-* Text is a sequence of **code points**. 
-* Each code point is a number which is given meaning by the Unicode standard.
-* The current `Unicode` standard defines 1,114,112 code points,
+* A code point is a (irreducible) **atomic unit of information**.
+* A text document is a sequence of **code points**. 
+* Each code point represents a number with a particular meaning in the `Unicode` standard.
+* The current `Unicode` standard defines 1,114,112 **code points**.
 * These **code points** are further divided into **17 planes or groundings**.
 * Each **plane** is identified by a number from 0 to 16.
-* The number of **code points** in each plane is 65,536 ($2^16$).
+* The number of **code points** in each plane is 65,536 ($2^{16}$).
 
 To access a given code point we use the following syntax:
 
