@@ -47,6 +47,7 @@ ___
   * [`Unicode` Character Encoding](#unicode-character-encoding)
     * [Variable Length Encoding](#variable-length-encoding)
     * [Code Points](#code-points)
+    * [Grapheme Clusters](#grapheme-clusters)
 * [License](#license)
 
 <!-- mtoc-end -->
@@ -571,6 +572,14 @@ To access a given **code point** we use the following syntax:
 
 Some characters can be expressed as a combination of multiple **code points** known as `grapheme clusters`.
 
+___
+#### Grapheme Clusters
+
+| Character | Code Point |
+| --------- | ---------- |
+| 🧑        | U+1F9D1    |
+| 🌾        | U+1F33E    |
+| 🧑‍🌾| U+1F9D1 U+200D U+1F33E |
 
 U+1F9D1 🧑, U+200D, and U+1F33E 🌾
 
@@ -578,9 +587,11 @@ U+1F9D1 U+200D U+1F33E
 
 U+1F9D1U+200DU+1F33E
 
-🧑U+200D🌾
+🧑‍🌾
 
+🧑&zwnj;🌾
 
+🧑‍🌾
 
 </div>
 
