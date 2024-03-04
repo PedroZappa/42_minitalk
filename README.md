@@ -516,7 +516,7 @@ ___
 
 If you're like me and use `tmux` you can quickly test the project using the following make rules:
 
-* Spins up the `server` conveniently on a new `tmux` window-split:
+* Conveniently spin up a `server` on a new `tmux` window-split:
 ```sh
 make serve
 ```
