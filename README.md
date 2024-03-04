@@ -509,7 +509,7 @@ make
 ```bash
 ./client [server-pid] [message]
 ```
-* The `client` will send the passed `message` to the target `server`.
+* The `client` will send the passed `message` to the target `server` with given `pid`.
 
 ___
 ## Testing 🧪
