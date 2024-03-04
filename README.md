@@ -25,8 +25,8 @@ ___
   * [Mandatory Features](#mandatory-features)
   * [Bonus Features](#bonus-features)
 * [Implementation 📜](#implementation-)
+  * [`t_protocol`](#t_protocol)
   * [`server.c`](#serverc)
-    * [`t_protocol`](#t_protocol)
     * [`ft_server_sighandler()`](#ft_server_sighandler)
     * [`ft_strlen_received()`](#ft_strlen_received)
     * [`ft_print_msg()`](#ft_print_msg)
@@ -76,6 +76,20 @@ ___
 > For this project I chose to implement both mandatory and bonus features together. The `server` and `client` can be found in the `server.c` and `client.c` files inside the `src` folder plus two additional files `ft_sigaction.c` and `ft_send.c` containing helper functions.
 
 ___
+#### `t_protocol`
+
+For the sake of simplicity the program uses a **custom data type** `t_protocol` which holds all the data the server needs to perform its operations:
+```c
+typedef struct s_protocol
+{
+	int  bits;     // Number of bits received
+	int  data;     // Received data (One integer and a sequence of chars)
+	int  received; // Flag indicating if "header" data has been received
+	char *msg;     // Received message
+}	t_protocol;
+```
+
+___
 ### `server.c`
 
 To implement the [server](https://github.com/PedroZappa/42_minitalk/blob/main/src/server.c)'s signal handling functionality I used `sigaction()` over `signal()`. This is because `signal()` is deprecated due to its varying behaviour across UNIX versions, making it a non-portable option.
@@ -112,20 +126,6 @@ ft_print_pid();
 while (1)
 	pause();
 ```
-___
-#### `t_protocol`
-
-For the sake of simplicity the program uses a **custom data type** `t_protocol` which holds all the data the server needs to perform its operations:
-```c
-typedef struct s_protocol
-{
-	int  bits;     // Number of bits received
-	int  data;     // Received data (One integer and a sequence of chars)
-	int  received; // Flag indicating if "header" data has been received
-	char *msg;     // Received message
-}	t_protocol;
-```
-
 ___
 #### `ft_server_sighandler()`
 ```c
