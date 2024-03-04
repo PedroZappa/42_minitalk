@@ -180,7 +180,7 @@ else if ((sig == SIGUSR2) && server.received)
 
 * The bitwise operators `|` (OR) and `<<` (Left-Shift) are used together to set the received bits in their right place in memory.
 
-* The conditional statements make sure that the first 32 bits of the message are saved in a space that fits an `int` that specifies the length of the incoming message.
+* The conditional statements make sure that the first 32 bits of incoming data are saved in a space that fits an `int` that specifies the length of the incoming message.
 
 * After this `int` is received the `server` starts storing the following inbound bits into `char` sized chunks of memory.
 
