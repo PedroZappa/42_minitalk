@@ -570,28 +570,16 @@ To access a given **code point** we use the following syntax:
 | 💩        | U+1F4A9    | 0001 1111 0100 1010 1001 |
 | 🌟        | U+1F31F    | 0001 1111 0011 0001 1111 |
 
-Some characters can be expressed as a combination of multiple **code points** known as `grapheme clusters`.
-
 ___
 #### Grapheme Clusters
+
+Some characters can be expressed as a combination of multiple **code points** known as `grapheme clusters`.
 
 | Character | Code Point |
 | --------- | ---------- |
 | 🧑        | U+1F9D1    |
 | 🌾        | U+1F33E    |
 | 🧑‍🌾| U+1F9D1 U+200D U+1F33E |
-
-U+1F9D1 🧑, U+200D, and U+1F33E 🌾
-
-U+1F9D1 U+200D U+1F33E
-
-U+1F9D1U+200DU+1F33E
-
-🧑‍🌾
-
-🧑&zwnj;🌾
-
-🧑‍🌾
 
 </div>
 
