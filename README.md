@@ -317,7 +317,9 @@ else if (kill(ft_atoi(argv[1]), 0) < 0)
 
 * It first checks if `argc` is not equal to 3, if so the program will print an error to `stderr` and exit.
 
-* Then checks if the `pid` of the server (`argv[1]`) is valid by test-calling `kill()` (with a zero instead of a signal identifier), if it is NOT valid the program will also print an error to `stderr` and exit.
+* Then checks if the `pid` of the server (`argv[1]`) is valid by test-calling `kill()` (with a zero instead of a signal identifier).
+
+* if it is NOT valid the program will also print an error to `stderr` and exit.
 
 The `client`, like the `server`, uses `sigaction()` to handle incoming UNIX signals, but sets it up slightly differently.
 
