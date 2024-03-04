@@ -37,6 +37,8 @@ ___
   * [`ft_sigaction.c`](#ft_sigactionc)
 * [Usage 🏁](#usage-)
 * [Testing 🧪](#testing-)
+* [Appendix 📖](#appendix-)
+  * [`Unicode` Character Encoding](#unicode-character-encoding)
 * [License](#license)
 
 <!-- mtoc-end -->
@@ -201,45 +203,12 @@ server->msg[*i] = server->data;
 ```
 
 > [!Note]
->
-> On **Unicode**
->
-> Is a type of character encoding, like other encodings it functions as a **lookup table for characters**.
->
-> The most important difference between `Unicode` and `ASCII` is that `Unicode` allows character encodings to be up to 32-bits wide, allowing for over 4 billion unique values, way too much space than we'll ever need to include every character set in existence.
->
-> `Unicode` takes a smart approach when it comes to character encoding. If a character can be represented by just 1 byte that's all the space that will be used. This memory efficient technique is known as **variable length encoding**.
-> * For example a common character like a `C` takes 8 bits in memory, while special, rarer characters like `💩` need up to 32 bytes to be stored in memory.
-> * This means a document like the present post takes about four times less space when encoded in UTF-8 than it would if encoded in UTF-32, making the page take less space in memory and load substantially faster.
->
-> `Unicode` characters can be referenced by their **code point**.
->
-> * A code point is the (irreducible) **atomic unit of information**.
-> * Text is a sequence of **code points**. 
-> * Each code point is a number which is given meaning by the Unicode standard.
-> * The current `Unicode` standard defines 1,114,112 code points,
-> * These **code points** are further divided into **17 planes or groundings**.
-> * Each **plane** is identified by a number from 0 to 16.
-> * The number of **code points** in each plane is 65,536 ($2^16$).
->
-> To access a given code point we use the following syntax:
->
-> * `U+(hexadecimal representation of a code point)`
->
-> Hexadecimal values are used to represent the code points because they make it easier to reference large values.
->
-> Character: 💩
-> Code point: U+1F4A9
-> Binary representation: 0001 1111 0100 1010 1001
->
-> Some characters can be expressed as a combination of multiple code points.
-
+> For more about `Unicode` character encoding check the Appendix, [`Unicode` Character Encoding](#unicode-character-encoding).
 
 Notice that `server.bits` is reset to 0 after the `char` has been stored, in preparation to receive the next.
 ```c
 server->bits = 0;
 ```
-
 
 And so the `server` receives each byte of the message until the whole message has been received. 
 
@@ -499,9 +468,46 @@ make test
 ```sh
 make stress_test
 ```
+___
+## Appendix 📖
+
+### `Unicode` Character Encoding
+
+> [!Note]
+>
+> On **Unicode**
+>
+> Is a type of character encoding, like other encodings it functions as a **lookup table for characters**.
+>
+> The most important difference between `Unicode` and `ASCII` is that `Unicode` allows character encodings to be up to 32-bits wide, allowing for over 4 billion unique values, way too much space than we'll ever need to include every character set in existence.
+>
+> `Unicode` takes a smart approach when it comes to character encoding. If a character can be represented by just 1 byte that's all the space that will be used. This memory efficient technique is known as **variable length encoding**.
+> * For example a common character like a `C` takes 8 bits in memory, while special, rarer characters like `💩` need up to 32 bytes to be stored in memory.
+> * This means a document like the present post takes about four times less space when encoded in UTF-8 than it would if encoded in UTF-32, making the page take less space in memory and load substantially faster.
+>
+> `Unicode` characters can be referenced by their **code point**.
+>
+> * A code point is the (irreducible) **atomic unit of information**.
+> * Text is a sequence of **code points**. 
+> * Each code point is a number which is given meaning by the Unicode standard.
+> * The current `Unicode` standard defines 1,114,112 code points,
+> * These **code points** are further divided into **17 planes or groundings**.
+> * Each **plane** is identified by a number from 0 to 16.
+> * The number of **code points** in each plane is 65,536 ($2^16$).
+>
+> To access a given code point we use the following syntax:
+>
+> * `U+(hexadecimal representation of a code point)`
+>
+> Hexadecimal values are used to represent the code points because they make it easier to reference large values.
+>
+> Character: 💩
+> Code point: U+1F4A9
+> Binary representation: 0001 1111 0100 1010 1001
+>
+> Some characters can be expressed as a combination of multiple code points.
 </div>
 ___
-
 ## License
 
 This work is published under the terms of <a href="https://github.com/PedroZappa/42_minitalk/blob/main/LICENSE">42 Unlicense</a>.
