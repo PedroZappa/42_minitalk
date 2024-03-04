@@ -551,7 +551,7 @@ ___
 
 * A **code point** is a (irreducible) **atomic unit of information**.
 * A text document is a sequence of **code points**. 
-* Each code point represents a number with a particular meaning in the `Unicode` standard.
+* Each **code point** represents a number with a particular meaning in the `Unicode` standard.
 * The current `Unicode` standard defines 1,114,112 **code points**.
 * These **code points** are further divided into **17 planes or groundings**.
 * Each **plane** is identified by a number from 0 to 16.
