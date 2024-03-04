@@ -104,6 +104,14 @@ ___
 ### Initializing `sigaction`
 
 The `server`'s **main()** function declares and initializes a `struct sigaction` variable called `sa`.
+```c
+struct sigaction	sa;
+
+sigemptyset(&sa.sa_mask);
+sa.sa_sigaction = ft_server_sighandler;
+sa.sa_flags = SA_SIGINFO | SA_RESTART;
+```
+
 * `sa.sa_mask` specifies a mask of signals that should be ignored;
 * We use `sigemptyset()` to initialize a signal set `sa.sa_mask` with all signals excluded from the set;
 * `sa.sa_sigaction` is set to the function `ft_server_sighandler()`;
@@ -111,11 +119,6 @@ The `server`'s **main()** function declares and initializes a `struct sigaction`
 
 The `sa` struct is then passed to `ft_set_sigaction()` to initialize event handling for `SIGUSR1` and `SIGUSR2` signals.
 ```c
-struct sigaction	sa;
-
-sigemptyset(&sa.sa_mask);
-sa.sa_sigaction = ft_server_sighandler;
-sa.sa_flags = SA_SIGINFO | SA_RESTART;
 ft_set_sigaction(&sa);
 ```
 
