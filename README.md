@@ -58,7 +58,7 @@ ___
 
 > The goal of this project is to develop a `client`-`server` communication program using **UNIX signals** only.
 
-<img alt="minitalk demo" src="./video/minitalk.gif" width="100%" />
+<img alt="minitalk demo" src="./video/minitalk.gif" width="600" />
 
 ### Mandatory Features
 
