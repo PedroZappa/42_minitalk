@@ -124,7 +124,7 @@ deps: 			## Download/Update libft
 
 get_libft:		## Get Libft module
 	@echo "* $(CYA)Getting Libft submodule$(D)]"
-	git clone git@github.com:PedroZappa/libft.git $(LIBFT_PATH)
+	git clone git@github.com:PedroZappa/42_libft.git $(LIBFT_PATH)
 	@echo "* $(GRN)Libft submodule download$(D): $(_SUCCESS)"
 
 update_modules:	## Update modules
