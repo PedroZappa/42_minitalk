@@ -15,6 +15,10 @@
 
 ___
 
+<img alt="minitalk demo" src="./video/minitalk.gif" width="600" />
+
+___
+
 <h3>Table o'Contents</h3>
 
 </div>
@@ -57,8 +61,6 @@ ___
 ## About 📌
 
 > The goal of this project is to develop a `client`-`server` communication program using **UNIX signals** only.
-
-<img alt="minitalk demo" src="./video/minitalk.gif" width="600" />
 
 ### Mandatory Features
 
