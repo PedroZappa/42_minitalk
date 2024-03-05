@@ -54,9 +54,9 @@ LIBFT_ARC	= $(LIBFT_PATH)/libft.a
 TXT_TEST1	= $(shell cat ./tests/bit_3000.txt)
 TXT_TEST2	= $(shell cat ./tests/bit_7000.txt)
 TXT_TEST3	= $(shell cat ./tests/bit_9999.txt)
-EMOJI_TEST1	= $(shell cat ./tests/emoji_1000.txt)
-EMOJI_TEST2	= $(shell cat ./tests/emoji_2000.txt)
-EMOJI_TEST3	= $(shell cat ./tests/emoji_3000.txt)
+EMOJI_TEST1		= $(shell cat ./tests/emoji_1000.txt)
+EMOJI_TEST2		= $(shell cat ./tests/emoji_2000.txt)
+EMOJI_TEST3		= $(shell cat ./tests/emoji_3000.txt)
 
 #==============================================================================#
 #                              COMPILER & FLAGS                                #
@@ -163,33 +163,33 @@ serve: all			## Run Server in new tmux pane
 	./scripts/get-server-pid.sh > server.pid
 
 test: all			## Attach Clients to server in new tmux panes
-	@echo "$(YEL)running test [1/3]$(D)"
-	tmux split-window -v "./client $$(cat server.pid) 'running test 1'"
+	@echo "$(YEL)Running test [1/3]$(D)"
+	tmux split-window -v "./client $$(cat server.pid) 'Running quick test 1'"
 	sleep 1
-	@echo "$(YEL)running test [2/3]$(D)"
-	tmux split-window -v "./client $$(cat server.pid) 'running test 2'"
+	@echo "$(YEL)Running test [2/3]$(D)"
+	tmux split-window -v "./client $$(cat server.pid) 'Running quick test 2'"
 	sleep 1
-	@echo "$(YEL)running test [3/3]$(D)"
-	tmux split-window -v "./client $$(cat server.pid) 'running test 3'"
+	@echo "$(YEL)Running test [3/3]$(D)"
+	tmux split-window -v "./client $$(cat server.pid) 'Running quick test 3'"
 
-stress_test: all	## Attach Clients and stress running test
+stress_test: all	## Attach Clients and stress Running test
 	tmux split-window -v "./client $$(cat server.pid) '$(TXT_TEST1)'" ; \
-	echo "$(YEL)running text test [1/3]$(D)" && \
+	echo "$(YEL)Running text test [1/3]$(D)" && \
 	sleep 7
 	tmux split-window -v "./client $$(cat server.pid) '$(TXT_TEST2)'" ; \
-	echo "$(YEL)running text test [2/3]$(D)" && \
+	echo "$(YEL)Running text test [2/3]$(D)" && \
 	sleep 12
 	tmux split-window -v "./client $$(cat server.pid) '$(TXT_TEST3)'" ; \
-	echo "$(YEL)running text test [3/3]$(D)" && \
+	echo "$(YEL)Running text test [3/3]$(D)" && \
 	sleep 15
 	tmux split-window -v "./client $$(cat server.pid) '$(EMOJI_TEST1)'" ; \
-	echo "$(YEL)running 😎emoji😎 test [1/3]$(D)" && \
+	echo "$(YEL)Running 😎emoji😎 test [1/3]$(D)" && \
 	sleep 11
 	tmux split-window -v "./client $$(cat server.pid) '$(EMOJI_TEST2)'" ; \
-	echo "$(YEL)running 😎emoji😎 test [2/3]$(D)" && \
+	echo "$(YEL)Running 😎emoji😎 test [2/3]$(D)" && \
 	sleep 20
 	tmux split-window -v "./client $$(cat server.pid) '$(EMOJI_TEST3)'" ; \
-	echo "$(YEL)running 😎emoji😎 test [3/3]$(D)"
+	sscho "$(YEL)Running 😎emoji😎 test [3/3]$(D)"
 
 ##@ Clean-up Rules 󰃢
 
