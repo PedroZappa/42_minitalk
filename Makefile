@@ -192,7 +192,7 @@ stress_test: all	## Attach Clients and stress Running test
 	echo "$(YEL)Running 😎emoji😎 test [2/3]$(D)" && \
 	sleep 20
 	tmux split-window -v "./client $$(cat server.pid) '$(EMOJI_TEST3)'" ; \
-	sscho "$(YEL)Running 😎emoji😎 test [3/3]$(D)"
+	echo "$(YEL)Running 😎emoji😎 test [3/3]$(D)"
 
 ##@ Clean-up Rules 󰃢
 
