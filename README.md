@@ -413,7 +413,7 @@ void	ft_send_char(pid_t pid, char c);
 ```
 
 These two functions work in similar ways.
-* They first initialize a `bitshift` integer variable with the size of the data type about to be sent:
+* They first initialize a `bitshift` integer variable with the binary size of the data type about to be sent:
 ```c
 int		bitshift;
 
