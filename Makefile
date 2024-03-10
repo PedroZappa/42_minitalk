@@ -194,6 +194,12 @@ stress_test: all	## Attach Clients and stress Running test
 	tmux split-window -v "./client $$(cat server.pid) '$(EMOJI_TEST3)'" ; \
 	echo "$(YEL)Running 😎emoji😎 test [3/3]$(D)"
 
+##@ Presentation Rules 🖵
+slidev:
+	@echo "* $(YEL)Scaffolding Slidev$(D)"
+	npm init slidev@latest
+	@echo "* $(YEL)Building Slidev$(D): $(_SUCCESS)"
+
 ##@ Clean-up Rules 󰃢
 
 clean: 				## Remove object files
