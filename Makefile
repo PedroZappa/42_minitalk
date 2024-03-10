@@ -195,7 +195,7 @@ stress_test: all	## Attach Clients and stress Running test
 	echo "$(YEL)Running 😎emoji😎 test [3/3]$(D)"
 
 ##@ Presentation Rules 🖵
-slidev:
+slidev:			## Build Slidev
 	@echo "* $(YEL)Scaffolding Slidev$(D)"
 	npm init slidev@latest
 	@echo "* $(YEL)Building Slidev$(D): $(_SUCCESS)"
