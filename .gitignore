@@ -63,3 +63,6 @@ norm_ls.txt
 norm_err.txt
 norm_errn.txt
 node_modules
+
+# Presentation
+slides_ref.md
