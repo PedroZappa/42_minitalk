@@ -1,9 +1,9 @@
 ---
 theme: dracula
 font:
-sans: Fira Code
-mono: Fira Code
-serif: Fira Code
+  sans: Fira Code
+  mono: Fira Code
+  serif: Fira Code
 class: 'text-center'
 highlighter: shiki
 colorSchema: dark
