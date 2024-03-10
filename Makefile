@@ -196,7 +196,7 @@ stress_test: all	## Attach Clients and stress Running test
 
 ##@ Presentation Rules 🖵
 slidev:			## Build Slidev
-	@echo "* $(YEL)Scaffolding Slidev$(D)"
+	@echo "* $(YEL)Initializing Slidev$(D)"
 	slidev
 	@echo "* $(YEL)Building Slidev$(D): $(_SUCCESS)"
 
