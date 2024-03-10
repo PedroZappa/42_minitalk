@@ -197,6 +197,7 @@ stress_test: all	## Attach Clients and stress Running test
 ##@ Presentation Rules 🖵
 slidev:			## Build Slidev
 	@echo "* $(YEL)Initializing Slidev$(D)"
+	npm init slidev@latest
 	slidev
 	@echo "* $(YEL)Building Slidev$(D): $(_SUCCESS)"
 
