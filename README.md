@@ -422,7 +422,7 @@ bitshift = ((sizeof(int) * 8) - 1);  // Prepare the server to receive 32 bits
 bitshift = ((sizeof(char) * 8) - 1); // Prepare the server to receive 8 bits
 ```
 > [!Important]
-> `bitshift` will be used to iterate through each bit of the data being sent from the most significant (`MSB`) to the least significant bit (`LSB`).
+> `bitshift` will be used to iterate through each byte of data being sent from the most significant (`MSB`) to the least significant bit (`LSB`).
 
 ___
 #### Sending Data 
