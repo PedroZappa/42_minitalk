@@ -117,7 +117,8 @@ bonus:			## Compile minitalk with bonus features
 
 deps: 			## Download/Update libft
 	@if test ! -d "$(LIBFT_PATH)"; then make get_libft; \
-		else echo "$(YEL)[libft]$(D) folder found 🖔"; fi
+		else echo "$(YEL)[libft]$(D) folder found $(YEL)🖔$(D)"; \
+	fi
 	@echo " $(RED)$(D) [$(GRN)Nothing to be done!$(D)]"
 
 -include $(DEPS)
@@ -195,11 +196,10 @@ stress_test: all	## Attach Clients and stress Running test
 	echo "$(YEL)Running 😎emoji😎 test [3/3]$(D)"
 
 ##@ Presentation Rules 🖵
+
 slidev:			## Build Slidev
-	@echo "* $(YEL)Initializing Slidev$(D)"
-	npm init slidev@latest
-	slidev
-	@echo "* $(YEL)Building Slidev$(D): $(_SUCCESS)"
+	@echo "* $(YEL)Checking for Slidev global installation$(D)"
+	@scripts/check-slidev.sh
 
 ##@ Clean-up Rules 󰃢
 
