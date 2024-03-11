@@ -486,10 +486,14 @@ typedef struct s_protocol
 	char *msg;     // Received message
 }	t_protocol;
 ```
+
 <!--
 For the sake of simplicity the program uses a custom data type t_protocol which holds all the data the server needs to perform its operations:
 
 bits : keeps track of the current byte being received.
+
+will be set either to 32 or 8, if receiving an int or a char respectively.
+
 data : To store all incoming bits.
 received : 
 msg :
@@ -505,7 +509,7 @@ title: Server
 
 <br>
 
-```c
+```c {all|3,5-7|8|9|10-11}
 int	main(void)
 {
 	struct sigaction	sa;
@@ -517,7 +521,6 @@ int	main(void)
 	ft_print_pid();
 	while (1)
 		pause();
-	return (EXIT_SUCCESS);
 }
 ```
 
@@ -525,15 +528,19 @@ int	main(void)
 
 <br>
 
-<v-clicks>
+<div v-click="1">
 
-* Declare and initializes **sa** of type `struct sigaction`;
+* Declares and initializes **sa** of type `struct sigaction`;
+
+</div>
+
+<div v-click="2">
 
 * Setup **Signal Handling**:
 
-</v-clicks>
+</div>
 
-<v-after>
+<div v-click="2">
 
 ```c
 void	ft_set_sigaction(struct sigaction *sa)
@@ -546,15 +553,18 @@ void	ft_set_sigaction(struct sigaction *sa)
 			"sigaction() failed to handle SIGUSR2");
 }
 ```
-</v-after>
+</div>
 
-<v-clicks>
+<div v-click="3">
 
 * Prints the **PID** to **stdout**;
 
+</div>
+<div v-click="4">
+
 * Enters infinite loop, waiting for a signal to catch;
 
-</v-clicks>
+</div>
 
 <!--
 sa.sa_mask : specifies a mask of signals that should be ignored; We use sigemptyset() to initialize a signal set sa.sa_mask with all signals excluded from the set;
@@ -570,7 +580,7 @@ class: 'pa-5'
 title: Client 
 ---
 
-```c
+```c {all|5-9|3,10-12|13|15-16|18|19}
 int	main(int argc, char **argv)
 {
 	struct sigaction	sa;
@@ -598,20 +608,36 @@ int	main(int argc, char **argv)
 <h1 style="text-align: center">Client</h1>
 <br>
 
-<v-clicks>
+<div v-click="1">
 
 * Checks if input arguments are valid;
 
+</div>
+<div v-click="2">
+
 * Declare and initializes **sa** of type `struct sigaction`;
+
+</div>
+<div v-click="3">
 
 * Setup **Signal Handling**;
 
+</div>
+<div v-click="4">
+
 * Prints the **PID** of the server to **stdout**;
+
+</div>
+<div v-click="5">
 
 * Sends the **message** to the server bit-by-bit;
 
-</v-clicks>
+</div>
+<div v-click="6">
 
+* Terminates the program successfully;
+
+</div>
 <!--
 
 -->
@@ -626,7 +652,7 @@ title: ft_client_sighandler()
 <br>
 <br>
 	
-```c
+```c {all|3-4|5-12}
 static void	ft_client_sighandler(int sig)
 {
 	if (sig == SIGUSR1)
@@ -649,19 +675,18 @@ static void	ft_client_sighandler(int sig)
 <br>
 <br>
 
-<v-click>
+<div v-click="1">
 
 * **SIGUSR1** from server: 
 > bit successfully received;
 
-</v-click>
-
-<v-click>
+</div>
+<div v-click="2">
 
 * **SIGUSR2** from server:
 > message successfully received;
 
-</v-click>
+</div>
 
 <!--
 
@@ -673,7 +698,7 @@ class: 'pr-50 pl-50'
 title: Client into ft_send_msg() 
 ---
 
-<h1 style="text-align: center">Sending the Message</h1>
+<h1 style="text-align: center">Sending the Message to the Server</h1>
 
 ```c {18}
 /* Client */
@@ -703,14 +728,11 @@ int	main(int argc, char **argv)
 -->
 
 ---
-layout: default
-class: 'pr-50 pl-50'
+layout: two-cols
+class: 'pa-3'
 title: ft_send_msg() 
 ---
-
-<h1 style="text-align: center">ft_send_msg()</h1>
-
-```c {all|1|4,8|10|12-13|16,18}
+```c {all|4,8|9-10|13-14|17,19}
 static void	ft_send_msg(pid_t pid, char *msg)
 {
 	int		i;
@@ -719,7 +741,8 @@ static void	ft_send_msg(pid_t pid, char *msg)
 	i = 0;
 	{
 		msglen = ft_strlen(msg);
-		ft_printf("%sOutbound msg's length = %d%s\n", CYN, msglen, NC);
+		ft_printf("%sOutbound msg's length = %d%s\n",
+			CYN, msglen, NC);
 		ft_send_int(pid, msglen);
 		ft_printf("\n%sSending Message%s\n", GRN, NC);
 		while (msg[i] != '\0')
@@ -732,6 +755,31 @@ static void	ft_send_msg(pid_t pid, char *msg)
 	}
 }
 ```
+
+::right::
+
+<h1 style="text-align: center">ft_send_msg()</h1>
+
+<div v-click="1">
+
+* Take the message length;
+
+</div>
+<div v-click="2">
+
+* Print the message length to **stdout**;
+
+</div>
+<div v-click="3">
+
+* Send message char by char to the server;
+
+</div>
+<div v-click="4">
+
+* Send **NULL Terminator**
+
+</div>
 
 <!--
 0 : ft_send_msg()
@@ -846,9 +894,9 @@ void	ft_send_char(pid_t pid, char c)
 <br>
 
 <ul>
-	<li v-click="1">
+	<p v-click="1">
 		Most of the logic is the same as what can be found in <span class="color-yellow">ft_send_int()</span>.
-	</li>
+	</p>
 	<li v-click="2">
 		Except that <span class="color-red">bitshift</span> is initialized with the size of the <span class="color-green">binary representation of a char</span>.
 	</li>
@@ -938,9 +986,10 @@ layout: two-cols
 class: 'pa-3 -top-5'
 title: ft_server_sighandler()
 ---
+
 <br>
 	
-```c {all|1-2|4-5|7|9-10|11-13|17|14-16}
+```c {all|1-2|4-5|7|9-10}
 static void	ft_server_sighandler(int sig, 
 								 siginfo_t *info, void *context)
 {
@@ -966,7 +1015,9 @@ static void	ft_server_sighandler(int sig,
 ::right::
 
 <h1 style="text-align: center">ft_server_sighandler()</h1>
-
+<br>
+<br>
+<br>
 <ul>
 	<li v-click="1">
 		Our handler follows a standard prototype;
@@ -997,12 +1048,13 @@ ucontext : Commonly, the  handler  function doesn't make any use of the third ar
 
 2 :
 
-3 :
+3  : usleep is used to avoid scrambling the signals
 
 4 :
 
 5 :
 -->
+
 ---
 layout: two-cols
 class: 'pa-3 -top-5'
@@ -1010,7 +1062,7 @@ title: ft_server_sighandler() Receiving Data
 ---
 <br>
 	
-```c {all|11-13|17|18|14-16}
+```c {11-13|17|18}
 static void	ft_server_sighandler(int sig, 
 								 siginfo_t *info, void *context)
 {
@@ -1038,17 +1090,14 @@ static void	ft_server_sighandler(int sig,
 <h1 style="text-align: center">Receiving Data</h1>
 
 <ul>
+	<li>
+		First the server expects an <span class="color-green">int</span> as <span class="color-purple">Header Information</span>, the length of the message;
+	</li>
 	<li v-click="1">
-		First the server expects an <span class="color-green">int</span> as <span class="color-blue">Header Information</span>, the length of the message.
+		Every time a <span class="color-yellow">SIGUSR1</span> or <span class="color-yellow">SIGUSR2</span> is caught, <span class="color-red">server.bits</span> is incremented;
 	</li>
 	<li v-click="2">
-		Every time a <span class="color-yellow">SIGUSR1</span> or <span class="color-yellow">SIGUSR2</span> is caught, <span class="color-red">server.bits</span> is incremented.
-	</li>
-	<li v-click="3">
-		After all the <span class="color-blue">bits</span> of the <span class="color-green">int</span> have been received, the conditions to trigger <span class="color-yellow">ft_strlen_received()</span> code block are reached.
-	</li>
-	<li v-click="4">
-		The server then proceeds to store the incoming message <span class="color-blue">bits</span>.
+		After all the <span class="color-blue">bits</span> of the <span class="color-green">int</span> have been received, the conditions to trigger <span class="color-yellow">ft_strlen_received()</span> code block are reached;
 	</li>
 </ul>
 
@@ -1098,7 +1147,7 @@ static void	ft_strlen_received(t_protocol *server)
 
 <ul>
 	<li v-click="1">
-		When data the size of an <span class="color-green">int</span> is received, and the <span class="color-blue">Header Information</span> is yet to be registered;
+		When data the size of an <span class="color-green">int</span> is received, and the <span class="color-purple">Header Information</span> is yet to be registered;
 	</li>
 	<li v-click="2">
 		Sets header data received flag to true;
@@ -1137,11 +1186,73 @@ static void	ft_strlen_received(t_protocol *server)
 ---
 layout: two-cols
 class: 'pa-3 -top-5'
+title: ft_server_sighandler() Data Received
+---
+<br>
+	
+```c {18|19}
+static void	ft_server_sighandler(int sig, 
+								 siginfo_t *info, void *context)
+{
+	static t_protocol	server;
+	static int			i;
+
+	usleep(PAUSE);
+	(void)context;
+	if (!server.bits)
+		server.data = 0;
+	if ((sig == SIGUSR2) && !server.received)
+		server.data |= 1 << 
+			(((sizeof(int) * 8) - 1) - server.bits);
+	else if ((sig == SIGUSR2) && server.received)
+		server.data |= 1 << 
+			(((sizeof(char) * 8) - 1) - server.bits);
+	++server.bits;
+	ft_strlen_received(&server);
+	ft_print_msg(&server, &i, info->si_pid);
+	ft_send_bit(info->si_pid, 0, 0);
+}
+```
+::right::
+
+<h1 style="text-align: center">Receiving Data</h1>
+
+<ul>
+	<li>
+		First the server expects an <span class="color-green">int</span> as <span class="color-purple">Header Information</span>, the length of the message;
+	</li>
+	<li>
+		Every time a <span class="color-yellow">SIGUSR1</span> or <span class="color-yellow">SIGUSR2</span> is caught, <span class="color-red">server.bits</span> is incremented;
+	</li>
+	<li>
+		After all the <span class="color-blue">bits</span> of the <span class="color-green">int</span> have been received, the conditions to trigger <span class="color-yellow">ft_strlen_received()</span> code block are reached;
+	</li>
+	<li v-click="1">
+		The server then proceeds to accumulate the incoming <span class="color-green">chars</span>; when the message is fully received it is printed;
+	</li>
+</ul>
+
+<!--
+0 :
+
+1 : 
+
+2 :
+
+3 :
+
+4 :
+
+5 :
+-->
+---
+layout: two-cols
+class: 'pa-3 -top-5'
 title: ft_print_msg()
 ---
 <br>
 	
-```c {all|3|18|5|6|7|9-11|12|13|14|15|16}
+```c {all|3|5|6}
 static void	ft_print_msg(t_protocol *server, int *i, pid_t pid)
 {
 	if ((server->bits == 8) && server->received)
@@ -1150,8 +1261,10 @@ static void	ft_print_msg(t_protocol *server, int *i, pid_t pid)
 		++(*i);
 		if (server->data == '\0')
 		{
-			ft_printf("[%sMessage bytes received!%s]\n", MAG, NC);
-			ft_printf("Message:\n%s%s%s\n", GRN, server->msg, NC);
+			ft_printf("[%sMessage bytes received!%s]\n", 
+				MAG, NC);
+			ft_printf("Message:\n%s%s%s\n", 
+				GRN, server->msg, NC);
 			ft_print_pid();
 			free(server->msg);
 			server->msg = NULL;
@@ -1168,26 +1281,14 @@ static void	ft_print_msg(t_protocol *server, int *i, pid_t pid)
 <h1 style="text-align: center">ft_print_msg()</h1>
 
 <ul>
-	<li v-click="1">
-		.
-	</li>
+	<p v-click="1">
+		Once 8 <span class="color-blue">bits</span> have been received, and the <span class="color-purple">Header Information</span> has already been received:
+	</p>
 	<li v-click="2">
-		.
+		The <span class="color-pink">byte</span> is stored in <span class="color-yellow">server->msg[i]</span>;
 	</li>
 	<li v-click="3">
-		.
-	</li>
-	<li v-click="4">
-		.
-	</li>
-	<li v-click="5">
-		.
-	</li>
-	<li v-click="6">
-		.
-	</li>
-	<li v-click="7">
-		<span class="color-yellow">server->bits</span> is reset to 0 to prepare the server to received the message <span class="color-blue">bits</span>;
+		Then <span class="color-green">i</span> is incremented so that when indexed <span class="color-yellow">server->msg[i]</span> points to the next byte in memory;
 	</li>
 </ul>
 
@@ -1203,4 +1304,159 @@ static void	ft_print_msg(t_protocol *server, int *i, pid_t pid)
 4 :
 
 5 :
+-->
+---
+layout: two-cols
+class: 'pa-3 -top-5'
+title: Message Received
+---
+<br>
+	
+```c {7|9-12|13|14-15|16|17|18}
+static void	ft_print_msg(t_protocol *server, int *i, pid_t pid)
+{
+	if ((server->bits == 8) && server->received)
+	{
+		server->msg[*i] = server->data;
+		++(*i);
+		if (server->data == '\0')
+		{
+			ft_printf("[%sMessage bytes received!%s]\n", 
+				MAG, NC);
+			ft_printf("Message:\n%s%s%s\n", 
+				GRN, server->msg, NC);
+			ft_print_pid();
+			free(server->msg);
+			server->msg = NULL;
+			server->received = 0;
+			*i = 0;
+			ft_send_bit(pid, 1, 0);
+		}
+		server->bits = 0;
+	}
+}
+```
+::right::
+
+<h1 style="text-align: center">Message Received</h1>
+
+<ul>
+	<p>
+		When the <span class="color-pink">byte</span> received is the NULL terminator:
+	</p>
+	<li v-click="1">
+		Prints the message to the console.
+	</li>
+	<li v-click="2">
+		Re-Prints the server pid to the console.
+	</li>
+	<li v-click="3">
+		Frees <span class="color-yellow">server->msg</span> and sets it to NULL.
+	</li>
+	<li v-click="4">
+		<span class="color-purple">Header Information</span> received flag is set to false;
+	</li>
+	<li v-click="5">
+		and <span class="color-green">i</span> reset to 0;
+	</li>
+	<li v-click="6">
+		<span class="color-yellow">SIGUSR2</span> is sent to the server, signaling the end of the transmission of data;
+	</li>
+</ul>
+
+<!--
+0 :
+
+1 : 
+
+2 :
+
+3 :
+
+4 :
+
+5 :
+-->
+
+---
+layout: two-cols
+class: 'pa-3 -top-5'
+title: ft_server_sighandler() Data Received
+---
+<br>
+	
+```c {19|20}
+static void	ft_server_sighandler(int sig, 
+								 siginfo_t *info, void *context)
+{
+	static t_protocol	server;
+	static int			i;
+
+	usleep(PAUSE);
+	(void)context;
+	if (!server.bits)
+		server.data = 0;
+	if ((sig == SIGUSR2) && !server.received)
+		server.data |= 1 << 
+			(((sizeof(int) * 8) - 1) - server.bits);
+	else if ((sig == SIGUSR2) && server.received)
+		server.data |= 1 << 
+			(((sizeof(char) * 8) - 1) - server.bits);
+	++server.bits;
+	ft_strlen_received(&server);
+	ft_print_msg(&server, &i, info->si_pid);
+	ft_send_bit(info->si_pid, 0, 0);
+}
+```
+::right::
+
+<h1 style="text-align: center">Receiving Data</h1>
+
+<ul>
+	<li>
+		First the server expects an <span class="color-green">int</span> as <span class="color-purple">Header Information</span>, the length of the message;
+	</li>
+	<li>
+		Every time a <span class="color-yellow">SIGUSR1</span> or <span class="color-yellow">SIGUSR2</span> is caught, <span class="color-red">server.bits</span> is incremented;
+	</li>
+	<li>
+		After all the <span class="color-blue">bits</span> of the <span class="color-green">int</span> have been received, the conditions to trigger <span class="color-yellow">ft_strlen_received()</span> code block are reached;
+	</li>
+	<li>
+		The server then proceeds to accumulate the incoming <span class="color-blue">bits</span>; when the message is fully received it is printed;
+	</li>
+</ul>
+<div v-click="1">
+
+* The server sends a <span class="color-yellow">SIGUSR1</span> to the client; 
+
+> (bit received)
+
+</div>
+
+<!--
+0 :
+
+1 : 
+
+2 :
+
+3 :
+
+4 :
+
+5 :
+-->
+
+---
+layout: section
+class: '-left--5'
+title: Demonstration
+---
+
+# 4.
+# Demonstration
+
+<!--
+Eye candy baby!
 -->
