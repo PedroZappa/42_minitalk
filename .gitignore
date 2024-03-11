@@ -54,6 +54,7 @@ dkms.conf
 # Ignore libs
 inc
 .build
+slidev
 server
 client
 server.pid
