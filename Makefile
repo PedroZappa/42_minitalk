@@ -203,7 +203,7 @@ slidev: check_slidev	## Build Slidev
 
 check_slidev:
 	@echo "* $(YEL)Checking for Slidev global installation$(D)"
-	@scripts/check-slidev.sh
+	scripts/check-slidev.sh
 
 ##@ Clean-up Rules 󰃢
 

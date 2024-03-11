@@ -54,7 +54,6 @@ dkms.conf
 # Ignore libs
 inc
 .build
-slidev
 server
 client
 server.pid
@@ -66,4 +65,6 @@ norm_errn.txt
 node_modules
 
 # Presentation
+slidev
+package-lock.json
 slides_ref.md
