@@ -197,7 +197,11 @@ stress_test: all	## Attach Clients and stress Running test
 
 ##@ Presentation Rules 🖵
 
-slidev:			## Build Slidev
+slidev: check_slidev	## Build Slidev
+	@echo "* $(YEL)Starting Slidev$(D)"
+	slidev
+
+check_slidev:
 	@echo "* $(YEL)Checking for Slidev global installation$(D)"
 	@scripts/check-slidev.sh
 
