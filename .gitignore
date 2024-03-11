@@ -67,4 +67,5 @@ node_modules
 # Presentation
 slidev
 package-lock.json
+package.json
 slides_ref.md
