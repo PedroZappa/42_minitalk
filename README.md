@@ -15,7 +15,7 @@
 
 ___
 
-<img alt="minitalk demo" src="./video/minitalk.gif" width="100%" />
+<!-- <img alt="minitalk demo" src="./video/minitalk.gif" width="100%" /> -->
 
 <img alt="minitalk demo" src="./video/minitalk-demo.gif" width="100%" />
 
