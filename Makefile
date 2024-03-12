@@ -168,6 +168,7 @@ serve: all			## Run Server in new tmux pane
 	./scripts/get-server-pid.sh > server.pid
 
 test: all			## Attach Clients to server in new tmux panes
+	tmux set-option remain-on-exit off
 	@echo "$(YEL)Running test [1/3]$(D)"
 	tmux split-window -v "./client $$(cat server.pid) 'Running quick test 1'"
 	sleep 1
