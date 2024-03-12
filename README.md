@@ -17,7 +17,7 @@ ___
 
 <!-- <img alt="minitalk demo" src="./video/minitalk.gif" width="100%" /> -->
 
-<video controls>
+<video controls autoplay=true loop=true width="100%">
 	<source src="/video/minitalk-demo.mp4" 
 		type="video/mp4" />
 </video>
