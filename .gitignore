@@ -62,11 +62,11 @@ norm.txt
 norm_ls.txt
 norm_err.txt
 norm_errn.txt
-node_modules
-.vite/
 
 # Presentation
 slidev
 package-lock.json
 package.json
 slides_ref.md
+node_modules
+.vite/
