@@ -3,7 +3,6 @@
 GRN="$(tput setaf 2)"
 YEL="$(tput setaf 3)"
 PRP="$(tput setaf 57)"
-D="$(shell tput sgr0)"
 
 # Thx Bye
 echo -e "${GRN}████████╗██╗░░██╗██╗░██████╗  ░██╗░░░░░░░██╗░█████╗░░██████╗"
