@@ -4,7 +4,7 @@
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
-#e                                                 +#+#+#+#+#+   +#+            #
+#                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/18 11:49:03 by passunca          #+#    #+#              #
 #    Updated: 2024/02/22 19:51:25 by passunca         ###   ########.fr        #
 #                                                                              #
@@ -87,6 +87,10 @@ MAKE		= make -C
 
 all: $(BUILD_PATH) deps $(NAME_SERVER) $(NAME_CLIENT)	## Compile minitalk
 
+
+bonus: all			## Compile minitalk with bonus features
+	@echo "[Compiled $(MAG)minitalk$(D) $(YEL)with bonus!$(D)] $(_SUCCESS) $(YEL)🖔$(D)"
+
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.c
 	@echo -n "$(MAG)█$(D)"
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -97,23 +101,18 @@ $(BUILD_PATH):
 
 $(NAME_SERVER): $(LIBFT_ARC) $(OBJS_SERVER)
 	@echo "[$(YEL)Compiling minitalk Server$(D)]"
-	@echo -n "$(GRN)█$(D)"
+	@echo -n "$(BLU)█$(D)"
 	$(CC) $(CFLAGS) $(OBJS_SERVER) $(LIBFT_ARC) -o $(NAME_SERVER)
-	@echo "[$(_SUCCESS) compiling $(MAG)server!$(D) $(YEL)🖔$(D)]"
+	@echo "[Compiling $(MAG)server!$(D)] $(_SUCCESS) $(YEL)🖔$(D)"
 
 $(NAME_CLIENT): $(LIBFT_ARC) $(OBJS_CLIENT)
 	@echo "[$(YEL)Compiling minitalk Client$(D)]"
-	@echo -n "$(GRN)█$(D)"
+	@echo -n "$(BLU)█$(D)"
 	$(CC) $(CFLAGS) $(OBJS_CLIENT) $(LIBFT_ARC) -o $(NAME_CLIENT)
-	@echo "[$(_SUCCESS) compiling $(MAG)client!$(D) $(YEL)🖔$(D)]"
+	@echo "[Compiling $(MAG)client!$(D)] $(_SUCCESS) $(YEL)🖔$(D)"
 
 $(LIBFT_ARC):
 	$(MAKE) $(LIBFT_PATH) extra
-
-bonus:			## Compile minitalk with bonus features
-	@echo "[$(YEL)Compiling minitalk with bonus features$(D)]"
-	make all
-	@echo "[$(_SUCCESS) compiling $(MAG)minitalk with bonus!$(D) $(YEL)🖔$(D)]"
 
 deps: 			## Download/Update libft
 	@if test ! -d "$(LIBFT_PATH)"; then make get_libft; \
@@ -157,11 +156,13 @@ norm: 		## Run norminette test
 	fi
 
 valgrind: all			## Run Server w/ Valgrind
+	tmux set-option remain-on-exit on
 	tmux split-window -h "valgrind --leak-check=full --show-leak-kinds=all ./server"
 	sleep 0.5
 	./scripts/get-valgrind-pid.sh > server.pid
 
 serve: all			## Run Server in new tmux pane
+	tmux set-option remain-on-exit on
 	tmux split-window -h "./server"
 	sleep 0.5
 	./scripts/get-server-pid.sh > server.pid
@@ -209,24 +210,24 @@ check_slidev:
 
 clean: 				## Remove object files
 	$(MAKE) $(LIBFT_PATH) clean
-	@echo "* $(YEL)Cleaning Libft objects 󰃢:$(D) $(_SUCCESS)"
+	@echo "* $(YEL)Cleaning Libft objects 󰃢:$(D) $(_SUCCESS) $(YEL)🖔$(D)"
 	@echo "* $(MAG)Removing minitalk$(D)"
 	$(RM) $(BUILD_PATH)
-	@echo "* $(YEL)Removing $(BUILD_PATH) folder & files$(D): $(_SUCCESS)"
+	@echo "* $(YEL)Removing $(BUILD_PATH) folder & files$(D): $(_SUCCESS) $(YEL)🖔$(D)"
 	$(RM) server.pid
-	@echo "* $(YEL)Removing Server pid file:$(D) $(_SUCCESS)"
+	@echo "* $(YEL)Removing Server pid file:$(D) $(_SUCCESS) $(YEL)🖔$(D)"
 	$(RM) norm.txt norm_ls.txt norm_err.txt norm_errn.txt
-	@echo "* $(YEL)Removing Norminette temp files:$(D) $(_SUCCESS)"
+	@echo "* $(YEL)Removing Norminette temp files:$(D) $(_SUCCESS) $(YEL)🖔$(D)"
 
 fclean: clean	## Remove archives & executables
 	$(RM) $(NAME_SERVER) $(NAME_CLIENT)
-	@echo "* $(YEL)Cleaning executable$(D): $(_SUCCESS)"
+	@echo "* $(YEL)Cleaning executable$(D): $(_SUCCESS) $(YEL)🖔$(D)"
 	$(MAKE) $(LIBFT_PATH) fclean
-	@echo "* $(YEL)Removing Libft archive$(D): $(_SUCCESS)"
+	@echo "* $(YEL)Removing Libft archive$(D): $(_SUCCESS) $(YEL)🖔$(D)"
 
 libclean: fclean	## Remove libft
 	$(RM) $(LIBS_PATH)
-	@echo "* $(YEL)Removing libft folder & files!$(D) : $(_SUCCESS)"
+	@echo "* $(YEL)Removing libft folder & files!$(D) : $(_SUCCESS) $(YEL)🖔$(D)"
 
 re: fclean all	## Purge and Recompile
 
