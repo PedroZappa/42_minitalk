@@ -28,7 +28,7 @@ A minimalistic implementation of a small data exchange program using UNIX signal
 </div>
 
 <img
-  class="absolute -bottom-20 -right-1 w-50 opacity-80"
+  class="absolute -bottom-18 -right--5 w-50 opacity-80"
   src="/img/42porto.svg"
   alt="42 logo"
 />
@@ -1647,4 +1647,9 @@ title : end
 A minimalistic implementation of a small data exchange program using UNIX signals. 
 
 <br>
+<img
+  class="absolute -bottom-18 -right--5 w-50 opacity-80"
+  src="/img/42porto.svg"
+  alt="42 logo"
+/>
 <h2 style="text-align: center">Thank you!</h2>
