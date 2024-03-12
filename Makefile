@@ -229,6 +229,8 @@ fclean: clean	## Remove archives & executables
 libclean: fclean	## Remove libft
 	$(RM) $(LIBS_PATH)
 	@echo "* $(YEL)Removing libft folder & files!$(D) : $(_SUCCESS) $(YEL)🖔$(D)"
+	$(RM) slidev/ node_modules package-lock.json package.json
+	@echo "* $(YEL)Removing slidev folder & files!$(D) : $(_SUCCESS) $(YEL)🖔$(D)"
 
 re: fclean all	## Purge and Recompile
 

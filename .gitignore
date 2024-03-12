@@ -63,6 +63,7 @@ norm_ls.txt
 norm_err.txt
 norm_errn.txt
 node_modules
+.vite/
 
 # Presentation
 slidev
