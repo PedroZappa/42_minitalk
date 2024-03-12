@@ -70,3 +70,7 @@ package.json
 slides_ref.md
 node_modules
 .vite/
+
+# Video convertion
+palette.png
+video/minitalk-demo-optimized.gif
