@@ -1649,12 +1649,11 @@ title : Tech Stack
 
 ---
 layout : full
-transition: view-transition
+transition: fade
 title : Credits
 ---
 
 <h1 style="text-align: center">Credits</h1>
-
 
 * [SlidesCarnival](https://www.slidescarnival.com/) for slides inspiration; 
 
@@ -1662,6 +1661,7 @@ title : Credits
 
 ---
 layout : end
+class: 'height:100%'
 title : end
 ---
 
@@ -1673,7 +1673,12 @@ A minimalistic implementation of a small data exchange program using UNIX signal
 
 <br>
 <img
-  class="absolute -bottom-18 -right--5 w-50 opacity-80"
+  class="absolute -top--90 -left--30 w-40 opacity-50 rounded-3xl invert"
+  src="/img/PZ_DBG.JPG"
+  alt="42 logo"
+/>
+<img
+  class="absolute -bottom-5 -right--30 w-50 opacity-80"
   src="/img/42porto.svg"
   alt="42 logo"
 />
