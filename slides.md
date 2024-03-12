@@ -40,6 +40,7 @@ Project headline
 ---
 layout: two-cols
 class: '-top--15 -left--5'
+transition: slide-up
 title: Hello Whirl
 ---
 
@@ -89,6 +90,7 @@ Here come them Reqs!
 ---
 layout: full
 class: '-top--5'
+transition: slide-up
 title: Server Features
 ---
 
@@ -156,6 +158,7 @@ How does Client-Server Communication work?
 
 ---
 layout: center
+transition: slide-up
 title: Server-Client Diagram
 ---
 
@@ -189,6 +192,7 @@ Them UNIX Sigals man!
 
 ---
 layout: full
+transition: slide-down
 title: UNIX Signals
 ---
 
@@ -248,6 +252,7 @@ SIGKILL - When a process receives this signal it quits immediately without doing
 
 ---
 layout: full
+transition: slide-up
 title: Events generate Signals
 ---
 
@@ -292,6 +297,7 @@ There are 3 kinds of signal generating events
 ---
 layout: two-cols
 class: '-top--5'
+transition: slide-up
 title: Synchronous & Asynchronous Signals
 ---
 
@@ -400,6 +406,7 @@ When a signal is <span class="color-green">delivered</span>, the specified **Sig
 
 ---
 layout: full
+transition: slide-up
 title: How About SIGUSR1 & SIGUSR2?
 ---
 
@@ -495,6 +502,7 @@ Let's get into the implementation of minitalk.
 ---
 layout: quote
 class: '-top-12'
+transition: slide-up
 title: t_protocol data type
 ---
 
@@ -614,6 +622,7 @@ sa.sa_flags flag set has the bits for SA_SIGINFO and SA_RESTART turned on;
 ---
 layout: two-cols
 class: 'pa-5'
+transition: slide-down
 title: Client
 ---
 
@@ -694,6 +703,7 @@ int	main(int argc, char **argv)
 ---
 layout: two-cols
 class: 'pa-5'
+transition: slide-up
 title: ft_client_sighandler()
 ---
 <br>
@@ -744,6 +754,7 @@ static void	ft_client_sighandler(int sig)
 ---
 layout: default
 class: 'pr-50 pl-50'
+transition: slide-up
 title: Client into ft_send_msg()
 ---
 
@@ -851,6 +862,7 @@ static void	ft_send_msg(pid_t pid, char *msg)
 ---
 layout: two-cols
 class: 'pa-5'
+transition: slide-down
 title: Client sending Int
 ---
 <br>
@@ -981,6 +993,7 @@ Most of the logic is the same as what can be found in <span class="color-yellow"
 ---
 layout: two-cols
 class: 'pa-5'
+transition: slide-up
 title: Sending bits
 ---
 <br>
@@ -1046,6 +1059,7 @@ void	ft_send_bit(pid_t pid, char bit,
 ---
 layout: two-cols
 class: 'pa-3 -top-5'
+transition: slide-left
 title: ft_server_sighandler()
 ---
 
@@ -1120,6 +1134,7 @@ ucontext : Commonly, the  handler  function doesn't make any use of the third ar
 ---
 layout: two-cols
 class: 'pa-3 -top-5'
+transition: slide-up
 title: ft_server_sighandler() Receiving Data
 ---
 <br>
@@ -1180,6 +1195,7 @@ static void	ft_server_sighandler(int sig,
 ---
 layout: two-cols
 class: 'pa-3 -top-5'
+transition: slide-down
 title: ft_strlen_received()
 ---
 <br>
@@ -1315,6 +1331,7 @@ When the message is <span class="color-red">fully received</span> it is printed;
 ---
 layout: two-cols
 class: 'pa-3 -top-5'
+transition: slide-up
 title: ft_print_msg()
 ---
 <br>
@@ -1376,6 +1393,7 @@ static void	ft_print_msg(t_protocol *server,
 ---
 layout: two-cols
 class: 'pa-3 -top-5'
+transition: slide-right
 title: Message Received
 ---
 <br>
@@ -1450,6 +1468,7 @@ static void	ft_print_msg(t_protocol *server,
 ---
 layout: two-cols
 class: 'pa-3 -top-5'
+transition: slide-up
 title: ft_server_sighandler() Data Received
 ---
 <br>
@@ -1520,32 +1539,36 @@ static void	ft_server_sighandler(int sig,
 ---
 layout: section
 class: '-left--5'
+transition: slide-up
 title: Demonstration
 ---
 
 # 4.
 # Demonstration
 
+
 <!--
 Eye candy baby!
 -->
 
-___
+---
 layout: fact
-title: minitalk Eye candy baby!
+transition: slide-right
+title: Demonstration
 ---
 
-<video controls>
+<video controls autoplay>
 	<source src="/video/minitalk-demo.mp4" 
 		type="video/mp4" />
 </video>
 
 <!--
-Eye candy baby!
+Enjoy 🥰
 -->
 
 ---
 layout : full
+transition: slide-up
 title : References
 ---
 
@@ -1570,6 +1593,7 @@ title : References
 
 ---
 layout : two-cols
+transition: slide-left
 title : Tech Stack
 ---
 
@@ -1625,6 +1649,7 @@ title : Tech Stack
 
 ---
 layout : full
+transition: view-transition
 title : Credits
 ---
 
