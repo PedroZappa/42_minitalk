@@ -180,6 +180,7 @@ test: all			## Attach Clients to server in new tmux panes
 	tmux set-option remain-on-exit on
 
 stress_test: all	## Attach Clients and stress Running test
+	tmux set-option remain-on-exit off
 	tmux split-window -v "./client $$(cat server.pid) '$(TXT_TEST1)'" ; \
 	echo "$(YEL)Running text test [1/3]$(D)" && \
 	sleep 7
