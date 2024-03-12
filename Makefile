@@ -243,7 +243,7 @@ help: 			## Display this help page
 		/^##@/ { \
 			printf "\n=> %s\n", substr($$0, 5) } ' Makefile
 ## Tweaked from source:
-### https://www.padok.fr/en/blog/beautiful-makefile-awk
+
 
 .PHONY: bonus deps get_libft update_modules leak serve test stress_test clean \
 	norm valgrind fclean libclean re
