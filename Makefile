@@ -167,7 +167,7 @@ serve: all			## Run Server in new tmux pane
 	sleep 0.5
 	./scripts/get-server-pid.sh > server.pid
 
-test: all			## Attach Clients to server in new tmux panes
+test: all			## Call Clients to server in new tmux panes
 	tmux set-option remain-on-exit off
 	@echo "$(YEL)Running test [1/3]$(D)"
 	tmux split-window -v "./client $$(cat server.pid) 'Running quick test 1'"
@@ -179,7 +179,7 @@ test: all			## Attach Clients to server in new tmux panes
 	tmux split-window -v "./client $$(cat server.pid) 'Running quick test 3'"
 	tmux set-option remain-on-exit on
 
-stress_test: all	## Attach Clients and stress Running test
+stress_test: all	## Call Clients and stress test
 	tmux set-option remain-on-exit off
 	tmux split-window -v "./client $$(cat server.pid) '$(TXT_TEST1)'" ; \
 	echo "$(YEL)Running text test [1/3]$(D)" && \
@@ -198,6 +198,13 @@ stress_test: all	## Attach Clients and stress Running test
 	sleep 20
 	tmux split-window -v "./client $$(cat server.pid) '$(EMOJI_TEST3)'" ; \
 	echo "$(YEL)Running 😎emoji😎 test [3/3]$(D)"
+
+crash_test: all	## Call multiple Clients simultaneously.
+	tmux set-option remain-on-exit on
+	echo "$(YEL)Running text test [1/3]$(D)" && \
+	tmux split-window -v "./client $$(cat server.pid) '$(TXT_TEST3)'" && \
+	echo "$(YEL)Running text test [2/3]$(D)" && \
+	tmux split-window -v "./client $$(cat server.pid) '$(TXT_TEST3)'"
 
 ##@ Presentation Rules 🖵
 
