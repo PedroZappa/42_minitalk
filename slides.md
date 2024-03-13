@@ -64,7 +64,7 @@ ___
 ::right::
 
 <img
-  class="w-100 opacity-80 -bottom--60 border-3"
+class="w-100 opacity-80 -bottom--60 border-3 rounded-3xl"
   border="rounded"
   src="/img/PZ_DBG.JPG"
   alt="Pedro Ribeiro Photo"
@@ -1592,8 +1592,32 @@ title : References
 -->
 
 ---
-layout : two-cols
+layout : section
+image: /img/tools-man.png
+backgroundSize: 85%
+class: '-top-8'
 transition: slide-left
+title : Tools man!
+---
+
+<br>
+<img
+  class="w-200 ma-5 pa-2 opacity-80 rounded-3xl border-4 border-green"
+  src="/img/tools-man.png"
+  alt="42 logo"
+/>
+
+<h4 class="absolute bottom-0 right-30 opacity-80">
+	<u style="text-decoration: underline wavy green">Vulfmon</u> - James Jamerson Used One Finger 👆
+</h4>
+
+<!--
+
+-->
+
+---
+layout : two-cols
+transition: slide-down
 title : Tech Stack
 ---
 
