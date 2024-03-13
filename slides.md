@@ -96,7 +96,9 @@ transition: slide-up
 title: Server Features
 ---
 
-# Server Features
+<div class="text-center">
+	<h1>Server Features</h1>
+</div>
 
 <br>
 
@@ -126,7 +128,9 @@ class: '-top--5'
 title: Client Features
 ---
 
-# Client Features
+<div class="text-center">
+	<h1>Client Features</h1>
+</div>
 
 <br>
 
@@ -254,6 +258,21 @@ SIGKILL - When a process receives this signal it quits immediately without doing
 
 ---
 layout: full
+class: '-top--5'
+title: Signals VHS
+---
+
+<video controls autoplay loop>
+	<source src="/video/signals.mp4"
+		type="video/mp4" />
+</video>
+
+<!--
+Signals in the terminal
+-->
+
+---
+layout: full
 transition: slide-up
 title: Events generate Signals
 ---
@@ -268,7 +287,8 @@ title: Events generate Signals
 	<p v-click="2">
 		The program did an <span class="color-yellow">invalid operation</span> and cannot continue execution.
 	</p>
-	<p v-click="3">
+	<hr v-click="3">
+	<p v-click="3" class="color-red">
 		Not All errors generate signals!
 	</p>
   </div>
@@ -277,7 +297,8 @@ title: Events generate Signals
     <p v-click="4">
 		Generally related to <span class="color-yellow">I/O</span> or other processes.
 	</p>
-	<p v-click="5"><bold>Includes</bold>:</p>
+	<hr v-click="3">
+	<p v-click="5" class="color-green">Includes:</p>
 	<ul v-click="5">
 		<li>Arrival of input.</li>
 		<li>Expiration of timer.</li>
@@ -390,9 +411,9 @@ When a signal is <span class="color-green">delivered</span>, the specified **Sig
 
 * Ignores the signal;
 
-* Uses a specified a handler function;
+* Executes a user-specified a handler function;
 
-* Or uses the default **Signal Action** for that signal type.
+* Or executes the default **Signal Action** for that signal type.
 
 </v-clicks>
 
@@ -414,13 +435,15 @@ title: How About SIGUSR1 & SIGUSR2?
 
 <h1 style="text-align: center">SIGUSR1 & SIGUSR2</h1>
 
-<v-clicks>
 
-* Can be used to indicate a desired **user-defined condition**.
-
-* Their default **Signal Action** is to terminate the process;
-
-</v-clicks>
+<ul class="pt-30 pl-40 text-xl">
+  <li v-click="1">
+	Can be used to indicate a desired <span class="color-green">user-defined condition</span>.
+  </li>
+  <li v-click="2">
+	Their default <span class="color-green">Signal Action</span> is to terminate the process;
+  </li>
+</ul>
 
 <!--
 SIGUSR1 & SIGUSR2 can mean anything.
@@ -1667,6 +1690,7 @@ title : Tech Stack
 
 **SCREENREC**= simplescreenrecorder
 
+**TERMREC**= vhs
 
 
 <!--
