@@ -163,20 +163,34 @@ static void	ft_server_sighandler(int sig, siginfo_t *info, void *context);
 
 > Any time `SIGUSR1` or `SIGUSR2` signal is received, `ft_server_sighandler()` is called.
 
-* All its local variables are static, therefore automatically initialized to 0.
+* All its local variables are static, therefore automatically initialized to 0, except for `client_pid`, which we initialize to -1 to mean an error condition.
 ```c
 static t_protocol   server;
 static int          i;
+static pid_t        client_pid = -1;
 
 usleep(PAUSE);
 (void)context;
-if (!server.bits)
-	server.data = 0;
 ```
 
 * The server signal handler waits for 100 microseconds before it starts receiving data.
 
-* we type cast `context` to `void *` to avoid the warning message in the compiler since we don't need to use it in the handler.
+* we type cast `context` to `void *` to avoid the warning message in the compiler since we don't need to use it.
+```c
+if (client_pid == -1)
+    client_pid = info->si_pid;
+else if (client_pid != info->si_pid)
+{
+	if (server.msg)
+		free(server.msg);
+    ft_perror_exit("Client PID does not match\n");
+}
+if (!server.bits)
+	server.data = 0;
+```
+* If `client_pid` is -1, it means that the `server` has not received any data yet so the program sets `client_pid` to the `pid` of the current `client`.
+
+* If `client_pid` is not equal to the `pid` of the current `client`, the `server` frees the allocated message and prints an error message and exits avoiding 
 
 * If `server.bits` is 0, it means that the `server` has not received any data yet so the program sets `server.data` to 0 to prepare to receive the incoming data.
 
