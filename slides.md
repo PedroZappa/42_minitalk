@@ -1611,6 +1611,7 @@ title : References
 
 * [Understanding minitalk - saeby/lfabbian](https://42-cursus.gitbook.io/guide/rank-02/minitalk/understand-minitalk)
 
+* [Code(quoi) : Sending and Intercepting a Signal in C](https://www.codequoi.com/en/sending-and-intercepting-a-signal-in-c/)
 
 <!--
 
