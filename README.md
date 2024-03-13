@@ -173,7 +173,7 @@ usleep(PAUSE);
 (void)context;
 ```
 
-* The server signal handler waits for 100 microseconds before it starts receiving data.
+* The server signal handler waits for `PAUSE` (100 microseconds) before it starts receiving data.
 
 * `context` is type cast to `void *` to suppress compiler warnings since we do not need to use it.
 ```c
