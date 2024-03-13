@@ -188,7 +188,7 @@ else if (client_pid != info->si_pid)
 if (!server.bits)
 	server.data = 0;
 ```
-* If `client_pid` is -1, it means that the `server` has not received any data yet so the program sets `client_pid` to the `info->si_pid` of the current `client`.
+* If `client_pid` is -1, it means that the `server` has not received any data yet so the program sets `client_pid` to the `info->si_pid` of the `client` currently connecting.
 
 * If `client_pid` is not equal to the `pid` of the current `client`, the `server` frees the allocated message and prints an error and exits.
 
