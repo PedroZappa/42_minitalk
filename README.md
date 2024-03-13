@@ -181,8 +181,8 @@ if (client_pid == -1)
     client_pid = info->si_pid;
 else if (client_pid != info->si_pid)
 {
-	if (server.msg)
-		free(server.msg);
+    if (server.msg)
+        free(server.msg);
     ft_perror_exit("Client PID does not match\n");
 }
 if (!server.bits)
