@@ -43,7 +43,8 @@ static void	ft_server_sighandler(int sig, siginfo_t *info, void *context)
 		client_pid = info->si_pid;
 	else if (client_pid != info->si_pid)
 	{
-		free(server.msg);
+		if (server.msg)
+			free(server.msg);
 		ft_perror_exit("Client PID does not match\n");
 	}
 	if (!server.bits)
