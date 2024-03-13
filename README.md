@@ -175,7 +175,7 @@ usleep(PAUSE);
 
 * The server signal handler waits for 100 microseconds before it starts receiving data.
 
-* `context` is type cast to `void *` to avoid the warning message by compiler since we don't need to use it.
+* `context` is type cast to `void *` to suppress compiler warnings since we do not need to use it.
 ```c
 if (client_pid == -1)
     client_pid = info->si_pid;
