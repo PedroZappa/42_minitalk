@@ -47,7 +47,7 @@ title: Hello Whirl
 # Hello Whirl!
 ## I am Pedro Ribeiro
 
-`42 Student`
+`42 Student` && `Musician`
 
 ___
 
@@ -57,9 +57,11 @@ ___
 ___
 <br>
 
-**42_Intra** : @passunca
+<div class="text-left">
+<span class="color-orange">42 Intra</span> : @passunca
 
-**GitHub** : @PedroZappa
+<span class="color-orange">Github</span> : @PedroZappa
+</div>
 
 ::right::
 
@@ -1558,7 +1560,7 @@ title: Demonstration
 ---
 
 <video controls autoplay>
-	<source src="/video/minitalk-demo.mp4" 
+	<source src="/video/minitalk-demo.mp4"
 		type="video/mp4" />
 </video>
 
@@ -1651,7 +1653,7 @@ title : Tech Stack
 
 **EDITOR**= neovim
 
-**MULTIPLX**= tmux 
+**MULTIPLX**= tmux
 
 **TERM**= kitty
 
@@ -1679,7 +1681,7 @@ title : Credits
 
 <h1 style="text-align: center">Credits</h1>
 
-* [SlidesCarnival](https://www.slidescarnival.com/) for slides inspiration; 
+* [SlidesCarnival](https://www.slidescarnival.com/) for slides inspiration;
 
 * `tchow-so` for the incredible intro picture;
 
