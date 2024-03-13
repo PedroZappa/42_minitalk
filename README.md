@@ -186,7 +186,7 @@ else if (client_pid != info->si_pid)
     ft_perror_exit("Client PID does not match\n");
 }
 ```
-* If `client_pid` is -1, it means that the `server` hasn't connected to a `client` yet so the program sets `client_pid` to `info->si_pid`, the `client` currently connecting.
+* If `client_pid` is -1, it means that the `server` hasn't connected to a `client` yet so the program sets `client_pid` to `info->si_pid`, the `pid` of the `client` currently connecting.
 
 * If `client_pid` is not equal to the `pid` of the current `client`, the `server` frees the allocated message and prints an error and exits.
 ```c
