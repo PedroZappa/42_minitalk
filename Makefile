@@ -155,7 +155,7 @@ norm: 		## Run norminette test
 		printf "[$(YEL)Everything is OK$(D)]\n"; \
 	fi
 
-valgrind: all			## Run Server w/ Valgrind
+valgrind: all			## Run Server w/ Valgrind in new tmux pane
 	tmux set-option remain-on-exit on
 	tmux split-window -h "valgrind --leak-check=full --show-leak-kinds=all ./server"
 	sleep 0.5
@@ -235,7 +235,7 @@ fclean: clean	## Remove archives & executables
 	$(MAKE) $(LIBFT_PATH) fclean
 	@echo "* $(YEL)Removing Libft archive$(D): $(_SUCCESS) $(YEL)🖔$(D)"
 
-libclean: fclean	## Remove libft
+libclean: fclean	## Remove all libs
 	$(RM) $(LIBS_PATH)
 	@echo "* $(YEL)Removing libft folder & files!$(D) : $(_SUCCESS) $(YEL)🖔$(D)"
 	$(RM) slidev/ node_modules package-lock.json package.json
