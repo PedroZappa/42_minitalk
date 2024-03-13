@@ -35,9 +35,17 @@ static void	ft_server_sighandler(int sig, siginfo_t *info, void *context)
 {
 	static t_protocol	server;
 	static int			i;
+	static pid_t		client_pid = -1;
 
 	usleep(PAUSE);
 	(void)context;
+	if (client_pid == -1)
+		client_pid = info->si_pid;
+	else if (client_pid != info->si_pid)
+	{
+		free(server.msg);
+		ft_perror_exit("Client PID does not match\n");
+	}
 	if (!server.bits)
 		server.data = 0;
 	if ((sig == SIGUSR2) && !server.received)
