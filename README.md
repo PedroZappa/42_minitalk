@@ -310,11 +310,11 @@ server->received = 0;
 * And set `i` and `server->received` flag to 0.
 * We reset the `pid` to -1 to prepare the server to receive the next message from a different `pid`.
 
-Finally we send a bit back to the `client` to signal that the message
-has been received.
 ```c
 ft_send_bit(pid, 1, 0);
 ```
+
+Finally we send a bit back to the `client` to signal that the message has been received.
 
 ___
 ### `client.c`
