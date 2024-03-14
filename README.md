@@ -256,7 +256,7 @@ The function ends and the `server` continues receiving the message bit by bit un
 ___
 #### `ft_print_msg()`
 ```c
-static void	ft_print_msg(t_protocol *server, int *i, pid_t pid);
+static void	ft_print_msg(t_protocol *server, int *i, pid_t *pid);
 ```
 
 Once 8 bits have been received and the header information has already been transferred, the first layer of logic is triggered:
@@ -280,25 +280,6 @@ server->bits = 0;
 ```
 
 And so the `server` receives each byte of the message until the whole message has been received. 
-
-The server knows that the message has reached its end when the value of `server.data` is the NULL terminator.
-```c
-if (server->data == '\0') { ... }
-```
-
-The server then prints the message to `stdout` taking advantage of ANSI escape codes to color the ouptut.
-```c
-ft_printf("Message:\n%s%s%s\n", GRN, server->msg, NC);
-```
-
-> [!Note]
->
-> In case you are curious and want to learn more about ANSI escape codes
-check out
-[ansi.h](https://github.com/PedroZappa/libft/blob/master/color_codes/ansi.h)
-included in my [libft](https://github.com/PedroZappa/libft) repository!
-
-And so the `server` receives each byte of the message. 
 
 ___
 #### Printing the Message
