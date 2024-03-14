@@ -308,7 +308,7 @@ server->received = 0;
 * Since we are done with the `server.msg`, we free the memory space allocated to store it.
 * We set the `server->msg` pointer to NULL.
 * And set `i` and `server->received` flag to 0.
-* We reset the `pid` to -1 to prepare the server to receive the next message from another `pid`.
+* We reset the `pid` to -1 to prepare the server to receive the next message from a different `pid`.
 
 Finally we send a bit back to the `client` to signal that the message
 has been received.
