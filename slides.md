@@ -457,13 +457,14 @@ title: minitalk protocol
 
 <h1 style="text-align: center">minitalk Protocol</h1>
 
-<v-click>
+<div v-click style="text-align: center">
 
 **SIGUSR1** and **SIGUSR2** are used to communicate between **Server** and **Client**.
 
 ___
 
-</v-click>
+</div>
+
 
 <v-click>
 
@@ -1090,49 +1091,60 @@ title: ft_server_sighandler()
 
 <br>
 
-```c {all|1-2|4-5|7|9-10}
+```c {all|1-2|4-5|6|8|10-11|12|14-15|16|18-19}
 static void	ft_server_sighandler(int sig,
 								 siginfo_t *info, void *context)
 {
 	static t_protocol	server;
 	static int			i;
+	static pid_t		client_pid = -1;
 
 	usleep(PAUSE);
 	(void)context;
+	if (client_pid == -1)
+		client_pid = info->si_pid;
+	else if (client_pid != info->si_pid)
+	{
+		if (server.msg)
+			free(server.msg);
+		ft_perror_exit("Client PID does not match\n");
+	}
 	if (!server.bits)
 		server.data = 0;
-	if ((sig == SIGUSR2) && !server.received)
-		server.data |= 1 <<
-			(((sizeof(int) * 8) - 1) - server.bits);
-	else if ((sig == SIGUSR2) && server.received)
-		server.data |= 1 <<
-			(((sizeof(char) * 8) - 1) - server.bits);
-	++server.bits;
-	ft_strlen_received(&server);
-	ft_print_msg(&server, &i, info->si_pid);
-	ft_send_bit(info->si_pid, 0, 0);
+	...
 }
 ```
 ::right::
 
 <h1 style="text-align: center">ft_server_sighandler()</h1>
-<br>
-<br>
-<br>
 <ul>
 	<li v-click="1">
-		Our handler follows a <span class="color-green">standard prototype</span>;
+		Follows a <span class="color-blue">standard prototype</span>;
 	</li>
 	<li v-click="2">
-		All local variables are <span class="color-pink">static</span>, therefore automatically initialized to 0;
+		<span class="color-yellow">server</span> and <span class="color-yellow">i</span> are <span class="color-pink">static</span>, therefore automatically initialized to <span class="color-red">0</span>;
 	</li>
 	<li v-click="3">
-		Waits for <span class="color-yellow">PAUSE</span> microseconds;
+		<span class="color-yellow">client_pid</span> is initialized to <span class="color-red">-1</span>, meaning that no <span class="color-orange">client</span> has connected to the <span class="color-orange">server</span> yet;
 	</li>
 	<li v-click="4">
-		If <span class="color-red">server.bits</span> is 0, set/reset <span class="color-red">server.data</span> to 0;
+		Waits for <span class="color-green">PAUSE</span> microseconds;
 	</li>
-
+	<li v-click="5">
+		When a <span class="color-orange">client</span> starts sending data, its PID is stored in <span class="color-yellow">client_pid</span>;
+	</li>
+	<p v-click="6">
+		If <span class="color-yellow">info->si_pid</span> is different from <span class="color-yellow">client_pid</span>:
+	</p>
+	<li v-click="7">
+		Free <span class="color-yellow">server.msg</span> and exit <span class="color-orange">client</span>;
+	</li>
+	<li v-click="8">
+		Prints an error message and exits.
+	</li>
+	<li v-click="9">
+		If <span class="color-purple">server.bits</span> is 0, set/reset <span class="color-purple">server.data</span> to 0;
+	</li>
 </ul>
 
 <!--
