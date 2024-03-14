@@ -1175,18 +1175,14 @@ transition: slide-up
 title: ft_server_sighandler() Receiving Data
 ---
 <br>
+<br>
+<br>
 
-```c {11-13|17|18}
+```c {5-7|8-10|12}
 static void	ft_server_sighandler(int sig,
 								 siginfo_t *info, void *context)
 {
-	static t_protocol	server;
-	static int			i;
-
-	usleep(PAUSE);
-	(void)context;
-	if (!server.bits)
-		server.data = 0;
+	...
 	if ((sig == SIGUSR2) && !server.received)
 		server.data |= 1 <<
 			(((sizeof(int) * 8) - 1) - server.bits);
@@ -1202,7 +1198,8 @@ static void	ft_server_sighandler(int sig,
 ::right::
 
 <h1 style="text-align: center">Receiving Data</h1>
-
+<br>
+<br>
 <ul>
 	<li>
 		First the server expects an <span class="color-green">int</span> as <span class="color-pink">Header Information</span>, the <span class="color-blue">length</span> of the message;
@@ -1262,11 +1259,11 @@ static void	ft_strlen_received(t_protocol *server)
 <h1 style="text-align: center">ft_strlen_received()</h1>
 
 <ul>
-	<li v-click="1">
-		When data the size of an <span class="color-green">int</span> is received, and the <span class="color-purple">Header Information</span> is yet to be registered;
-	</li>
+	<p v-click="1">
+		When data the size of an <span class="color-green">int</span> is received, and the <span class="color-pink">Header Information</span> is yet to be registered:
+	</p>
 	<li v-click="2">
-		Sets header data received <span class="color-pink">flag</span> to true;
+		Sets header data received <span class="color-yellow">flag</span> to true;
 	</li>
 	<li v-click="3">
 		Prints the <span class="color-blue">length</span> of the message to the console;
@@ -1292,7 +1289,7 @@ static void	ft_strlen_received(t_protocol *server)
 
 2 :
 
-3 :
+3 : Using a ft_putnbr
 
 4 :
 
@@ -1306,18 +1303,12 @@ title: ft_server_sighandler() Data Received
 ---
 <br>
 
-```c {19|20}
+```c {13|14}
 /* Server */
 static void	ft_server_sighandler(int sig,
 								 siginfo_t *info, void *context)
 {
-	static t_protocol	server;
-	static int			i;
-
-	usleep(PAUSE);
-	(void)context;
-	if (!server.bits)
-		server.data = 0;
+	...
 	if ((sig == SIGUSR2) && !server.received)
 		server.data |= 1 <<
 			(((sizeof(int) * 8) - 1) - server.bits);
@@ -1334,12 +1325,15 @@ static void	ft_server_sighandler(int sig,
 
 <h1 style="text-align: center">Receiving Data</h1>
 
+<div style="opacity: 0.5">
 
 * First the server expects an <span class="color-green">int</span> as <span class="color-purple">Header Information</span>, the length of the message;
 
 * Every time a <span class="color-yellow">SIGUSR1</span> or <span class="color-yellow">SIGUSR2</span> is caught, <span class="color-red">server.bits</span> is incremented;
 
 * After all the <span class="color-blue">bits</span> of the <span class="color-green">int</span> have been received, the conditions to trigger <span class="color-yellow">ft_strlen_received()</span> code block are reached;
+
+</div>
 
 <div v-click="1">
 
@@ -1401,7 +1395,7 @@ static void	ft_print_msg(t_protocol *server,
 ::right::
 
 <h1 style="text-align: center">ft_print_msg()</h1>
-
+<br>
 <ul>
 	<p v-click="1">
 		Once 8 <span class="color-blue">bits</span> have been received, and the <span class="color-pink">Header Information</span> has already been received:
@@ -1435,7 +1429,7 @@ title: Message Received
 ---
 <br>
 
-```c {7|9-12|13|14-15|16|17|18}
+```c {8|10-13|14|15-16|17|18|19}
 static void	ft_print_msg(t_protocol *server,
 						 int *i, pid_t pid)
 {
@@ -1472,7 +1466,7 @@ static void	ft_print_msg(t_protocol *server,
 		Prints the message to the console.
 	</li>
 	<li v-click="2">
-		Re-Prints the server <span class="color-yellow">pid</span> to the console.
+		Re-prints the server <span class="color-yellow">pid</span>.
 	</li>
 	<li v-click="3">
 		Frees <span class="color-yellow">server->msg</span> and sets it to NULL.
@@ -1509,18 +1503,14 @@ transition: slide-up
 title: ft_server_sighandler() Data Received
 ---
 <br>
+<br>
+<br>
 
-```c {19|20}
+```c {13|14}
 static void	ft_server_sighandler(int sig,
 								 siginfo_t *info, void *context)
 {
-	static t_protocol	server;
-	static int			i;
-
-	usleep(PAUSE);
-	(void)context;
-	if (!server.bits)
-		server.data = 0;
+	...
 	if ((sig == SIGUSR2) && !server.received)
 		server.data |= 1 <<
 			(((sizeof(int) * 8) - 1) - server.bits);
@@ -1536,8 +1526,8 @@ static void	ft_server_sighandler(int sig,
 ::right::
 
 <h1 style="text-align: center">Receiving Data</h1>
-
-<ul>
+<br>
+<ul style="opacity: 0.5">
 	<li>
 		First the server expects an <span class="color-green">int</span> as <span class="color-purple">Header Information</span>, the length of the message;
 	</li>
@@ -1609,21 +1599,26 @@ transition: slide-up
 title : References
 ---
 
-<h1 style="text-align: center">References</h1>
+<h1 style="text-align: center" class="pb-7">References</h1>
+<div class="text-center border-4 border-green rounded-3xl w-1/2" style="margin: 0 auto">
 
-* [sigaction(2)](https://man7.org/linux/man-pages/man2/sigaction.2.html)
+[signal(2)](https://man7.org/linux/man-pages/man2/signal.2.html)
 
-* [signal(2)](https://man7.org/linux/man-pages/man2/signal.2.html)
+[signal(7)](https://man7.org/linux/man-pages/man7/signal.7.html)
 
-* [signal(7)](https://man7.org/linux/man-pages/man7/signal.7.html)
+[sigaction(2)](https://man7.org/linux/man-pages/man2/sigaction.2.html)
 
-* [Standard Signals (The GNU C Library)](https://www.gnu.org/software/libc/manual/html_node/Standard-Signals.html)
-* [Miscellaneous Signals (The GNU C Library)](https://www.gnu.org/software/libc/manual/html_node/Miscellaneous-Signals.html)
-* [Signaling Another Process (The GNU C Library)](https://www.gnu.org/software/libc/manual/html_node/Signaling-Another-Process.html)
+[Standard Signals (The GNU C Library)](https://www.gnu.org/software/libc/manual/html_node/Standard-Signals.html)
 
-* [Understanding minitalk - saeby/lfabbian](https://42-cursus.gitbook.io/guide/rank-02/minitalk/understand-minitalk)
+[Miscellaneous Signals (The GNU C Library)](https://www.gnu.org/software/libc/manual/html_node/Miscellaneous-Signals.html)
 
-* [Code(quoi) : Sending and Intercepting a Signal in C](https://www.codequoi.com/en/sending-and-intercepting-a-signal-in-c/)
+[Signaling Another Process (The GNU C Library)](https://www.gnu.org/software/libc/manual/html_node/Signaling-Another-Process.html)
+
+[Understanding minitalk - saeby/lfabbian](https://42-cursus.gitbook.io/guide/rank-02/minitalk/understand-minitalk)
+
+[Sending and Intercepting a Signal in C : Code(quoi)](https://www.codequoi.com/en/sending-and-intercepting-a-signal-in-c/)
+
+</div>
 
 <!--
 
@@ -1654,58 +1649,81 @@ title : Tools man!
 -->
 
 ---
-layout : two-cols
+layout : full
 transition: slide-down
 title : Tech Stack
 ---
 
 <h1 style="text-align: center">Tech Stack</h1>
-
 <br>
+<div class="grid grid-cols-3 grid-content-center w-220">
+	<div>
+		<h3><span class="color-green ma-5">Project Tooling</span></h3>
+		<br>
+		<p>
+			<span class="color-purple">LANG</span>="<span class="color-yellow">C</span>"
+		</p>
+		<p>
+			<span class="color-purple">SCRIPTS</span>="<span class="color-yellow">bash</span>"
+		</p>
+		<p>
+			<span class="color-purple">BUILD</span>="<span class="color-yellow">make</span>"
+		</p>
+		<p>
+			<span class="color-purple">DEBUG</span>="<span class="color-yellow">gdb</span>"
+		</p>
+		<p>
+			<span class="color-purple">MEMCHECK</span>="<span class="color-yellow">valgrind</span>"
+		</p>
+		<p>
+			<span class="color-purple">VERSION_CTL</span>="<span class="color-yellow">git</span>"
+		</p>
+	</div>
+	<div>
+		<h3><span class="color-green ma-5">Dev Env</span></h3>
+		<br>
+		<p>
+			<span class="color-purple">SHELL</span>="<span class="color-yellow">zsh</span>"
+		</p>
+		<p>
+			<span class="color-purple">PROMPT</span>="<span class="color-yellow">starship</span>"
+		</p>
+		<p>
+			<span class="color-purple">EDITOR</span>="<span class="color-yellow">neovim</span>"
+		</p>
+		<p>
+			<span class="color-purple">MULTIPLXR</span>="<span class="color-yellow">tmux</span>"
+		</p>
+		<p>
+			<span class="color-purple">TERM</span>="<span class="color-yellow">kitty</span>"
+		</p>
+		<p>
+			<span class="color-purple">WM</span>="<span class="color-yellow">i3wm</span>"
+		</p>
+	</div>
+	<div>
+		<h3><span class="color-green ma-5">Presentation</span></h3>
+		<br>
+		<p>
+			<span class="color-purple">TOOL</span>="<span class="color-yellow">slidev</span>"
+		</p>
+		<p>
+			<span class="color-purple">SCREENREC</span>="<span class="color-yellow">simplescreenrecorder</span>"
+		</p>
+		<p>
+			<span class="color-purple">TERMREC</span>="<span class="color-yellow">vhs</span>"
+		</p>
+		<p>
+			<span class="color-purple">CONVERT</span>="<span class="color-yellow">ffmpeg</span>"
+		</p>
+	</div>
+</div>
 
-## <span class="color-green">Project Tooling</span>
-
-<br>
-
-**LANG**= C
-
-**SCRIPTS**= bash
-
-**BUILD**= make
-
-**DEBUG**= gdb
-
-**MEMCHECK**= valgrind
-
-**VERSION_CTL**= git
-
-::right::
-
-## <span class="color-green">Dev Env</span>
-
-**SHELL**= zsh
-
-**PROMPT**= starship
-
-**EDITOR**= neovim
-
-**MULTIPLX**= tmux
-
-**TERM**= kitty
-
-**WM**= i3wm
-
-<br>
-
-## <span class="color-green">Presentation</span>
-
-**TOOL**= slidev
-
-**SCREENREC**= simplescreenrecorder
-
-**TERMREC**= vhs
-
-
+<style>
+h2 {
+	font-size: 1;
+}
+</style>
 <!--
 
 -->
