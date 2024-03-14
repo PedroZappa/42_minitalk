@@ -39,7 +39,7 @@ Project headline
 
 ---
 layout: two-cols
-class: '-top--15 -left--5'
+class: '-top--15'
 transition: slide-up
 title: Hello Whirl
 ---
@@ -66,7 +66,7 @@ ___
 ::right::
 
 <img
-class="w-100 opacity-80 -bottom--60 border-3 rounded-3xl"
+  class="w-110 pa-2 opacity-80 rounded-3xl border-4 border-purple"
   border="rounded"
   src="/img/PZ_DBG.JPG"
   alt="Pedro Ribeiro Photo"
@@ -82,11 +82,48 @@ class: '-left--5'
 title: Project Requirements
 ---
 
-# 1.
+# <span class="color-green">1.</span>
 # Project Requirements
 
 <!--
 Here come them Reqs!
+-->
+
+---
+layout: full
+---
+
+<h1 class="text-center pt-20 pb-10">minitalk</h1>
+
+<div class="grid grid-cols-2">
+	<div>
+		<h2 v-click="1" class="text-center mt-10"><span class="color-green">Server</span></h2>
+		<p v-click="1" class="text-center">Receives a message.</p>
+	</div>
+	<div>
+		<h2 v-click="2" class="text-center mt-10"><span class="color-green">Client</span></h2>
+		<p v-click="2" class="text-center">Sends a message.</p>
+	</div>
+</div>
+
+<style>
+h1 {
+  font-size: 3.5rem;
+  padding-bottom: 2rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+  padding-bottom: 1rem;
+}
+</style>
+
+<!--
+0 : minitalk
+
+1 : Server
+
+2 : Client
 -->
 
 ---
@@ -102,21 +139,32 @@ title: Server Features
 
 <br>
 
-<v-clicks>
+<div class="ml-35 mt-7">
+	<li v-click="1">
+		When executed, prints its <span class="color-yellow">PID</span>;
+	</li>
+	<li v-click="2">
+		Handles incoming <span class="color-yellow">SIGUSR1</span> & <span class="color-yellow">SIGUSR2</span> signals;
+	</li>
+	<li v-click="3">
+		Receives a <span class="color-blue">message</span> bit-by-bit:
+	</li>
+	<li v-click="4">
+		<span class="color-pink">Acknowledges</span> receiving a bit by <span class="color-red">sending a signal back</span> to the <span class="color-orange">client</span>;
+	</li>
+	<li v-click="5">
+		Prints the <span class="color-blue">message</span> once it has been fully received;
+	</li>
+	<li v-click="6">
+		Handles multiple <span class="color-orange">clients</span> <span class="color-green">in a row</span>.
+	</li>
+</div>
 
-- When executed, prints its **pid**;
-
-- Handles incoming **SIGUSR1** & **SIGUSR2** signals;
-
-- Receives a **message** bit-by-bit:
-
-- **Acknowledges** reception by <span class="color-red">sending a signal back</span> to the client;
-
-- Prints the **message** once it has been fully received;
-
-- Handles multiple clients `in a row`.
-
-</v-clicks>
+<style>
+li {
+  padding-bottom: 1rem;
+}
+</style>
 
 <!--
 Let's chat about Server side Features!
@@ -134,16 +182,24 @@ title: Client Features
 
 <br>
 
-<v-clicks>
-
-* Takes two command-line arguments:
-	* **pid** of the server;
-	* **message** to be sent;
-
-* Sends the **message** bit-by-bit to the server;
-	* Communicates using only **SIGUSR1** & **SIGUSR2** signals;
-
-</v-clicks>
+<div class="ml-35 mt-7">
+	<p v-click="1">
+		Takes two <span class="color-green">command-line arguments</span>:
+	</p>
+	<li v-click="2">
+		<span class="color-yellow">pid</span> of the <span class="color-orange">server</span>;
+	</li>
+	<li v-click="3">
+		<span class="color-blue">message</span> to be sent;
+	</li>
+	<br>
+	<p v-click="4">
+		Sends the <span class="color-blue">message</span> bit-by-bit to the <span class="color-orange">server</span>;
+	</p>
+	<li v-click="5">
+		Communicates using only <span class="color-yellow">SIGUSR1</span> & <span class="color-yellow">SIGUSR2</span> signals;
+	</li>
+</div>
 
 <!--
 Let's chat about client side Features!
@@ -155,7 +211,7 @@ class: '-left--5'
 title: Client-Server Communication
 ---
 
-# 2.
+# <span class="color-green">2.</span>
 # Client-Server Communication
 
 <!--
@@ -168,7 +224,7 @@ transition: slide-up
 title: Server-Client Diagram
 ---
 
-<h1 style="text-align: center">Server-Client Diagram</h1>
+<h1 style="text-align: center"><span class="color-orange">Server</span>-<span class="color-orange">Client</span> Diagram</h1>
 
 <img
 	class="w-200"
@@ -189,11 +245,11 @@ class: '-left--5'
 title: Client-Server Communication
 ---
 
-# 3.
+# <span class="color-green">3.</span>
 # UNIX Signals
 
 <!--
-Them UNIX Sigals man!
+Them UNIX Signals man!
 -->
 
 ---
@@ -202,28 +258,24 @@ transition: slide-down
 title: UNIX Signals
 ---
 
-<h1 style="text-align: center">But what is a Signal?</h1>
+<h1 style="text-align: center">But what is a <span class="color-green">Signal</span>?</h1>
 
-<v-clicks>
-
-* A Signal is a reporter of **events**;
-
-
-When a process receives a Signal:
-
-* It is interrupted;
-
-* A default **Signal Action** is triggered;
-
-</v-clicks>
-
-<br>
-
-<v-click>
-
-Signals are useful tools for `Interprocess Communication` (IPC).
-
-</v-click>
+<div class="ml-35 mt-15">
+	<h2 v-click="1">A signal is a reporter of <span class="color-pink">events</span>.</h2>
+	<br>
+	<p v-click="2">
+		When a process receives a <span class="color-green">Signal</span>:
+	</p>
+	<li v-click="3">
+		The <span class="color-yellow">process</span> is <span class="color-red">interrupted</span>.
+	</li>
+	<li v-click="4">
+		A default <span class="color-pink">Signal Action</span> is triggered.
+	</li>
+	<p v-click="5">
+		<span class="color-green">Signal</span> are useful tools for <span class="color-orange">Interprocess Communication</span> (IPC).
+	</p>
+</div>
 
 <!--
 Let's go deeper into Signals!
@@ -242,7 +294,7 @@ title: UNIX Signals Table
 | **SIGINT** | 2 | Term | Triggered when the user  sends an interrupt by pressing `<Ctrl-c>`. |
 | **SIGTRAP** | 5 | Core | Trace/breakpoint trap. |
 | **SIGFPE** | 8 | Core | Floating Point Exception, an arithmetic Error. |
-| **SIGKILL** | 9 | Term | Terminating signal, **Cannot be caught or ignored**. |
+| **SIGKILL** | 9 | Term | Terminating signal, <span class="color-red">Cannot be caught or ignored</span>. |
 | **SIGSEGV** | 11 | Core | Segmentation fault, invalid memory address access. |
 
 <!--
@@ -277,41 +329,48 @@ transition: slide-up
 title: Events generate Signals
 ---
 
-<h2 style="text-align: center">Events generate Signals</h2>
+<h2 class="text-center mt-5">Events generate <span class="color-green">Signals</span></h2>
 
-<br><br>
+<br>
+<br>
 
 <div class="grid grid-cols-3 gap-4">
-  <div>
+  <section v-click="1">
     <h3 v-click="1">Error Events</h3>
 	<p v-click="2">
 		The program did an <span class="color-yellow">invalid operation</span> and cannot continue execution.
 	</p>
 	<hr v-click="3">
 	<p v-click="3" class="color-red">
-		Not All errors generate signals!
+		Not All errors generate <span class="color-green">Signals</span>!
 	</p>
-  </div>
-  <div>
+  </section>
+  <section v-click="1">
     <h3 v-click="1">External Events</h3>
     <p v-click="4">
 		Generally related to <span class="color-yellow">I/O</span> or other processes.
 	</p>
-	<hr v-click="3">
-	<p v-click="5" class="color-green">Includes:</p>
+	<hr v-click="4">
+	<p v-click="5" class="color-cyan">Includes:</p>
 	<ul v-click="5">
 		<li>Arrival of input.</li>
 		<li>Expiration of timer.</li>
 		<li>Termination of a child process.</li>
 	</ul>
-  </div>
-  <div v-click>
+  </section>
+  <section v-click="1">
 	<h3 v-click="1">Explicit Events</h3>
 	<p v-click="6">
-		Means the use of a library function like <span class="color-yellow">kill()</span> whose purpose is to generate a signal.
+		Means the use of a library function like <span class="color-yellow">kill()</span> whose purpose is to generate a <span class="color-green">signal</span>.
 	</p>
-  </div>
+  </section>
 </div>
+
+<style>
+section {
+	@apply border-2 border-green rounded-3xl p-5
+}
+</style>
 
 <!--
 There are 3 kinds of signal generating events
@@ -326,45 +385,63 @@ title: Synchronous & Asynchronous Signals
 
 <h1 style="text-align: center">Synchronous Signals</h1>
 
+<hr>
 <br>
 
-<v-clicks>
+<!-- <v-clicks> -->
+<!---->
+<!-- * Relate to specific events and are delivered during that event (unless blocked). -->
+<!---->
+<!-- * Most **Errors** and **Explicit Requests** generate **Synchronous Signals**. -->
+<!---->
+<!-- </v-clicks> -->
+<!---->
+<!-- <v-click> -->
+<!---->
+<!-- <br> -->
+<!---->
+<!-- > Certain hardware errors are not 100% synchronous arriving a couple of instructions later. -->
+<!---->
+<!-- </v-click> -->
 
-* Relate to specific events and are delivered during that event (unless blocked).
-
-* Most **Errors** and **Explicit Requests** generate **Synchronous Signals**.
-
-</v-clicks>
-
-<v-click>
-
-<br>
-
-> Certain hardware errors are not 100% synchronous arriving a couple of instructions later.
-
-</v-click>
+<div>
+	<li v-click="1">
+		Relate to specific <span class="color-pink">events</span> and are delivered during that event (unless blocked).
+	</li>
+	<li v-click="2">
+		Most <span class="color-red">Errors</span> and <span class="color-green">Explicit Requests</span> generate <span class="color-purple">Synchronous Signals</span>.
+	</li>
+	<p v-click="3" class="color-yellow note">
+		Certain hardware errors are not 100% synchronous arriving a couple of instructions later.
+	</p>
+</div>
 
 ::right::
 
 <h1 style="text-align: center">Asynchronous Signals</h1>
-
+<hr>
 <br>
 
-<v-clicks>
+<div>
+	<li v-click="1">
+		Generated by <span class="color-yellow">events outside</span> the control of the receiving process.
+	</li>
+	<li v-click="2">
+		Their arrival is unpredictable.
+	</li>
+	<br>
+	<hr>
+	<p>
+		<span class="color-green">External Events</span> and <span class="color-green">Explicit Requests</span> applying to some other process generate <span class="color-purple">Asynchronous Signals</span>.
+	</p>
+</div>
 
-* Generated by **events outside** the control of the receiving process.
+<style>
+.note {
+	@apply border-2 border-green rounded-3xl p-5 w-100
+}
+</style>
 
-* Their arrival is unpredictable.
-
-</v-clicks>
-
-<br>
-
-<v-click>
-
-## **External Events** and **Explicit Requests** applying to some other process generate **Asynchronous Signals**.
-
-</v-click>
 
 <!--
 
@@ -403,7 +480,7 @@ When a signal is <span class="color-green">delivered</span>, the specified **Sig
 
 <v-click>
 
-<h3>For most signals the program either:</h3>
+<h3>For most signals a program either:</h3>
 
 </v-click>
 
@@ -518,7 +595,7 @@ class: '-left--5'
 title: Implementation
 ---
 
-# 3.
+# <span class="color-green">3.</span>
 # Implementation
 
 <!--
@@ -1635,13 +1712,13 @@ title : Tools man!
 
 <br>
 <img
-  class="w-200 ma-5 pa-2 opacity-80 rounded-3xl border-4 border-green"
+  class="w-200 ma-5 pa-2 opacity-80 rounded-3xl border-4 border-yellow"
   src="/img/tools-man.png"
   alt="42 logo"
 />
 
 <h4 class="absolute bottom-0 right-30 opacity-80">
-	<u style="text-decoration: underline wavy green">Vulfmon</u> - James Jamerson Used One Finger 👆
+	<u style="text-decoration: underline wavy green">Vulfmon - James Jamerson Used One Finger</u> 👆
 </h4>
 
 <!--
