@@ -898,7 +898,7 @@ layout: two-cols
 class: 'pa-3'
 title: ft_send_msg()
 ---
-```c {all|5,9|10-11|14-15|18,20}
+```c {all|5,9|10-11|12|14-15|18,20|12}
 /* Client */
 static void	ft_send_msg(pid_t pid, char *msg)
 {
@@ -941,12 +941,35 @@ static void	ft_send_msg(pid_t pid, char *msg)
 </div>
 <div v-click="3">
 
-* Send message <span class="color-blue">char by char</span> to the server;
+* Send message <span class="color-green">length</span> bit-by-bit to the <span class="color-orange">server</span>;
 
 </div>
 <div v-click="4">
 
+* Send message <span class="color-blue">char by char</span> to the <span class="color-orange">server</span>;
+
+</div>
+<div v-click="5">
+
 * Send <span class="color-red">NULL Terminator</span>
+
+</div>
+<br>
+<hr v-click="6">
+<div v-click="6">
+
+<br>
+<h2 class="text-center">
+	Let's take a closer look at how the <span class="color-green">data is sent</span>:
+</h2>
+<div class="pt-5 text-center">
+  <span @click="$slidev.nav.next"
+		class="px-2 py-1 rounded cursor-pointer"
+		hover="bg-white bg-opacity-10"
+  >
+    <carbon:arrow-right class="inline"/>
+  </span>
+</div>
 
 </div>
 
@@ -971,10 +994,12 @@ class: 'pa-5'
 transition: slide-down
 title: Client sending Int
 ---
-<br>
-<br>
 
-```c {all|4,7|7|7|5,10|11|12|8-13}
+
+<h1 style="text-align: center">Sending an Int</h1>
+
+
+```c {all|4,7|8|7-8|5,10|11|12|8-13}
 /* Client */
 void	ft_send_int(pid_t pid, int num)
 {
@@ -990,6 +1015,7 @@ void	ft_send_int(pid_t pid, int num)
 	}
 }
 ```
+
 <br>
 <div v-click="3" style="text-align: center">
 
@@ -1003,18 +1029,28 @@ MSB ----- LSB
 
 ::right::
 
-<h1 style="text-align: center">Sending an Int</h1>
 <br>
-
-<ul>
+<div>
 	<li v-click="1">Declare & initialize <span class="color-red">bitshift</span> with the size of the <span class="color-green">binary representation of an integer</span>.</li>
 	<li v-click="2">Loop while <span class="color-red">bitshift</span> is larger than 0.</li>
-	<p v-click="3" class="text-center"><span class="color-red">bitshift</span> is used to iterate the incoming data from the <span class="color-yellow">Most Significant Bit</span> (MSB) to the <span class="color-yellow">Least Significant Bit</span> (LSB)</p>
+	<br>
+	<div v-click="3" class="note">
+		<p v-click="3" class="text-center"><span class="color-red">bitshift</span> is used to iterate the incoming data from the <span class="color-yellow">Most Significant Bit</span> (MSB) to the <span class="color-yellow">Least Significant Bit</span> (LSB)</p>
+	</div>
+	<br>
 	<li v-click="4">Isolate the current <span class="color-blue">bit</span>.</li>
 	<li v-click="5">Send the <span class="color-blue">bit</span> to the server.</li>
 	<li v-click="6">Decrement <span class="color-red">bitshift</span>.</li>
 	<li v-click="7">Repeat until the LSB <span class="color-blue">bit</span> has been sent.</li>
-</ul>
+</div>
+
+<style>
+
+.note {
+	@apply flex-col border-2 border-green rounded-3xl w-95 px-2 mx-5
+}
+</style>
+
 <!--
 0 :
 
