@@ -306,6 +306,7 @@ free(server->msg);
 server->msg = NULL;
 server->received = 0;
 *i = 0;
+*pid = -1;
 ```
 
 Finally we send a bit back to the `client` to signal that the message
