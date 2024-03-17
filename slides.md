@@ -1299,7 +1299,7 @@ title: ft_server_sighandler() Receiving Data
 <br>
 <br>
 
-```c {5-7|8-10|12}
+```c {5-7|11|12}
 static void	ft_server_sighandler(int sig,
 								 siginfo_t *info, void *context)
 {
@@ -1424,7 +1424,7 @@ title: ft_server_sighandler() Data Received
 ---
 <br>
 
-```c {13|14}
+```c {13|9-11,14}
 /* Server */
 static void	ft_server_sighandler(int sig,
 								 siginfo_t *info, void *context)
@@ -1488,7 +1488,7 @@ title: ft_print_msg()
 ---
 <br>
 
-```c {all|4|6|7}
+```c {all|4|6|7|6-7,21}
 static void	ft_print_msg(t_protocol *server,
 						 int *i, pid_t pid)
 {
@@ -1527,7 +1527,16 @@ static void	ft_print_msg(t_protocol *server,
 	<li v-click="3">
 		Then <span class="color-green">i</span> is incremented so that when indexed <span class="color-yellow">server->msg[i]</span> points to the next byte in memory;
 	</li>
+	<p v-click="4" class="note">
+		The <span class="color-green">server</span>receives each char of the message until the <span class="color-gray">NULL</span> terminator is received.
+	</p>
 </ul>
+
+<style>
+.note {
+	@apply flex-col border-2 border-green rounded-3xl w-95 pa-5 mx-5
+}
+</style>
 
 <!--
 0 :
