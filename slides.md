@@ -1030,6 +1030,7 @@ MSB ----- LSB
 ::right::
 
 <br>
+<br>
 <div>
 	<li v-click="1">Declare & initialize <span class="color-red">bitshift</span> with the size of the <span class="color-green">binary representation of an integer</span>.</li>
 	<li v-click="2">Loop while <span class="color-red">bitshift</span> is larger than 0.</li>
@@ -1045,7 +1046,6 @@ MSB ----- LSB
 </div>
 
 <style>
-
 .note {
 	@apply flex-col border-2 border-green rounded-3xl w-95 px-2 mx-5
 }
@@ -1099,14 +1099,15 @@ void	ft_send_char(pid_t pid, char c)
 ::right::
 
 <h1 style="text-align: center">Sending Chars</h1>
+
 <br>
 
-<div v-click="1">
+<div v-click="1" class="note">
 
 Most of the logic is the same as what can be found in <span class="color-yellow">ft_send_int()</span>.
 
 </div>
-
+<br>
 <div v-click="2">
 
 * Except that <span class="color-red">bitshift</span> is initialized with the size of the <span class="color-green">binary representation of a char</span>.
@@ -1119,7 +1120,11 @@ Most of the logic is the same as what can be found in <span class="color-yellow"
 
 </div>
 
-
+<style>
+.note {
+	@apply flex-col border-2 border-green rounded-3xl w-95 px-5 mx-5
+}
+</style>
 
 <!--
 0 :
@@ -1238,7 +1243,7 @@ static void	ft_server_sighandler(int sig,
 		Follows a <span class="color-blue">standard prototype</span>;
 	</li>
 	<li v-click="2">
-		<span class="color-yellow">server</span> and <span class="color-yellow">i</span> are <span class="color-pink">static</span>, therefore automatically initialized to <span class="color-red">0</span>;
+		<span class="color-yellow">server</span> and <span class="color-yellow">i</span> are <span class="color-pink">static</span>, initialized to <span class="color-red">0</span>;
 	</li>
 	<li v-click="3">
 		<span class="color-yellow">client_pid</span> is initialized to <span class="color-red">-1</span>, meaning that no <span class="color-orange">client</span> has connected to the <span class="color-orange">server</span> yet;
@@ -1258,9 +1263,9 @@ static void	ft_server_sighandler(int sig,
 	<li v-click="8">
 		Prints an error message and exits.
 	</li>
-	<li v-click="9">
+	<p v-click="9">
 		If <span class="color-purple">server.bits</span> is 0, set/reset <span class="color-purple">server.data</span> to 0;
-	</li>
+	</p>
 </ul>
 
 <!--
@@ -1756,9 +1761,9 @@ title : Tools man!
   alt="42 logo"
 />
 
-<h4 class="absolute bottom-0 right-30 opacity-80">
-	<u style="text-decoration: underline wavy green">Vulfmon - James Jamerson Used One Finger</u> 👆
-</h4>
+<h5 class="absolute bottom-1 right-30 opacity-80">
+	<u style="text-decoration: underline wavy green"><span class="color-pink">Vulfmon</span> - James Jamerson Used One Finger</u> 👆
+</h5>
 
 <!--
 
