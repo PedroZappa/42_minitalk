@@ -14,7 +14,6 @@
 
 static void	ft_server_sighandler(int sig, siginfo_t *info, void *context);
 static void	ft_strlen_received(t_protocol *server);
-// static void	ft_print_msg(t_protocol *server, int *i, pid_t *pid);
 static void	ft_print_msg(t_protocol *server, int *i, pid_t pid);
 static void	ft_print_pid(void);
 
@@ -36,18 +35,9 @@ static void	ft_server_sighandler(int sig, siginfo_t *info, void *context)
 {
 	static t_protocol	server;
 	static int			i;
-	// static pid_t		client_pid = -1;
 
 	usleep(PAUSE);
 	(void)context;
-	// if (client_pid == -1)
-	// 	client_pid = info->si_pid;
-	// else if (client_pid != info->si_pid)
-	// {
-	// 	if (server.msg)
-	// 		free(server.msg);
-	// 	ft_perror_exit("Client PID does not match\n");
-	// }
 	if (!server.bits)
 		server.data = 0;
 	if ((sig == SIGUSR2) && !server.received)
@@ -56,7 +46,6 @@ static void	ft_server_sighandler(int sig, siginfo_t *info, void *context)
 		server.data |= 1 << (((sizeof(char) * 8) - 1) - server.bits);
 	++server.bits;
 	ft_strlen_received(&server);
-	// ft_print_msg(&server, &i, &client_pid);
 	ft_print_msg(&server, &i, info->si_pid);
 	ft_send_bit(info->si_pid, 0, 0);
 }
@@ -77,7 +66,6 @@ static void	ft_strlen_received(t_protocol *server)
 	}
 }
 
-// static void	ft_print_msg(t_protocol *server, int *i, pid_t *pid)
 static void	ft_print_msg(t_protocol *server, int *i, pid_t pid)
 {
 	if ((server->bits == 8) && server->received)
@@ -93,8 +81,6 @@ static void	ft_print_msg(t_protocol *server, int *i, pid_t pid)
 			server->msg = NULL;
 			server->received = 0;
 			*i = 0;
-			// *pid = -1;
-			// ft_send_bit(*pid, 1, 0);
 			ft_send_bit(pid, 1, 0);
 		}
 		server->bits = 0;
