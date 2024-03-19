@@ -1,6 +1,9 @@
 #!/bin/bash
 
-# Get PID of minitalk server
-PID_LIST=$(ps aux | grep -w "./server" | grep -v grep)
-# Check if the if the 6th field of the list is 960 
-awk '{ if ($6 == "960") print $2 }' <<< "$PID_LIST" > server.pid
+# # Get PID of minitalk server
+# PID_LIST=$(ps aux | grep -w "./server" | grep -v grep)
+# # Check if the if the 6th field of the list is 960 
+# awk '{ if ($6 == "960") print $2 }' <<< "$PID_LIST" > server.pid
+
+ps aux | grep -w "./server" | grep -v grep | awk '{ if ($8 == "Ss+") print $2 }'
+
