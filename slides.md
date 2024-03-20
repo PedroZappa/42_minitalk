@@ -49,6 +49,8 @@ title: Hello Whirl
 
 `42 Student` && `Musician`
 
+<br>
+
 ___
 
 > Rank : 2
@@ -260,19 +262,19 @@ title: UNIX Signals
 
 <h1 style="text-align: center">But what is a <span class="color-green">Signal</span>?</h1>
 
-<div class="note">
+<div v-click="1" class="note">
 	<h2 v-click="1">A signal is a reporter of <span class="color-pink">events</span>.</h2>
 	<br>
 	<p v-click="2">
 		When a process receives a <span class="color-green">Signal</span>:
 	</p>
-	<li v-click="3">
+	<li v-click="2">
 		The <span class="color-yellow">process</span> is <span class="color-red">interrupted</span>.
 	</li>
-	<li v-click="4">
+	<li v-click="3">
 		A default <span class="color-pink">Signal Action</span> is triggered.
 	</li>
-	<p v-click="5">
+	<p v-click="4">
 		<span class="color-green">Signal</span> are useful tools for <span class="color-orange">Interprocess Communication</span> (IPC).
 	</p>
 </div>
@@ -323,7 +325,7 @@ class: '-top--5'
 title: Signals VHS
 ---
 
-<video controls autoplay loop>
+<video controls loop>
 	<source src="/video/signals.mp4"
 		type="video/mp4" />
 </video>
@@ -347,10 +349,11 @@ title: Events generate Signals
   <section v-click="1">
     <h3 v-click="1">Error Events</h3>
 	<p v-click="2">
-		The program did an <span class="color-yellow">invalid operation</span> and cannot continue execution.
+		The program did an <span class="color-red">invalid operation</span> and cannot continue execution.
 	</p>
 	<hr v-click="3">
-	<p v-click="3" class="color-red">
+			<br>
+	<p v-click="3" class="color-yellow text-center">
 		Not All errors generate <span class="color-green">Signals</span>!
 	</p>
   </section>
@@ -427,7 +430,7 @@ title: Synchronous & Asynchronous Signals
 	<br><br>
 	<hr v-click="6">
 	<p v-click="6">
-		<span class="color-green">External Events</span> and <span class="color-green">Explicit Requests</span> applying to some other process generate <span class="color-purple">Asynchronous Signals</span>.
+		<span class="color-green">External Events</span> and <span class="color-green">Explicit Requests</span> applied to some other process generate <span class="color-purple">Asynchronous Signals</span>.
 	</p>
 </div>
 
@@ -999,7 +1002,7 @@ title: Client sending Int
 <h1 style="text-align: center">Sending an Int</h1>
 
 
-```c {all|4,7|8|7-8|5,10|11|12|8-13}
+```c {all|4,7|8|7-8,12|5,10|11|12|8-13}
 /* Client */
 void	ft_send_int(pid_t pid, int num)
 {
@@ -1210,26 +1213,17 @@ transition: slide-left
 title: ft_server_sighandler()
 ---
 
-<br>
+<br><br>
 
-```c {all|1-2|4-5|6|8|10-11|12|14-15|16|18-19}
+```c {all|1-2|4-5|7|8|9-10}
 static void	ft_server_sighandler(int sig,
 								 siginfo_t *info, void *context)
 {
 	static t_protocol	server;
 	static int			i;
-	static pid_t		client_pid = -1;
 
 	usleep(PAUSE);
 	(void)context;
-	if (client_pid == -1)
-		client_pid = info->si_pid;
-	else if (client_pid != info->si_pid)
-	{
-		if (server.msg)
-			free(server.msg);
-		ft_perror_exit("Client PID does not match\n");
-	}
 	if (!server.bits)
 		server.data = 0;
 	...
@@ -1238,6 +1232,7 @@ static void	ft_server_sighandler(int sig,
 ::right::
 
 <h1 style="text-align: center">ft_server_sighandler()</h1>
+<br><br>
 <ul>
 	<li v-click="1">
 		Follows a <span class="color-blue">standard prototype</span>;
@@ -1246,24 +1241,12 @@ static void	ft_server_sighandler(int sig,
 		<span class="color-yellow">server</span> and <span class="color-yellow">i</span> are <span class="color-pink">static</span>, initialized to <span class="color-red">0</span>;
 	</li>
 	<li v-click="3">
-		<span class="color-yellow">client_pid</span> is initialized to <span class="color-red">-1</span>, meaning that no <span class="color-orange">client</span> has connected to the <span class="color-orange">server</span> yet;
-	</li>
-	<li v-click="4">
 		Waits for <span class="color-green">PAUSE</span> microseconds;
 	</li>
-	<li v-click="5">
-		When a <span class="color-orange">client</span> starts sending data, its PID is stored in <span class="color-yellow">client_pid</span>;
+	<li v-click="4">
+		We cast <span class="color-purple">context</span> to <span class="color-gray">void *</span> to suppress compiler warnings;
 	</li>
-	<p v-click="6">
-		If <span class="color-yellow">info->si_pid</span> is different from <span class="color-yellow">client_pid</span>:
-	</p>
-	<li v-click="7">
-		Free <span class="color-yellow">server.msg</span> and exit <span class="color-orange">client</span>;
-	</li>
-	<li v-click="8">
-		Prints an error message and exits.
-	</li>
-	<p v-click="9">
+	<p v-click="5">
 		If <span class="color-purple">server.bits</span> is 0, set/reset <span class="color-purple">server.data</span> to 0;
 	</p>
 </ul>
@@ -1323,7 +1306,7 @@ static void	ft_server_sighandler(int sig,
 <br>
 <ul>
 	<li>
-		First the server expects an <span class="color-green">int</span> as <span class="color-pink">Header Information</span>, the <span class="color-blue">length</span> of the message;
+		First the <span class="color-orange">server</span> expects an <span class="color-green">int</span> as <span class="color-pink">Header Information</span>, the <span class="color-blue">length</span> of the message;
 	</li>
 	<li v-click="1">
 		Every time a <span class="color-yellow">SIGUSR1</span> or <span class="color-yellow">SIGUSR2</span> is caught, <span class="color-red">server.bits</span> is incremented;
@@ -1528,7 +1511,7 @@ static void	ft_print_msg(t_protocol *server,
 		Then <span class="color-green">i</span> is incremented so that when indexed <span class="color-yellow">server->msg[i]</span> points to the next byte in memory;
 	</li>
 	<p v-click="4" class="note">
-		The <span class="color-green">server</span>receives each char of the message until the <span class="color-gray">NULL</span> terminator is received.
+		The <span class="color-green">server</span> receives each char of the message until the <span class="color-gray">NULL</span> terminator is received.
 	</p>
 </ul>
 
@@ -1588,18 +1571,20 @@ static void	ft_print_msg(t_protocol *server,
 
 <h1 style="text-align: center">Message Received</h1>
 
+<br>
 <ul>
-	<p>
+	<p class="color-green text-xl">
 		When the <span class="color-pink">byte</span> received is the <span class="color-gray">NULL</span> terminator:
 	</p>
+	<br>
 	<li v-click="1">
-		Prints the message to the console.
+		Prints the <span class="color-blue">message</span> to the console.
 	</li>
 	<li v-click="2">
 		Re-prints the server <span class="color-yellow">pid</span>.
 	</li>
 	<li v-click="3">
-		Frees <span class="color-yellow">server->msg</span> and sets it to NULL.
+		Frees <span class="color-yellow">server->msg</span> and sets it to <span class="color-gray">NULL</span>.
 	</li>
 	<li v-click="4">
 		<span class="color-purple">Header Information</span> received flag is set to false;
@@ -1608,7 +1593,7 @@ static void	ft_print_msg(t_protocol *server,
 		<span class="color-green">i</span> reset to 0;
 	</li>
 	<li v-click="6">
-		<span class="color-yellow">SIGUSR2</span> is sent to the server, signaling the end of the transmission of data;
+		<span class="color-yellow">SIGUSR2</span> is sent to the <span class="color-orange">server</span>, signaling the end of the transmission of data;
 	</li>
 </ul>
 
@@ -1714,7 +1699,7 @@ transition: slide-right
 title: Demonstration
 ---
 
-<video controls autoplay>
+<video controls>
 	<source src="/video/minitalk-demo.mp4"
 		type="video/mp4" />
 </video>
@@ -1864,11 +1849,17 @@ transition: fade
 title : Credits
 ---
 
+<br>
 <h1 style="text-align: center">Credits</h1>
+<br><br>
 
-* [SlidesCarnival](https://www.slidescarnival.com/) for slides inspiration;
+<div class="text-center border-4 border-green rounded-3xl w-1/2" style="margin: 0 auto">
 
-* `tchow-so` for the incredible intro picture;
+[SlidesCarnival](https://www.slidescarnival.com/) for slides inspiration;
+
+<span class="color-green">tchow-so</span> for the incredible intro picture;
+
+</div>
 
 ---
 layout : end
@@ -1884,7 +1875,7 @@ A minimalistic implementation of a small data exchange program using UNIX signal
 
 <br>
 <img
-  class="absolute -top--90 -left--30 w-40 opacity-50 rounded-3xl invert"
+  class="absolute -top--90 -left--30 w-40 opacity-50 rounded-3xl"
   src="/img/PZ_DBG.JPG"
   alt="42 logo"
 />
