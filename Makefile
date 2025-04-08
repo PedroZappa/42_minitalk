@@ -25,6 +25,8 @@ NAME_SERVER		= server
 NAME_CLIENT		= client
 UNAME 			= $(shell uname)
 
+ARG					?= "Zedro"
+
 ### Message Vars
 _SUCCESS 		= [$(GRN)SUCCESS$(D)]
 _INFO 			= [$(BLU)INFO$(D)]
@@ -167,7 +169,11 @@ serve: all			## Run Server in new tmux pane
 	sleep 0.5
 	./scripts/get-server-pid.sh > server.pid
 
-test: all			## Call Clients to server in new tmux panes
+test: all				# Custom tst
+	tmux set-option remain-on-exit off
+	./client $$(cat server.pid) $(ARG)
+
+test_3: all			## Call Clients to server in new tmux panes
 	tmux set-option remain-on-exit off
 	@echo "$(YEL)Running test [1/3]$(D)"
 	tmux split-window -v "./client $$(cat server.pid) 'Running quick test 1'"
